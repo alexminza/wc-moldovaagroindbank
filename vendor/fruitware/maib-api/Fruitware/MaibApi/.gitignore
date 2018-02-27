@@ -1,0 +1,12 @@
+.idea
+phpunit.xml
+composer.phar
+composer.lock
+composer-test.lock
+vendor/
+build/artifacts/
+artifacts/
+docs/_build
+logs/
+docs/*.pyc
+.DS_STORE

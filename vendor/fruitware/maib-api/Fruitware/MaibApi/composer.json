@@ -1,0 +1,28 @@
+{
+  "name": "fruitware/maib-api",
+  "type": "library",
+  "description": "",
+  "keywords": ["maib", "payment"],
+  "homepage": "https://github.com/slavic18/MaibAPI",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Paveluc Veaceslav",
+      "email": "slavicase@gmail.com",
+      "homepage": "https://github.com/slavic18"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "guzzlehttp/guzzle": "~5.0",
+    "guzzlehttp/guzzle-services": "~0.5",
+    "guzzlehttp/log-subscriber": "~1.0",
+    "monolog/monolog": "~1.14"
+  },
+  "autoload": {
+    "psr-0": {
+      "Fruitware\\MaibApi": ""
+    }
+  },
+  "target-dir": "Fruitware/MaibApi"
+}

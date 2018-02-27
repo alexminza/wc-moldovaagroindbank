@@ -1,0 +1,5 @@
+{
+    "require": {
+        "fruitware/maib-api": "^0.1.3"
+    }
+}
