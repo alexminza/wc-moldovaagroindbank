@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WooCommerce Moldova Agroindbank Payment Gateway
  * Description: WooCommerce Payment Gateway for Moldova Agroindbank
- * Plugin URI: https://github.com/alexminza/wc-moldovaagroindbank
+ * Plugin URI: https://wordpress.org/plugins/wc-moldovaagroindbank/
  * Version: 1.0
  * Author: Alexander Minza
  * Author URI: https://github.com/alexminza/wc-moldovaagroindbank
