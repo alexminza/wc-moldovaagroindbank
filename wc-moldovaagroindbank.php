@@ -5,9 +5,9 @@
  * Plugin URI: https://wordpress.org/plugins/wc-moldovaagroindbank/
  * Version: 1.0
  * Author: Alexander Minza
- * Author URI: https://github.com/alexminza/wc-moldovaagroindbank
+ * Author URI: https://profiles.wordpress.org/alexminza
  * Developer: Alexander Minza
- * Developer URI: https://github.com/alexminza/wc-moldovaagroindbank
+ * Developer URI: https://profiles.wordpress.org/alexminza
  * Text Domain: wc-moldovaagroindbank
  * Domain Path: /languages
  * License: GPLv3 or later
@@ -18,10 +18,11 @@
  * WC tested up to: 3.3.3
  */
 
- //This plugin is based on MaibApi by Fruitware https://github.com/Fruitware/MaibApi
+//Looking to contribute code to this plugin? Go ahead and fork the repository over at GitHub https://github.com/alexminza/wc-moldovaagroindbank
+//This plugin is based on MaibApi by Fruitware https://github.com/Fruitware/MaibApi (https://packagist.org/packages/fruitware/maib-api)
 
 if(!defined('ABSPATH')) {
-    exit; // Exit if accessed directly
+	exit; // Exit if accessed directly
 }
 
 require_once(__DIR__ . '/vendor/autoload.php');
@@ -50,12 +51,10 @@ function woocommerce_moldovaagroindbank_init() {
 		const MOD_TITLE          = 'Moldova Agroindbank';
 		const MOD_PREFIX         = 'MAIB_';
 		const MOD_TEXT_DOMAIN    = 'wc-moldovaagroindbank';
-		//const MOD_WC_TEXT_DOMAIN = 'woocommerce';
 
-		/** Sends through sale and request for funds to be charged to cardholder's credit card. */
+		//Sends through sale and request for funds to be charged to cardholder's credit card.
 		const TRANSACTION_TYPE_CHARGE = 'charge';
-
-		/** Sends through a request for funds to be "reserved" on the cardholder's credit card. Reservation times are determined by cardholder's bank. */
+		//Sends through a request for funds to be "reserved" on the cardholder's credit card. Reservation times are determined by cardholder's bank.
 		const TRANSACTION_TYPE_AUTHORIZATION = 'authorization';
 
 		const MOD_TRANSACTION_TYPE = self::MOD_PREFIX . 'transaction_type';
@@ -187,7 +186,7 @@ function woocommerce_moldovaagroindbank_init() {
 				),
 
 				'transaction_type' => array(
-					'title'       => __('Transaction Type', self::MOD_TEXT_DOMAIN),
+					'title'       => __('Transaction type', self::MOD_TEXT_DOMAIN),
 					'type'        => 'select',
 					'desc_tip'    => __('Select how transactions should be processed. Charge submits all transactions for settlement, Authorization simply authorizes the order total for capture later.', self::MOD_TEXT_DOMAIN),
 					'default'     => self::TRANSACTION_TYPE_CHARGE,
@@ -197,7 +196,7 @@ function woocommerce_moldovaagroindbank_init() {
 					),
 				),
 				'transaction_auto' => array(
-					'title'       => __('Transaction Auto', self::MOD_TEXT_DOMAIN),
+					'title'       => __('Transaction auto', self::MOD_TEXT_DOMAIN),
 					'type'        => 'checkbox',
 					//'label'       => __('Enabled', self::MOD_TEXT_DOMAIN),
 					'label'       => __('Automatically complete/reverse bank transactions when order status changes', self::MOD_TEXT_DOMAIN),
@@ -512,7 +511,7 @@ function woocommerce_moldovaagroindbank_init() {
 					$message = sprintf(__('Refund of %1$s %2$s via %3$s approved: %4$s', self::MOD_TEXT_DOMAIN), $amount, $order_currency, $this->method_title, http_build_query($reversal_result));
 					$this->log($message, WC_Log_Levels::INFO);
 					$order->add_order_note($message);
-	
+
 					if($order->get_total() == $order->get_total_refunded()) {
 						$this->mark_order_refunded($order);
 					}
@@ -723,7 +722,7 @@ function woocommerce_moldovaagroindbank_init() {
 		protected function get_currency_numcode($currency) {
 			return $this->currency_numcodes[$currency];
 		}
-		
+
 		protected function get_order_description($order) {
 			//get_bloginfo('name')
 
@@ -745,7 +744,7 @@ function woocommerce_moldovaagroindbank_init() {
 			'ru_RU' => 'ru',
 			'ro_RO' => 'ro'
 		);
-		
+
 		protected function get_language() {
 			$lang = get_locale();
 			return substr($lang, 0, 2);
@@ -787,7 +786,7 @@ function woocommerce_moldovaagroindbank_init() {
 			$plugin_links = array(
 				sprintf('<a href="%1$s">%2$s</a>', esc_url($settings_url), __('Settings', self::MOD_TEXT_DOMAIN))
 			);
-	
+
 			return array_merge($plugin_links, $links);
 		}
 
@@ -796,19 +795,19 @@ function woocommerce_moldovaagroindbank_init() {
 			if(!$theorder->is_paid() || $theorder->get_payment_method() !== self::MOD_ID) {
 				return $actions;
 			}
-	
+
 			$actions['moldovaagroindbank_complete_transaction'] = sprintf(__('Complete %1$s transaction', self::MOD_TEXT_DOMAIN), self::MOD_TITLE);
 			$actions['moldovaagroindbank_reverse_transaction'] = sprintf(__('Reverse %1$s transaction', self::MOD_TEXT_DOMAIN), self::MOD_TITLE);
 			return $actions;
 		}
-	
+
 		static function action_complete_transaction($order) {
 			$order_id = $order->get_id();
 
 			$plugin = new self();
 			return $plugin->complete_transaction($order_id, $order);
 		}
-	
+
 		static function action_reverse_transaction($order) {
 			$order_id = $order->get_id();
 

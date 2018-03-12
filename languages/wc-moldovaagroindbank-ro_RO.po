@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: WooCommerce Moldova Agroindbank Payment Gateway 1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/alexminza/wc-moldovaagroindbank/"
 "issues\n"
-"POT-Creation-Date: 2018-02-27 16:22+0200\n"
-"PO-Revision-Date: 2018-02-27 16:22+0200\n"
+"POT-Creation-Date: 2018-03-12 13:28+0200\n"
+"PO-Revision-Date: 2018-03-12 13:30+0200\n"
 "Last-Translator: Alexander Minza <alex@alexminza.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -17,206 +17,196 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
 
-#: wc-moldovaagroindbank.php:156
+#: wc-moldovaagroindbank.php:155
 msgid "Enable/Disable"
 msgstr "Activare/dezactivare"
 
-#: wc-moldovaagroindbank.php:158
+#: wc-moldovaagroindbank.php:157
 msgid "Enable this gateway"
 msgstr "Activează acest gateway de plata"
 
-#: wc-moldovaagroindbank.php:162
+#: wc-moldovaagroindbank.php:161
 msgid "Title"
 msgstr "Titlu"
 
-#: wc-moldovaagroindbank.php:164
+#: wc-moldovaagroindbank.php:163
 msgid "Payment method title that the customer will see during checkout."
 msgstr "Titlul metodei de plată afișat clientului în timpul plății."
 
-#: wc-moldovaagroindbank.php:168
+#: wc-moldovaagroindbank.php:167
 msgid "Description"
 msgstr "Descriere"
 
-#: wc-moldovaagroindbank.php:170
+#: wc-moldovaagroindbank.php:169
 msgid "Payment method description that the customer will see during checkout."
 msgstr "Descrierea metodei de plată afișată clientului în timpul plății."
 
-#: wc-moldovaagroindbank.php:175
+#: wc-moldovaagroindbank.php:174
 msgid "Test mode"
 msgstr "Mod testare"
 
-#: wc-moldovaagroindbank.php:177
+#: wc-moldovaagroindbank.php:176
 msgid "Enabled"
 msgstr "Activat"
 
-#: wc-moldovaagroindbank.php:178
+#: wc-moldovaagroindbank.php:177
 msgid "Use test or production bank environment/gateway"
 msgstr "Conectare la mediul de test sau producție al băncii"
 
-#: wc-moldovaagroindbank.php:182
+#: wc-moldovaagroindbank.php:181
 msgid "Debug mode"
 msgstr "Mod depanare"
 
-#: wc-moldovaagroindbank.php:184
+#: wc-moldovaagroindbank.php:183
 msgid "Enable logging"
 msgstr "Activează jurnalizare"
 
-#: wc-moldovaagroindbank.php:185
+#: wc-moldovaagroindbank.php:184
 msgid "Callback URL: <code>%1$s</code>"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:190
-msgid "Transaction Type"
+#: wc-moldovaagroindbank.php:189
+msgid "Transaction type"
 msgstr "Tip tranzacție"
 
-#: wc-moldovaagroindbank.php:192
+#: wc-moldovaagroindbank.php:191
 msgid ""
 "Select how transactions should be processed. Charge submits all transactions "
 "for settlement, Authorization simply authorizes the order total for capture "
 "later."
 msgstr ""
+"Selectează modul în care vor fi procesate plățile. Charge trimite imediat "
+"toate tranzacțiile la bancă pentru decontare, Authorization doar autorizează "
+"suma comenzii la bancă pentru decontare ulterioară."
 
-#: wc-moldovaagroindbank.php:195
+#: wc-moldovaagroindbank.php:194
 msgid "Charge"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:196
+#: wc-moldovaagroindbank.php:195
 msgid "Authorization"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:200
-msgid "Transaction Auto"
+#: wc-moldovaagroindbank.php:199
+msgid "Transaction auto"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:203
+#: wc-moldovaagroindbank.php:202
 msgid ""
 "Automatically complete/reverse bank transactions when order status changes"
 msgstr ""
 "Automat finalizează/inversează tranzacțiile bancare cand se modifică starea "
 "comenzii"
 
-#: wc-moldovaagroindbank.php:207
+#: wc-moldovaagroindbank.php:206
 msgid "Order description"
 msgstr "Descriere comandă"
 
-#: wc-moldovaagroindbank.php:209
+#: wc-moldovaagroindbank.php:208
 msgid "Format: %1$s - Order ID, %2$s - Order items summary"
 msgstr "Format: %1$s - ID Comandă, %2$s - Sumar conținut comandă"
 
-#: wc-moldovaagroindbank.php:214
+#: wc-moldovaagroindbank.php:213
 msgid "Connection Settings"
 msgstr "Setări conexiune"
 
-#: wc-moldovaagroindbank.php:216
+#: wc-moldovaagroindbank.php:215
 msgid "Merchant security connection settings provided by the bank."
 msgstr "Setări conexiune comerciant primite de la bancă."
 
-#: wc-moldovaagroindbank.php:220
+#: wc-moldovaagroindbank.php:219
 msgid "Certificate Authority (CA) bundle"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:226
+#: wc-moldovaagroindbank.php:225
 msgid "Client certificate file"
 msgstr "Fișier certificat client"
 
-#: wc-moldovaagroindbank.php:232
+#: wc-moldovaagroindbank.php:231
 msgid "Private key file"
 msgstr "Fișier cheie privată"
 
-#: wc-moldovaagroindbank.php:238
+#: wc-moldovaagroindbank.php:237
 msgid "Private key passphrase"
 msgstr "Parolă cheie privată"
 
-#: wc-moldovaagroindbank.php:269
+#: wc-moldovaagroindbank.php:268
 msgid "Payment gateway disabled"
 msgstr "Gateway de plată dezactivat"
 
-#: wc-moldovaagroindbank.php:270
+#: wc-moldovaagroindbank.php:269
 msgid "Store settings not supported"
 msgstr "Setările magazinului nu sunt suportate"
 
-#: wc-moldovaagroindbank.php:314
+#: wc-moldovaagroindbank.php:313
 msgid "Order #%1$s not found"
 msgstr "Comanda #%1$s nu a fost găsită"
 
-#: wc-moldovaagroindbank.php:379
+#: wc-moldovaagroindbank.php:378
 msgid "Payment initiated via %1$s: %2$s"
 msgstr "Plată inițiată prin %1$s: %2$s"
 
-#: wc-moldovaagroindbank.php:394 wc-moldovaagroindbank.php:555
+#: wc-moldovaagroindbank.php:393 wc-moldovaagroindbank.php:554
 msgid "Transaction ID not received from %1$s"
 msgstr "Transaction ID nu a fost primit de la %1$s"
 
-#: wc-moldovaagroindbank.php:475
+#: wc-moldovaagroindbank.php:474
 msgid "Payment completed via %1$s: %2$s"
 msgstr "Plată finalizată prin %1$s: %2$s"
 
-#: wc-moldovaagroindbank.php:512
+#: wc-moldovaagroindbank.php:511
 msgid "Refund of %1$s %2$s via %3$s approved: %4$s"
 msgstr "Rambursarea sumei de %1$s %2$s prin %3$s a fost aprobată: %4$s"
 
-#: wc-moldovaagroindbank.php:566
+#: wc-moldovaagroindbank.php:565
 msgid "Order not found by Transaction ID: %1$s received from %2$s"
 msgstr "Comanda nu a fost gasită după Transaction ID: %1$s primit de la %2$s"
 
-#: wc-moldovaagroindbank.php:590
+#: wc-moldovaagroindbank.php:589
 msgid "Payment authorized via %1$s: %2$s"
 msgstr "Plată autorizată prin %1$s: %2$s"
 
-#: wc-moldovaagroindbank.php:597
+#: wc-moldovaagroindbank.php:596
 msgid "Order #%1$s paid successfully via %2$s"
 msgstr "Comanda #%1$s a fost platită cu succes prin %2$s"
 
-#: wc-moldovaagroindbank.php:605
+#: wc-moldovaagroindbank.php:604
 msgid "Order #%1$s payment failed via %2$s"
 msgstr "Plata comenzii #%1$s prin %2$s a eșuat"
 
-#: wc-moldovaagroindbank.php:608
+#: wc-moldovaagroindbank.php:607
 msgid ""
 "%1$s payment transaction check failed. Transaction ID: %2$s Order ID: %3$s"
 msgstr ""
 "Verificarea tranzacției prin %1$s a eșuat. Transaction ID: %2$s Order ID: "
 "%3$s"
 
-#: wc-moldovaagroindbank.php:624
+#: wc-moldovaagroindbank.php:623
 msgid "Order fully refunded via %1$s"
 msgstr "Comanda a fost rambursată integral prin %1$s"
 
-#: wc-moldovaagroindbank.php:643
+#: wc-moldovaagroindbank.php:642
 msgid "Pay"
 msgstr "Plătește"
 
-#: wc-moldovaagroindbank.php:652
+#: wc-moldovaagroindbank.php:651
 msgid "Transaction ID not found for order #%1$s"
 msgstr ""
 "Identificatorul tranzacției (Transaction ID) nu a fost găsit pentru comanda #"
 "%1$s"
 
-#: wc-moldovaagroindbank.php:788
+#: wc-moldovaagroindbank.php:787
 msgid "Settings"
 msgstr "Setări"
 
-#: wc-moldovaagroindbank.php:800
+#: wc-moldovaagroindbank.php:799
 msgid "Complete %1$s transaction"
 msgstr "Finalizează tranzacția prin %1$s"
 
-#: wc-moldovaagroindbank.php:801
+#: wc-moldovaagroindbank.php:800
 msgid "Reverse %1$s transaction"
 msgstr "Inverseaza tranzacția prin %1$s"
 
-#. Plugin Name of the plugin/theme
-msgid "WooCommerce Moldova Agroindbank Payment Gateway"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-#. Author URI of the plugin/theme
-msgid "https://github.com/alexminza/wc-moldovaagroindbank"
-msgstr ""
-
 #. Description of the plugin/theme
 msgid "WooCommerce Payment Gateway for Moldova Agroindbank"
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "Alexander Minza"
-msgstr ""
+msgstr "Gateway de plată WooCommerce pentru Moldova Agroindbank"

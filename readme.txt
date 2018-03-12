@@ -1,7 +1,7 @@
 === WooCommerce Moldova Agroindbank Payment Gateway ===
 Contributors: alexminza
 Donate link: https://www.paypal.me/AlexMinza
-Tags: WooCommerce, Moldova Agroindbank, MAIB, payment, gateway
+Tags: WooCommerce, Moldova, Agroindbank, MAIB, payment, gateway
 Requires at least: 4.8
 Tested up to: 4.9.4
 Stable tag: trunk
@@ -18,7 +18,6 @@ WooCommerce Payment Gateway for Moldova Agroindbank
 = Get Involved =
 
 Looking to contribute code to this plugin? Go ahead and [fork the repository over at GitHub](https://github.com/alexminza/wc-moldovaagroindbank).
-This plugin is based on [MaibApi by Fruitware](https://github.com/Fruitware/MaibApi).
 
 == Frequently Asked Questions ==
 
