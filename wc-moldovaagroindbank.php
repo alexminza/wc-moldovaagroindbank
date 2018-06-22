@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Moldova Agroindbank Payment Gateway
  * Description: WooCommerce Payment Gateway for Moldova Agroindbank
  * Plugin URI: https://wordpress.org/plugins/wc-moldovaagroindbank/
- * Version: 1.0
+ * Version: 1.0.1
  * Author: Alexander Minza
  * Author URI: https://profiles.wordpress.org/alexminza
  * Developer: Alexander Minza
@@ -13,9 +13,9 @@
  * License: GPLv3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Requires at least: 4.8
- * Tested up to: 4.9.4
+ * Tested up to: 4.9.6
  * WC requires at least: 3.2
- * WC tested up to: 3.3.3
+ * WC tested up to: 3.4.2
  */
 
 //Looking to contribute code to this plugin? Go ahead and fork the repository over at GitHub https://github.com/alexminza/wc-moldovaagroindbank
@@ -60,6 +60,7 @@ function woocommerce_moldovaagroindbank_init() {
 		const MOD_TRANSACTION_TYPE = self::MOD_PREFIX . 'transaction_type';
 		const MOD_TRANSACTION_ID   = self::MOD_PREFIX . self::MAIB_TRANSACTION_ID;
 
+		const SUPPORTED_CURRENCIES = ['MDL'];
 		const ORDER_TEMPLATE       = 'Order #%1$s';
 
 		const MAIB_TRANS_ID       = 'trans_id';
@@ -90,7 +91,7 @@ function woocommerce_moldovaagroindbank_init() {
 			$this->id                 = self::MOD_ID;
 			$this->method_title       = self::MOD_TITLE;
 			$this->method_description = 'WooCommerce Payment Gateway for Moldova Agroindbank';
-			$this->icon               = apply_filters('woocommerce_moldovaagroindbank_icon', '' . $plugin_dir . '/assets/img/moldovaagroindbank.png');
+			$this->icon               = apply_filters('woocommerce_moldovaagroindbank_icon', '' . $plugin_dir . 'assets/img/moldovaagroindbank.png');
 			$this->has_fields         = false;
 			$this->supports           = array('products', 'refunds');
 
@@ -105,14 +106,12 @@ function woocommerce_moldovaagroindbank_init() {
 			$this->testmode          = 'yes' === $this->get_option('testmode', 'no');
 			$this->debug             = 'yes' === $this->get_option('debug', 'no');
 
-			$this->log_context = array(
-				'source' => $this->id
-			);
-			$this->log_threshold = $this->debug ? WC_Log_Levels::DEBUG : WC_Log_Levels::INFO;
-			$this->logger = new WC_Logger(null, $this->log_threshold);
+			$this->log_context   = array('source' => $this->id);
+			$this->log_threshold = $this->debug ? WC_Log_Levels::DEBUG : WC_Log_Levels::NOTICE;
+			$this->logger        = new WC_Logger(null, $this->log_threshold);
 
 			$this->transaction_type   = $this->get_option('transaction_type', self::TRANSACTION_TYPE_CHARGE);
-			$this->transaction_auto   = 'yes' === $this->get_option('transaction_auto', 'yes');
+			$this->transaction_auto   = false; //'yes' === $this->get_option('transaction_auto', 'no');
 
 			$this->order_template     = $this->get_option('order_template', self::ORDER_TEMPLATE);
 
@@ -174,15 +173,16 @@ function woocommerce_moldovaagroindbank_init() {
 					'title'       => __('Test mode', self::MOD_TEXT_DOMAIN),
 					'type'        => 'checkbox',
 					'label'       => __('Enabled', self::MOD_TEXT_DOMAIN),
-					'description' => __('Use test or production bank environment/gateway', self::MOD_TEXT_DOMAIN),
+					'desc_tip'    => __('Use test or production bank environment/gateway', self::MOD_TEXT_DOMAIN),
 					'default'     => 'no'
 				),
 				'debug'           => array(
 					'title'       => __('Debug mode', self::MOD_TEXT_DOMAIN),
 					'type'        => 'checkbox',
 					'label'       => __('Enable logging', self::MOD_TEXT_DOMAIN),
-					'description' => sprintf(__('Callback URL: <code>%1$s</code>', self::MOD_TEXT_DOMAIN), $this->get_callback_url()),
-					'default'     => 'no'
+					'default'     => 'no',
+					'description' => sprintf('%1$s: <code>%2$s</code>', __('Callback URL', self::MOD_TEXT_DOMAIN), $this->get_callback_url())
+
 				),
 
 				'transaction_type' => array(
@@ -195,13 +195,13 @@ function woocommerce_moldovaagroindbank_init() {
 						self::TRANSACTION_TYPE_AUTHORIZATION => __('Authorization', self::MOD_TEXT_DOMAIN),
 					),
 				),
-				'transaction_auto' => array(
+				/*'transaction_auto' => array(
 					'title'       => __('Transaction auto', self::MOD_TEXT_DOMAIN),
 					'type'        => 'checkbox',
 					//'label'       => __('Enabled', self::MOD_TEXT_DOMAIN),
 					'label'       => __('Automatically complete/reverse bank transactions when order status changes', self::MOD_TEXT_DOMAIN),
-					'default'     => 'yes'
-				),
+					'default'     => 'no'
+				),*/
 				'order_template'  => array(
 					'title'       => __('Order description', self::MOD_TEXT_DOMAIN),
 					'type'        => 'text',
@@ -212,7 +212,6 @@ function woocommerce_moldovaagroindbank_init() {
 				'connection_settings' => array(
 					'title'       => __('Connection Settings', self::MOD_TEXT_DOMAIN),
 					'type'        => 'title',
-					'description' => __('Merchant security connection settings provided by the bank.', self::MOD_TEXT_DOMAIN)
 				),
 
 				'maib_cacert'     => array(
@@ -242,17 +241,13 @@ function woocommerce_moldovaagroindbank_init() {
 		}
 
 		protected function is_valid_for_use() {
-			if(!in_array(get_option('woocommerce_currency'), array('MDL'))) {
+			if(!in_array(get_option('woocommerce_currency'), self::SUPPORTED_CURRENCIES)) {
 				return false;
 			}
 
 			return true;
 		}
 
-		/**
-		 * Admin Panel Options
-		 * - Options for bits like 'title' and availability on a country-by-country basis
-		 **/
 		public function admin_options() {
 			?>
 			<h2><?php _e($this->method_title, self::MOD_TEXT_DOMAIN); ?></h2>
@@ -269,6 +264,13 @@ function woocommerce_moldovaagroindbank_init() {
 						<?php _e('Store settings not supported', self::MOD_TEXT_DOMAIN); ?>
 					</p>
 				</div>
+				<ul>
+					<li>
+						<?php _e('Unsupported store currency:', self::MOD_TEXT_DOMAIN); ?> <strong><?php echo get_option('woocommerce_currency'); ?></strong>
+						<a href="<?php echo add_query_arg(array('page' => 'wc-settings'), admin_url('admin.php')); ?>"><?php _e('Change store currency', self::MOD_TEXT_DOMAIN); ?></a><br />
+						<?php _e('Supported currencies:', self::MOD_TEXT_DOMAIN); ?> <strong><?php echo join(', ', self::SUPPORTED_CURRENCIES); ?></strong>
+					</li>
+				</ul>
 			<?php
 			endif;
 		}
@@ -668,22 +670,26 @@ function woocommerce_moldovaagroindbank_init() {
 		}
 
 		protected function get_order_net_total($order) {
-			$order_total = $order->get_total();
-			$total_refunded = $order->get_total_refunded();
-
 			//https://github.com/woocommerce/woocommerce/issues/17795
 			//https://github.com/woocommerce/woocommerce/pull/18196
-			/*$total_refunded = 0;
-			$order_refunds = $order->get_refunds();
-			foreach($order_refunds as $refund) {
-				if($refund->get_refunded_payment())
-					$total_refunded += $refund->get_amount();
-			}*/
+			$total_refunded = 0;
+			if(method_exists(WC_Order_Refund::class, 'get_refunded_payment')) {
+				$order_refunds = $order->get_refunds();
+				foreach($order_refunds as $refund) {
+					if($refund->get_refunded_payment())
+						$total_refunded += $refund->get_amount();
+				}
+			}
+			else
+			{
+				$total_refunded = $order->get_total_refunded();
+			}
 
+			$order_total = $order->get_total();
 			return $order_total - $total_refunded;
 		}
 
-		//MAIB Payment Gateway API does not currently support passing Order ID for transactions 
+		//NOTE: MAIB Payment Gateway API does not currently support passing Order ID for transactions
 		protected function get_order_by_trans_id($trans_id) {
 			global $wpdb;
 			$query = $wpdb->prepare("SELECT post_id FROM $wpdb->postmeta WHERE meta_key=%s AND meta_value=%s",
@@ -757,8 +763,8 @@ function woocommerce_moldovaagroindbank_init() {
 		}
 
 		protected function get_callback_url() {
-			//https://codex.wordpress.org/Function_Reference/site_url
-			return add_query_arg('wc-api', get_class($this), home_url('/', 'https'));
+			//https://codex.wordpress.org/Function_Reference/home_url
+			return add_query_arg('wc-api', get_class($this), home_url());
 		}
 
 		//https://woocommerce.wordpress.com/2017/01/26/improved-logging-in-woocommerce-2-7/
@@ -769,7 +775,7 @@ function woocommerce_moldovaagroindbank_init() {
 
 		static function print_var($var) {
 			//https://docs.woocommerce.com/wc-apidocs/function-wc_print_r.html
-			return print_r($var, true);
+			return wc_print_r($var, true);
 		}
 
 		//region Admin
@@ -821,12 +827,15 @@ function woocommerce_moldovaagroindbank_init() {
 			return $methods;
 		}
 
-		//https://docs.woocommerce.com/document/create-a-plugin/
-		static protected function check_wc_active() {
-			//Check if WooCommerce is active
-			return in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')));
+		//https://docs.woocommerce.com/document/query-whether-woocommerce-is-activated/
+		public static function is_wc_active() {
+			return class_exists('WooCommerce');
 		}
 	}
+
+	//Check if WooCommerce is active
+	if(!WC_MoldovaAgroindbank::is_wc_active())
+		return;
 
 	//Add gateway to WooCommerce
 	add_filter('woocommerce_payment_gateways', array(WC_MoldovaAgroindbank::class, 'add_gateway'));
