@@ -3,7 +3,7 @@ Contributors: alexminza
 Donate link: https://www.paypal.me/AlexMinza
 Tags: WooCommerce, Moldova, Agroindbank, MAIB, payment, gateway
 Requires at least: 4.8
-Tested up to: 4.9.4
+Tested up to: 4.9.8
 Stable tag: trunk
 Requires PHP: 7.0
 License: GPLv3 or later
@@ -19,7 +19,8 @@ WooCommerce Payment Gateway for Moldova Agroindbank
 
 * Charge and Authorization card transaction types
 * Reverse transactions - partial or complete refunds
-* Admin order actions - complete or reverse authorized transaction
+* Admin order actions - complete authorized transaction
+* Close business day scheduled action
 
 == Frequently Asked Questions ==
 
@@ -35,19 +36,44 @@ The connection settings and merchant data are provided by Moldova Agroindbank. T
 
 Moldova Agroindbank currently supports transactions in MDL (Moldovan Leu).
 
+= What is the difference between Transaction types? =
+
+* Charge submits all transactions for settlement.
+* Authorization simply authorizes the order total for capture later. Use the Complete transaction order action to settle the previously authorized transaction.
+
 = How can I contribute to the plugin? =
 
 If you're a developer and you have some ideas to improve the plugin or to solve a bug, feel free to raise an issue or submit a pull request in the [Github repository for the plugin](https://github.com/alexminza/wc-moldovaagroindbank).
 
 You can also contribute to the plugin by translating it. Simply visit [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/wc-moldovaagroindbank) to get started.
 
+== Installation ==
+
+1. Configure the plugin Connection Settings by performing one of the following steps:
+    * BASIC: Upload the PFX client certificate file received from the bank
+    * ADVANCED: Convert and upload the private key and certificates PEM files to the server and securely set up the owner and file system permissions
+2. Set the  certificate / private key password (or leave the field empty if not encrypted)
+3. Provide the Callback URL to the bank to enable online payment notifications
+4. Perform a test payment, refund and verify they are processed correctly
+5. Review the Close day scheduled action settings on the WooCommerce Status page
+6. Disable Test and Debug modes when ready to accept live payments
+
 == Screenshots ==
 
 1. Plugin settings
 2. Connection settings
-3. Order actions
+3. Advanced connection settings
+4. Refunds
+5. Order actions
 
 == Changelog ==
+
+= 1.1 =
+* Simplified payment gateway setup
+* Added client certificate upload
+* Added payment method logo image selection
+* Added close business day scheduled action
+* Added validations for certificates, private key and settings
 
 = 1.0.1 =
 * Added total refunds via payment gateway calculation (since WooCommerce 3.4)
@@ -59,5 +85,6 @@ Initial release
 
 == Upgrade Notice ==
 
-= 1.0.1 =
-See Changelog for details
+= 1.1 =
+Simplified payment gateway setup.
+See Changelog for details.
