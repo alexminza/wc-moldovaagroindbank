@@ -3,7 +3,7 @@ Contributors: alexminza
 Donate link: https://www.paypal.me/AlexMinza
 Tags: WooCommerce, Moldova, Agroindbank, MAIB, payment, gateway
 Requires at least: 4.8
-Tested up to: 5.0.2
+Tested up to: 5.2.1
 Stable tag: trunk
 Requires PHP: 7.0
 License: GPLv3 or later
@@ -73,8 +73,11 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 
 == Changelog ==
 
+= 1.1.2 =
+Minor improvements
+
 = 1.1.1 =
-* Basic and Advanced settings configuration modes
+Basic and Advanced settings configuration modes
 
 = 1.1 =
 * Simplified payment gateway setup

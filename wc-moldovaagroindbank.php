@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Moldova Agroindbank Payment Gateway
  * Description: WooCommerce Payment Gateway for Moldova Agroindbank
  * Plugin URI: https://github.com/alexminza/wc-moldovaagroindbank
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author: Alexander Minza
  * Author URI: https://profiles.wordpress.org/alexminza
  * Developer: Alexander Minza
@@ -13,9 +13,9 @@
  * License: GPLv3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Requires at least: 4.8
- * Tested up to: 5.0.2
+ * Tested up to: 5.2.1
  * WC requires at least: 3.3
- * WC tested up to: 3.5.3
+ * WC tested up to: 3.6.4
  */
 
 //Looking to contribute code to this plugin? Go ahead and fork the repository over at GitHub https://github.com/alexminza/wc-moldovaagroindbank
@@ -408,8 +408,8 @@ function woocommerce_moldovaagroindbank_init() {
 
 							$result = $this->process_export_certificates($pfxData, $pfxPassphrase);
 
-							$resultPCert = $result['pcert'] ?? null;
-							$resultKey = $result['key'] ?? null;
+							$resultPCert = isset($result['pcert']) ? $result['pcert'] : null;
+							$resultKey = isset($result['key']) ? $result['key'] : null;
 
 							if(!self::string_empty($resultPCert) && !self::string_empty($resultKey)) {
 								//Overwrite advanced settings values
@@ -441,8 +441,8 @@ function woocommerce_moldovaagroindbank_init() {
 							if($pfxCertData !== false) {
 								$result = $this->process_export_certificates($pfxCertData, $this->maib_key_password);
 
-								$resultPCert = $result['pcert'] ?? null;
-								$resultKey = $result['key'] ?? null;
+								$resultPCert = isset($result['pcert']) ? $result['pcert'] : null;
+								$resultKey = isset($result['key']) ? $result['key'] : null;
 
 								if(!self::string_empty($resultPCert) && !self::string_empty($resultKey)) {
 									$this->update_option('maib_pcert', $resultPCert);
@@ -699,7 +699,9 @@ function woocommerce_moldovaagroindbank_init() {
 			#region Validate response
 			$trans_id = null;
 			if(!empty($client_result))
-				$trans_id = $client_result[self::MAIB_TRANSACTION_ID] ?? null;
+				$trans_id = isset($client_result[self::MAIB_TRANSACTION_ID])
+					? $client_result[self::MAIB_TRANSACTION_ID]
+					: null;
 			#endregion
 
 			if(!self::string_empty($trans_id)) {
