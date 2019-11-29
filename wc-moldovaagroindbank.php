@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Moldova Agroindbank Payment Gateway
  * Description: WooCommerce Payment Gateway for Moldova Agroindbank
  * Plugin URI: https://github.com/alexminza/wc-moldovaagroindbank
- * Version: 1.1.2
+ * Version: 1.1.3
  * Author: Alexander Minza
  * Author URI: https://profiles.wordpress.org/alexminza
  * Developer: Alexander Minza
@@ -13,9 +13,9 @@
  * License: GPLv3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Requires at least: 4.8
- * Tested up to: 5.2.1
+ * Tested up to: 5.3
  * WC requires at least: 3.3
- * WC tested up to: 3.6.4
+ * WC tested up to: 3.8.1
  */
 
 //Looking to contribute code to this plugin? Go ahead and fork the repository over at GitHub https://github.com/alexminza/wc-moldovaagroindbank
@@ -469,11 +469,11 @@ function woocommerce_moldovaagroindbank_init() {
 				$certData = file_get_contents($certFile);
 				$cert = openssl_x509_read($certData);
 
-				if (false !== $cert) {
+				if(false !== $cert) {
 					$certInfo = openssl_x509_parse($cert);
 					openssl_x509_free($cert);
 
-					if (false !== $certInfo) {
+					if(false !== $certInfo) {
 						$valid_until = $certInfo['validTo_time_t'];
 
 						if($valid_until < (time() - 2592000)) //Certificate already expired or expires in the next 30 days
@@ -706,12 +706,13 @@ function woocommerce_moldovaagroindbank_init() {
 
 			if(!self::string_empty($trans_id)) {
 				#region Update order payment transaction metadata
-				add_post_meta($order_id, self::MOD_TRANSACTION_TYPE, $this->transaction_type);
-				add_post_meta($order_id, self::MOD_TRANSACTION_ID, $trans_id);
+				self::set_post_meta($order_id, self::MOD_TRANSACTION_TYPE, $this->transaction_type);
+				self::set_post_meta($order_id, self::MOD_TRANSACTION_ID, $trans_id);
 				#endregion
 
 				#region Log transaction initiation
 				$message = sprintf(__('Payment initiated via %1$s: %2$s', self::MOD_TEXT_DOMAIN), $this->method_title, http_build_query($client_result));
+				$message = $this->get_order_message($message);
 				$this->log($message, WC_Log_Levels::INFO);
 				$order->add_order_note($message);
 				#endregion
@@ -818,6 +819,7 @@ function woocommerce_moldovaagroindbank_init() {
 				$this->log($ex, WC_Log_Levels::ERROR);
 
 				$message = sprintf(__('Payment completion failed via %1$s: %2$s', self::MOD_TEXT_DOMAIN), $this->method_title, $ex->getMessage());
+				$message = $this->get_order_message($message);
 				$order->add_order_note($message);
 
 				return false;
@@ -828,6 +830,7 @@ function woocommerce_moldovaagroindbank_init() {
 
 				if($result === self::MAIB_RESULT_OK) {
 					$message = sprintf(__('Payment completed via %1$s: %2$s', self::MOD_TEXT_DOMAIN), $this->method_title, http_build_query($completion_result));
+					$message = $this->get_order_message($message);
 					$this->log($message, WC_Log_Levels::INFO);
 
 					$order->add_order_note($message);
@@ -843,13 +846,21 @@ function woocommerce_moldovaagroindbank_init() {
 		public function refund_transaction($order_id, $order, $amount = null) {
 			$this->log(sprintf('%1$s: OrderID=%2$s Amount=%3$s', __FUNCTION__, $order_id, $amount));
 
+			$trans_id = get_post_meta($order_id, self::MOD_TRANSACTION_ID, true);
+			$order_total = $order->get_total();
+			$order_currency = $order->get_currency();
+
 			if(!isset($amount)) {
 				//Refund entirely if no amount is specified
-				$amount = $order->get_total();
+				$amount = $order_total;
 			}
 
-			$trans_id = get_post_meta($order_id, self::MOD_TRANSACTION_ID, true);
-			$order_currency = $order->get_currency();
+			if($amount <= 0 || $amount > $order_total) {
+				$message = sprintf(__('Invalid refund amount', self::MOD_TEXT_DOMAIN));
+				$this->log($message, WC_Log_Levels::ERROR);
+
+				return new WP_Error('error', $message);
+			}
 
 			try {
 				$client = $this->init_maib_client();
@@ -860,6 +871,7 @@ function woocommerce_moldovaagroindbank_init() {
 				$this->log($ex, WC_Log_Levels::ERROR);
 
 				$message = sprintf(__('Refund of %1$s %2$s via %3$s failed: %4$s', self::MOD_TEXT_DOMAIN), $amount, $order_currency, $this->method_title, $ex->getMessage());
+				$message = $this->get_order_message($message);
 				$order->add_order_note($message);
 
 				return new WP_Error('error', $message);
@@ -870,6 +882,7 @@ function woocommerce_moldovaagroindbank_init() {
 
 				if($result === self::MAIB_RESULT_REVERSED) {
 					$message = sprintf(__('Refund of %1$s %2$s via %3$s approved: %4$s', self::MOD_TEXT_DOMAIN), $amount, $order_currency, $this->method_title, http_build_query($reversal_result));
+					$message = $this->get_order_message($message);
 					$this->log($message, WC_Log_Levels::INFO);
 					$order->add_order_note($message);
 
@@ -907,7 +920,7 @@ function woocommerce_moldovaagroindbank_init() {
 		}
 
 		public function check_response() {
-			if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+			if($_SERVER['REQUEST_METHOD'] === 'GET') {
 				$message = __('This Callback URL works and should not be called directly.', self::MOD_TEXT_DOMAIN);
 
 				wc_add_notice($message, 'notice');
@@ -953,10 +966,11 @@ function woocommerce_moldovaagroindbank_init() {
 			if(!empty($client_result)) {
 				#region Update order payment metadata
 				foreach($client_result as $key => $value)
-					add_post_meta($order_id, strtolower(self::MOD_PREFIX . $key), $value);
+					self::set_post_meta($order_id, strtolower(self::MOD_PREFIX . $key), $value);
 				#endregion
 
 				$message = sprintf(__('Payment authorized via %1$s: %2$s', self::MOD_TEXT_DOMAIN), $this->method_title, http_build_query($client_result));
+				$message = $this->get_order_message($message);
 				$this->log($message, WC_Log_Levels::INFO);
 				$order->add_order_note($message);
 
@@ -973,6 +987,7 @@ function woocommerce_moldovaagroindbank_init() {
 			}
 			else {
 				$message = sprintf(__('Order #%1$s payment failed via %2$s.', self::MOD_TEXT_DOMAIN), $order_id, $this->method_title);
+				$message = $this->get_order_message($message);
 				$this->log($message, WC_Log_Levels::ERROR);
 
 				$order->add_order_note($message);
@@ -991,13 +1006,14 @@ function woocommerce_moldovaagroindbank_init() {
 		}
 
 		protected function mark_order_refunded($order) {
-			$order_note = sprintf(__('Order fully refunded via %1$s.', self::MOD_TEXT_DOMAIN), $this->method_title);
+			$message = sprintf(__('Order fully refunded via %1$s.', self::MOD_TEXT_DOMAIN), $this->method_title);
+			$message = $this->get_order_message($message);
 
 			//Mark order as refunded if not already set
 			if(!$order->has_status('refunded')) {
-				$order->update_status('refunded', $order_note);
+				$order->update_status('refunded', $message);
 			} else {
-				$order->add_order_note($order_note);
+				$order->add_order_note($message);
 			}
 		}
 
@@ -1068,6 +1084,13 @@ function woocommerce_moldovaagroindbank_init() {
 
 			$message = sprintf(__('Close business day via %1$s failed: %2$s', self::MOD_TEXT_DOMAIN), $this->method_title, $message_result);
 			$this->log($message, WC_Log_Levels::ERROR);
+			return $message;
+		}
+
+		protected function get_order_message($message) {
+			if($this->testmode)
+				$message = 'TEST: ' . $message;
+
 			return $message;
 		}
 
@@ -1190,9 +1213,16 @@ function woocommerce_moldovaagroindbank_init() {
 			);
 		}
 
-		//https://woocommerce.wordpress.com/2017/01/26/improved-logging-in-woocommerce-2-7/
-		//https://stackoverflow.com/questions/1423157/print-php-call-stack
+		static function set_post_meta($post_id, $meta_key, $meta_value) {
+			//https://developer.wordpress.org/reference/functions/add_post_meta/#comment-465
+			if(!add_post_meta($post_id, $meta_key, $meta_value, true)) {
+				update_post_meta($post_id, $meta_key, $meta_value);
+			 }
+		}
+
 		protected function log($message, $level = WC_Log_Levels::DEBUG) {
+			//https://woocommerce.wordpress.com/2017/01/26/improved-logging-in-woocommerce-2-7/
+			//https://stackoverflow.com/questions/1423157/print-php-call-stack
 			$this->logger->log($level, $message, $this->log_context);
 		}
 
@@ -1288,8 +1318,8 @@ function woocommerce_moldovaagroindbank_init() {
 			return $methods;
 		}
 
-		//https://docs.woocommerce.com/document/query-whether-woocommerce-is-activated/
 		public static function is_wc_active() {
+			//https://docs.woocommerce.com/document/query-whether-woocommerce-is-activated/
 			return class_exists('WooCommerce');
 		}
 	}
