@@ -3,7 +3,7 @@ Contributors: alexminza
 Donate link: https://www.paypal.me/AlexMinza
 Tags: WooCommerce, Moldova, Agroindbank, MAIB, payment, gateway
 Requires at least: 4.8
-Tested up to: 5.2.1
+Tested up to: 5.3
 Stable tag: trunk
 Requires PHP: 7.0
 License: GPLv3 or later
@@ -34,9 +34,13 @@ WooCommerce Payment Gateway for Moldova Agroindbank
     * **ADVANCED**: Convert and copy the private key and certificates PEM files to the server, securely set up the owner and file system permissions, configure the paths to the files
 2. Set the certificate / private key password (or leave the field empty if not encrypted)
 3. Provide the *Callback URL* to the bank to enable online payment notifications
-4. Perform a test payment, refund and verify they are processed correctly
-5. Review the *Close day* scheduled action settings on the WooCommerce Status page
-6. Disable *Test* and *Debug* modes when ready to accept live payments
+4. Enable *Test* and *Debug* modes in the plugin settings
+5. Perform the following tests and verify all the transactions are processed correctly:
+    * **Test case No 1**: Set *Transaction type* to *Charge*, create a new order and pay with a test card
+    * **Test case No 2**: Set *Transaction type* to *Authorization*, create a new order and pay with a test card, afterwards perform a full order refund
+    * **Test case No 3**: Set *Transaction type* to *Charge*, create a new order and pay with a test card, afterwards perform a full order refund
+6. Review the *Close day* scheduled action settings on the WooCommerce Status page
+7. Disable *Test* and *Debug* modes when ready to accept live payments
 
 == Frequently Asked Questions ==
 
@@ -46,7 +50,7 @@ Use the *WooCommerce > Settings > Payments > Moldova Agroindbank* screen to conf
 
 = Where can I get the Connection Settings data? =
 
-The merchant data and connection settings are provided by Moldova Agroindbank. This data is used by the plugin to connect to the Moldova Agroindbank payment gateway and process the card transactions. Please see [www.maib.md](https://www.maib.md) and contact [cards@maib.md](mailto:cards@maib.md) for details.
+The merchant data and connection settings are provided by Moldova Agroindbank. This data is used by the plugin to connect to the Moldova Agroindbank payment gateway and process the card transactions. Please see [www.maib.md/e-commerce/](https://www.maib.md/e-commerce/) and contact [cards@maib.md](mailto:cards@maib.md) for details.
 
 = What store settings are supported? =
 
@@ -72,6 +76,9 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 5. Order actions
 
 == Changelog ==
+
+= 1.1.3 =
+Minor improvements
 
 = 1.1.2 =
 Minor improvements
