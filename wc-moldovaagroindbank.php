@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Moldova Agroindbank Payment Gateway
  * Description: WooCommerce Payment Gateway for Moldova Agroindbank
  * Plugin URI: https://github.com/alexminza/wc-moldovaagroindbank
- * Version: 1.1.3
+ * Version: 1.1.4
  * Author: Alexander Minza
  * Author URI: https://profiles.wordpress.org/alexminza
  * Developer: Alexander Minza
@@ -13,9 +13,9 @@
  * License: GPLv3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Requires at least: 4.8
- * Tested up to: 5.3
+ * Tested up to: 5.3.2
  * WC requires at least: 3.3
- * WC tested up to: 3.8.1
+ * WC tested up to: 4.0.1
  */
 
 //Looking to contribute code to this plugin? Go ahead and fork the repository over at GitHub https://github.com/alexminza/wc-moldovaagroindbank
@@ -1349,6 +1349,10 @@ function woocommerce_moldovaagroindbank_init() {
 #region Register activation hooks
 function woocommerce_moldovaagroindbank_activation() {
 	woocommerce_moldovaagroindbank_init();
+
+	if(!class_exists('WC_MoldovaAgroindbank'))
+		die('WooCommerce is required for this plugin to work');
+
 	WC_MoldovaAgroindbank::register_scheduled_actions();
 }
 
