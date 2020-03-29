@@ -77,6 +77,9 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 
 == Changelog ==
 
+= 1.1.5 =
+Fixed transaction reversal status check
+
 = 1.1.4 =
 Updated WC tested up to 4.0.1
 
