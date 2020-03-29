@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Moldova Agroindbank Payment Gateway
  * Description: WooCommerce Payment Gateway for Moldova Agroindbank
  * Plugin URI: https://github.com/alexminza/wc-moldovaagroindbank
- * Version: 1.1.4
+ * Version: 1.1.5
  * Author: Alexander Minza
  * Author URI: https://profiles.wordpress.org/alexminza
  * Developer: Alexander Minza
@@ -880,7 +880,7 @@ function woocommerce_moldovaagroindbank_init() {
 			if(!empty($reversal_result)) {
 				$result = $reversal_result[self::MAIB_RESULT];
 
-				if($result === self::MAIB_RESULT_REVERSED) {
+				if($result === self::MAIB_RESULT_OK) {
 					$message = sprintf(__('Refund of %1$s %2$s via %3$s approved: %4$s', self::MOD_TEXT_DOMAIN), $amount, $order_currency, $this->method_title, http_build_query($reversal_result));
 					$message = $this->get_order_message($message);
 					$this->log($message, WC_Log_Levels::INFO);
