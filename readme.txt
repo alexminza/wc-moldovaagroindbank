@@ -3,7 +3,7 @@ Contributors: alexminza
 Donate link: https://www.paypal.me/AlexMinza
 Tags: WooCommerce, Moldova, Agroindbank, MAIB, payment, gateway
 Requires at least: 4.8
-Tested up to: 5.3.2
+Tested up to: 5.4
 Stable tag: trunk
 Requires PHP: 7.0
 License: GPLv3 or later
@@ -54,7 +54,7 @@ The merchant data and connection settings are provided by Moldova Agroindbank. T
 
 = What store settings are supported? =
 
-Moldova Agroindbank currently supports transactions in MDL (Moldovan Leu).
+Moldova Agroindbank currently supports transactions in MDL (Moldovan Leu), EUR (Euro) and USD (United States Dollar).
 
 = What is the difference between transaction types? =
 
@@ -76,6 +76,9 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 5. Order actions
 
 == Changelog ==
+
+= 1.1.6 =
+Added support for EUR and USD currencies
 
 = 1.1.5 =
 Fixed transaction reversal status check
@@ -109,8 +112,8 @@ Initial release
 
 == Upgrade Notice ==
 
-= 1.1.4 =
-Updated WC tested up to 4.0.1
+= 1.1.6 =
+Added support for EUR and USD currencies
 
 = 1.1 =
 Simplified payment gateway setup.

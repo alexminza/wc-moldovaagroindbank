@@ -2,11 +2,11 @@
 # This file is distributed under the same license as the WooCommerce Moldova Agroindbank Payment Gateway package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Moldova Agroindbank Payment Gateway 1.1.5\n"
+"Project-Id-Version: WooCommerce Moldova Agroindbank Payment Gateway 1.1.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-"
 "moldovaagroindbank\n"
-"POT-Creation-Date: 2020-03-29 12:12+0300\n"
-"PO-Revision-Date: 2020-03-29 12:13+0300\n"
+"POT-Creation-Date: 2020-04-12 12:17+0300\n"
+"PO-Revision-Date: 2020-04-12 12:19+0300\n"
 "Last-Translator: Alexander Minza <alex@alexminza.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -23,7 +23,7 @@ msgstr "Activare/dezactivare"
 
 #: wc-moldovaagroindbank.php:165
 msgid "Enable this gateway"
-msgstr "Activează acest gateway de plata"
+msgstr "Activează acest gateway de plată"
 
 #: wc-moldovaagroindbank.php:169
 msgid "Title"

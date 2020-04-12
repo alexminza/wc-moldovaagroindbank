@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Moldova Agroindbank Payment Gateway
  * Description: WooCommerce Payment Gateway for Moldova Agroindbank
  * Plugin URI: https://github.com/alexminza/wc-moldovaagroindbank
- * Version: 1.1.5
+ * Version: 1.1.6
  * Author: Alexander Minza
  * Author URI: https://profiles.wordpress.org/alexminza
  * Developer: Alexander Minza
@@ -13,7 +13,7 @@
  * License: GPLv3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Requires at least: 4.8
- * Tested up to: 5.3.2
+ * Tested up to: 5.4
  * WC requires at least: 3.3
  * WC tested up to: 4.0.1
  */
@@ -62,7 +62,7 @@ function woocommerce_moldovaagroindbank_init() {
 		const MOD_TRANSACTION_ID   = self::MOD_PREFIX . 'transaction_id';
 		const MOD_CLOSEDAY_ACTION  = self::MOD_PREFIX . 'close_day';
 
-		const SUPPORTED_CURRENCIES = ['MDL'];
+		const SUPPORTED_CURRENCIES = ['MDL', 'EUR', 'USD'];
 		const ORDER_TEMPLATE       = 'Order #%1$s';
 
 		const MAIB_TRANS_ID        = 'trans_id';
