@@ -61,6 +61,10 @@ Moldova Agroindbank currently supports transactions in MDL (Moldovan Leu), EUR (
 * **Charge** submits all transactions for settlement.
 * **Authorization** simply authorizes the order total for capture later. Use the *Complete transaction* order action to settle the previously authorized transaction.
 
+= How can I manually run the Close day action? =
+
+On the *WooCommerce > Status > Scheduled Actions* page filter the actions list by *Pending* status and search for *maib_close_day*. Click the **Run** link next to the action title to execute the *Close day* action immediately.
+
 = How can I contribute to the plugin? =
 
 If you're a developer and you have some ideas to improve the plugin or to solve a bug, feel free to raise an issue or submit a pull request in the [Github repository for the plugin](https://github.com/alexminza/wc-moldovaagroindbank).
@@ -76,6 +80,10 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 5. Order actions
 
 == Changelog ==
+
+= 1.1.7 =
+Improved Close day scheduled action registration.
+For this feature to work properly at least WooCommerce 4 with [Action Scheduler 3](https://woocommerce.wordpress.com/2020/01/08/action-scheduler-3-0/) are required - see [bug fixes from PR #333](https://github.com/woocommerce/action-scheduler/pull/333) for details.
 
 = 1.1.6 =
 Added support for EUR and USD currencies
@@ -112,8 +120,9 @@ Initial release
 
 == Upgrade Notice ==
 
-= 1.1.6 =
-Added support for EUR and USD currencies
+= 1.1.7 =
+Improved Close day scheduled action registration.
+See Changelog for details.
 
 = 1.1 =
 Simplified payment gateway setup.

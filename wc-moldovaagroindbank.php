@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Moldova Agroindbank Payment Gateway
  * Description: WooCommerce Payment Gateway for Moldova Agroindbank
  * Plugin URI: https://github.com/alexminza/wc-moldovaagroindbank
- * Version: 1.1.6
+ * Version: 1.1.7
  * Author: Alexander Minza
  * Author URI: https://profiles.wordpress.org/alexminza
  * Developer: Alexander Minza
@@ -1226,6 +1226,12 @@ function woocommerce_moldovaagroindbank_init() {
 			$this->logger->log($level, $message, $this->log_context);
 		}
 
+		static function static_log($message, $level = WC_Log_Levels::DEBUG) {
+			$logger = wc_get_logger();
+			$log_context = array('source' => WC_MoldovaAgroindbank::MOD_ID);
+			$logger->log($level, $message, $log_context);
+		}
+
 		static function print_var($var) {
 			//https://docs.woocommerce.com/wc-apidocs/function-wc_print_r.html
 			return wc_print_r($var, true);
@@ -1275,16 +1281,6 @@ function woocommerce_moldovaagroindbank_init() {
 		}
 
 		static function action_close_day() {
-			/*$closeday_start = 23;
-			$closeday_end   = 1;
-			$current_hour = intval(current_time('H'));
-			if($current_hour >= $closeday_start || $current_hour <= $closeday_end) {
-				//close_day();
-			} else {
-				sprintf(__('Close day allowed between %1$s and %2$s', self::MOD_TEXT_DOMAIN), $closeday_start, $closeday_end);
-				$result = '';
-			}*/
-
 			$plugin = new self();
 			$result = $plugin->close_day();
 
@@ -1295,15 +1291,35 @@ function woocommerce_moldovaagroindbank_init() {
 		}
 
 		public static function register_scheduled_actions() {
+			if(false !== as_next_scheduled_action(self::MOD_CLOSEDAY_ACTION)) {
+				$message = sprintf(__('Scheduled action %1$s is already registered.', self::MOD_TEXT_DOMAIN), self::MOD_CLOSEDAY_ACTION);
+				self::static_log($message, WC_Log_Levels::WARNING);
+
+				self::unregister_scheduled_actions();
+			}
+
 			$timezoneId = wc_timezone_string();
-			$timestamp = as_get_datetime_object('midnight tomorrow', $timezoneId);
+			$timestamp = as_get_datetime_object('tomorrow - 1 minute', $timezoneId);
 			$timestamp->setTimezone(new DateTimeZone('UTC'));
 
-			$action_id = as_schedule_recurring_action($timestamp, DAY_IN_SECONDS, WC_MoldovaAgroindbank::MOD_CLOSEDAY_ACTION, array(), WC_MoldovaAgroindbank::MOD_ID);
+			#region CRON
+			$cronSchedule = $timestamp->format('i H * * *'); #'59 23 * * *'
+			$action_id = as_schedule_cron_action(null, $cronSchedule, self::MOD_CLOSEDAY_ACTION, array(), self::MOD_ID);
+			#endregion
+
+			#region INTERVAL
+			#$action_id = as_schedule_recurring_action($timestamp, DAY_IN_SECONDS, self::MOD_CLOSEDAY_ACTION, array(), self::MOD_ID);
+			#entregion
+
+			$message = sprintf(__('Registered scheduled action %1$s in timezone %2$s with ID %3$s.', self::MOD_TEXT_DOMAIN), self::MOD_CLOSEDAY_ACTION, $timezoneId, $action_id);
+			self::static_log($message, WC_Log_Levels::INFO);
 		}
 
 		public static function unregister_scheduled_actions() {
-			as_unschedule_all_actions(WC_MoldovaAgroindbank::MOD_CLOSEDAY_ACTION);
+			as_unschedule_all_actions(self::MOD_CLOSEDAY_ACTION);
+
+			$message = sprintf(__('Unregistered scheduled action %1$s.', self::MOD_TEXT_DOMAIN), self::MOD_CLOSEDAY_ACTION);
+			self::static_log($message, WC_Log_Levels::INFO);
 		}
 
 		static function find_scheduled_action($status = null) {
