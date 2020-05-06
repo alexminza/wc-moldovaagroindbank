@@ -2,11 +2,11 @@
 # This file is distributed under the same license as the WooCommerce Moldova Agroindbank Payment Gateway package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Moldova Agroindbank Payment Gateway 1.1.6\n"
+"Project-Id-Version: WooCommerce Moldova Agroindbank Payment Gateway 1.1.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-"
 "moldovaagroindbank\n"
-"POT-Creation-Date: 2020-04-12 12:17+0300\n"
-"PO-Revision-Date: 2020-04-12 12:19+0300\n"
+"POT-Creation-Date: 2020-05-03 09:23+0300\n"
+"PO-Revision-Date: 2020-05-03 09:25+0300\n"
 "Last-Translator: Alexander Minza <alex@alexminza.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -356,13 +356,26 @@ msgstr "Închiderea zilei economice prin %1$s a fost efectuată cu succes: %2$s"
 msgid "Close business day via %1$s failed: %2$s"
 msgstr "Închiderea zilei economice prin %1$s a eșuat: %2$s"
 
-#: wc-moldovaagroindbank.php:1241
+#: wc-moldovaagroindbank.php:1247
 msgid "Settings"
 msgstr "Setări"
 
-#: wc-moldovaagroindbank.php:1258
+#: wc-moldovaagroindbank.php:1264
 msgid "Complete %1$s transaction"
 msgstr "Finalizează tranzacția prin %1$s"
+
+#: wc-moldovaagroindbank.php:1295
+msgid "Scheduled action %1$s is already registered."
+msgstr "Acțiunea programată %1$s este deja înregistrată."
+
+#: wc-moldovaagroindbank.php:1314
+msgid "Registered scheduled action %1$s in timezone %2$s with ID %3$s."
+msgstr ""
+"Acțiunea programată %1$s a fost înregistrată în fusul orar %2$s cu ID %3$s."
+
+#: wc-moldovaagroindbank.php:1321
+msgid "Unregistered scheduled action %1$s."
+msgstr "Acțiunea programată %1$s a fost anulată."
 
 #. Description of the plugin/theme
 msgid "WooCommerce Payment Gateway for Moldova Agroindbank"
