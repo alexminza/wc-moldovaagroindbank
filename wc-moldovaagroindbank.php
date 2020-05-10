@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Moldova Agroindbank Payment Gateway
  * Description: WooCommerce Payment Gateway for Moldova Agroindbank
  * Plugin URI: https://github.com/alexminza/wc-moldovaagroindbank
- * Version: 1.1.7
+ * Version: 1.1.8
  * Author: Alexander Minza
  * Author URI: https://profiles.wordpress.org/alexminza
  * Developer: Alexander Minza
@@ -13,9 +13,9 @@
  * License: GPLv3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Requires at least: 4.8
- * Tested up to: 5.4
+ * Tested up to: 5.4.1
  * WC requires at least: 3.3
- * WC tested up to: 4.0.1
+ * WC tested up to: 4.1.0
  */
 
 //Looking to contribute code to this plugin? Go ahead and fork the repository over at GitHub https://github.com/alexminza/wc-moldovaagroindbank
@@ -1228,7 +1228,7 @@ function woocommerce_moldovaagroindbank_init() {
 
 		static function static_log($message, $level = WC_Log_Levels::DEBUG) {
 			$logger = wc_get_logger();
-			$log_context = array('source' => WC_MoldovaAgroindbank::MOD_ID);
+			$log_context = array('source' => self::MOD_ID);
 			$logger->log($level, $message, $log_context);
 		}
 
@@ -1302,14 +1302,8 @@ function woocommerce_moldovaagroindbank_init() {
 			$timestamp = as_get_datetime_object('tomorrow - 1 minute', $timezoneId);
 			$timestamp->setTimezone(new DateTimeZone('UTC'));
 
-			#region CRON
 			$cronSchedule = $timestamp->format('i H * * *'); #'59 23 * * *'
 			$action_id = as_schedule_cron_action(null, $cronSchedule, self::MOD_CLOSEDAY_ACTION, array(), self::MOD_ID);
-			#endregion
-
-			#region INTERVAL
-			#$action_id = as_schedule_recurring_action($timestamp, DAY_IN_SECONDS, self::MOD_CLOSEDAY_ACTION, array(), self::MOD_ID);
-			#entregion
 
 			$message = sprintf(__('Registered scheduled action %1$s in timezone %2$s with ID %3$s.', self::MOD_TEXT_DOMAIN), self::MOD_CLOSEDAY_ACTION, $timezoneId, $action_id);
 			self::static_log($message, WC_Log_Levels::INFO);
@@ -1321,6 +1315,19 @@ function woocommerce_moldovaagroindbank_init() {
 			$message = sprintf(__('Unregistered scheduled action %1$s.', self::MOD_TEXT_DOMAIN), self::MOD_CLOSEDAY_ACTION);
 			self::static_log($message, WC_Log_Levels::INFO);
 		}
+
+		/* public static function action_upgrade_complete($upgrader_object, $options) {
+			//https://wordpress.stackexchange.com/questions/144870/wordpress-update-plugin-hook-action-since-3-9
+			if($options['action'] == 'update' && $options['type'] == 'plugin' && isset($options['plugins'])) {
+				$this_plugin = plugin_basename(__FILE__);
+
+				foreach($options['plugins'] as $plugin) {
+					if($plugin == $this_plugin) {
+						self::register_scheduled_actions();
+					}
+				}
+			}
+		} */
 
 		static function find_scheduled_action($status = null) {
 			$params = $status ? array('status' => $status) : null;
@@ -1358,8 +1365,10 @@ function woocommerce_moldovaagroindbank_init() {
 	}
 	#endregion
 
-	//Add scheduled actions
+	#region Scheduled actions
+	#add_action('upgrader_process_complete', array(WC_MoldovaAgroindbank::class, 'action_upgrade_complete'), 10, 2);
 	add_action(WC_MoldovaAgroindbank::MOD_CLOSEDAY_ACTION, array(WC_MoldovaAgroindbank::class, 'action_close_day'));
+	#endregion
 }
 
 #region Register activation hooks

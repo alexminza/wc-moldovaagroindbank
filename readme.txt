@@ -3,7 +3,7 @@ Contributors: alexminza
 Donate link: https://www.paypal.me/AlexMinza
 Tags: WooCommerce, Moldova, Agroindbank, MAIB, payment, gateway
 Requires at least: 4.8
-Tested up to: 5.4
+Tested up to: 5.4.1
 Stable tag: trunk
 Requires PHP: 7.0
 License: GPLv3 or later
@@ -81,6 +81,9 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 
 == Changelog ==
 
+= 1.1.8 =
+Updated WC tested up to 4.1.0
+
 = 1.1.7 =
 Improved Close day scheduled action registration.
 For this feature to work properly at least WooCommerce 4 with [Action Scheduler 3](https://woocommerce.wordpress.com/2020/01/08/action-scheduler-3-0/) are required - see [bug fixes from PR #333](https://github.com/woocommerce/action-scheduler/pull/333) for details.
@@ -119,6 +122,9 @@ Basic and Advanced settings configuration modes
 Initial release
 
 == Upgrade Notice ==
+
+= 1.1.8 =
+Updated WC tested up to 4.1.0
 
 = 1.1.7 =
 Improved Close day scheduled action registration.
