@@ -1,9 +1,9 @@
 === WooCommerce Moldova Agroindbank Payment Gateway ===
 Contributors: alexminza
 Donate link: https://www.paypal.me/AlexMinza
-Tags: WooCommerce, Moldova, Agroindbank, MAIB, payment, gateway
+Tags: WooCommerce, Moldova, Agroindbank, MAIB, bank, payment, gateway, visa, mastercard, credit card
 Requires at least: 4.8
-Tested up to: 5.4.1
+Tested up to: 5.5.1
 Stable tag: trunk
 Requires PHP: 7.0
 License: GPLv3 or later
@@ -13,14 +13,15 @@ WooCommerce Payment Gateway for Moldova Agroindbank
 
 == Description ==
 
-WooCommerce Payment Gateway for Moldova Agroindbank
+Accept Visa and Mastercard directly on your store with the Moldova Agroindbank payment gateway for WooCommerce.
 
 = Features =
 
 * Charge and Authorization card transaction types
-* Reverse transactions - partial or complete refunds
-* Admin order actions - complete authorized transaction
+* Reverse transactions – partial or complete refunds
+* Admin order actions – complete authorized transaction
 * Close business day scheduled action
+* Free to use – [Open-source GPL-3.0 license on GitHub](https://github.com/alexminza/wc-moldovaagroindbank)
 
 = Getting Started =
 
@@ -32,7 +33,7 @@ WooCommerce Payment Gateway for Moldova Agroindbank
 1. Configure the plugin Connection Settings by performing one of the following steps:
     * **BASIC**: Upload the PFX client certificate file received from the bank
     * **ADVANCED**: Convert and copy the private key and certificates PEM files to the server, securely set up the owner and file system permissions, configure the paths to the files
-2. Set the certificate / private key password (or leave the field empty if not encrypted)
+2. Set the certificate / private key password
 3. Provide the *Callback URL* to the bank to enable online payment notifications
 4. Enable *Test* and *Debug* modes in the plugin settings
 5. Perform the following tests and verify all the transactions are processed correctly:
@@ -50,7 +51,7 @@ Use the *WooCommerce > Settings > Payments > Moldova Agroindbank* screen to conf
 
 = Where can I get the Connection Settings data? =
 
-The merchant data and connection settings are provided by Moldova Agroindbank. This data is used by the plugin to connect to the Moldova Agroindbank payment gateway and process the card transactions. Please see [www.maib.md/e-commerce/](https://www.maib.md/e-commerce/) and contact [cards@maib.md](mailto:cards@maib.md) for details.
+The merchant data and connection settings are provided by Moldova Agroindbank. This data is used by the plugin to connect to the Moldova Agroindbank payment gateway and process the card transactions. Please see [https://www.maib.md/e-commerce/](https://www.maib.md/e-commerce/) and contact [cards@maib.md](mailto:cards@maib.md) for details.
 
 = What store settings are supported? =
 
@@ -81,12 +82,18 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 
 == Changelog ==
 
+See [wc-moldovaagroindbank project releases on GitHub](https://github.com/alexminza/wc-moldovaagroindbank/releases) for details.
+
+= 1.1.9 =
+* Added Verify transaction order action
+* Updated WC tested up to 4.5.2
+
 = 1.1.8 =
 Updated WC tested up to 4.1.0
 
 = 1.1.7 =
 Improved Close day scheduled action registration.
-For this feature to work properly at least WooCommerce 4 with [Action Scheduler 3](https://woocommerce.wordpress.com/2020/01/08/action-scheduler-3-0/) are required - see [bug fixes from PR #333](https://github.com/woocommerce/action-scheduler/pull/333) for details.
+For this feature to work properly at least WooCommerce 4 with [Action Scheduler 3](https://woocommerce.wordpress.com/2020/01/08/action-scheduler-3-0/) are required – see [bug fixes from PR #333](https://github.com/woocommerce/action-scheduler/pull/333) for details.
 
 = 1.1.6 =
 Added support for EUR and USD currencies
@@ -123,13 +130,6 @@ Initial release
 
 == Upgrade Notice ==
 
-= 1.1.8 =
-Updated WC tested up to 4.1.0
-
-= 1.1.7 =
-Improved Close day scheduled action registration.
-See Changelog for details.
-
-= 1.1 =
-Simplified payment gateway setup.
-See Changelog for details.
+= 1.1.9 =
+* Added Verify transaction order action
+* Updated WC tested up to 4.5.2
