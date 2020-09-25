@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Moldova Agroindbank Payment Gateway
  * Description: WooCommerce Payment Gateway for Moldova Agroindbank
  * Plugin URI: https://github.com/alexminza/wc-moldovaagroindbank
- * Version: 1.1.8
+ * Version: 1.1.9
  * Author: Alexander Minza
  * Author URI: https://profiles.wordpress.org/alexminza
  * Developer: Alexander Minza
@@ -13,9 +13,9 @@
  * License: GPLv3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Requires at least: 4.8
- * Tested up to: 5.4.1
+ * Tested up to: 5.5.1
  * WC requires at least: 3.3
- * WC tested up to: 4.1.0
+ * WC tested up to: 4.5.2
  */
 
 //Looking to contribute code to this plugin? Go ahead and fork the repository over at GitHub https://github.com/alexminza/wc-moldovaagroindbank
@@ -610,6 +610,8 @@ function woocommerce_moldovaagroindbank_init() {
 		#endregion
 
 		protected function init_maib_client() {
+			#http://docs.guzzlephp.org/en/stable/request-options.html
+			#https://www.php.net/manual/en/function.curl-setopt.php
 			$options = [
 				'base_url' => $this->base_url,
 				'debug'    => $this->debug,
@@ -617,14 +619,8 @@ function woocommerce_moldovaagroindbank_init() {
 				'defaults' => [
 					'verify'  => true,
 					'cert'    => $this->maib_pcert,
-					'ssl_key' => [$this->maib_key, $this->maib_key_password],
-					'config'  => [
-						'curl'  => [
-							CURLOPT_SSL_VERIFYHOST => true,
-							CURLOPT_SSL_VERIFYPEER => true,
-						]
-					]
-				],
+					'ssl_key' => [$this->maib_key, $this->maib_key_password]
+				]
 			];
 
 			#region Init Client
@@ -661,11 +657,12 @@ function woocommerce_moldovaagroindbank_init() {
 			$order_total = $this->price_format($order->get_total());
 			$order_currency_numcode = $this->get_currency_numcode($order->get_currency());
 			$order_description = $this->get_order_description($order);
-			$client_ip = $this->get_client_ip();
+			$client_ip = self::get_client_ip();
 			$lang = $this->get_language();
 
 			try {
 				$client = $this->init_maib_client();
+				$client_result = null;
 
 				switch($this->transaction_type) {
 					case self::TRANSACTION_TYPE_CHARGE:
@@ -795,11 +792,11 @@ function woocommerce_moldovaagroindbank_init() {
 		public function complete_transaction($order_id, $order) {
 			$this->log(sprintf('%1$s: OrderID=%2$s', __FUNCTION__, $order_id));
 
-			$trans_id = get_post_meta($order_id, self::MOD_TRANSACTION_ID, true);
+			$trans_id = $this->get_order_trans_id($order_id);
 			$order_total = $this->price_format($this->get_order_net_total($order));
 			$order_currency_numcode = $this->get_currency_numcode($order->get_currency());
 			$order_description = $this->get_order_description($order);
-			$client_ip = $this->get_client_ip();
+			$client_ip = self::get_client_ip();
 			$lang = $this->get_language();
 
 			try {
@@ -846,7 +843,7 @@ function woocommerce_moldovaagroindbank_init() {
 		public function refund_transaction($order_id, $order, $amount = null) {
 			$this->log(sprintf('%1$s: OrderID=%2$s Amount=%3$s', __FUNCTION__, $order_id, $amount));
 
-			$trans_id = get_post_meta($order_id, self::MOD_TRANSACTION_ID, true);
+			$trans_id = $this->get_order_trans_id($order_id);
 			$order_total = $order->get_total();
 			$order_currency = $order->get_currency();
 
@@ -898,16 +895,13 @@ function woocommerce_moldovaagroindbank_init() {
 		}
 
 		protected function check_transaction($trans_id) {
-			$client_ip = $this->get_client_ip();
-
-			$client = $this->init_maib_client();
-			$client_result = $client->getTransactionResult($trans_id, $client_ip);
+			$client_result = $this->get_transaction_result($trans_id);
 
 			if(!empty($client_result)) {
 				$result = $client_result[self::MAIB_RESULT];
 
 				if($result === self::MAIB_RESULT_OK) {
-					$result_code   = $client_result[self::MAIB_RESULT_CODE];
+					//$result_code   = $client_result[self::MAIB_RESULT_CODE];
 					$rrn           = $client_result[self::MAIB_RESULT_RRN];
 					$approval_code = $client_result[self::MAIB_RESULT_APPROVAL_CODE];
 
@@ -917,6 +911,22 @@ function woocommerce_moldovaagroindbank_init() {
 			}
 
 			return false;
+		}
+
+		protected function get_transaction_result($trans_id) {
+			$client_ip = self::get_client_ip();
+
+			$client_result = null;
+			try {
+				$client = $this->init_maib_client();
+				$client_result = $client->getTransactionResult($trans_id, $client_ip);
+
+				$this->log(self::print_var($client_result));
+			} catch(Exception $ex) {
+				$this->log($ex, WC_Log_Levels::ERROR);
+			}
+
+			return $client_result;
 		}
 
 		public function check_response() {
@@ -1031,7 +1041,7 @@ function woocommerce_moldovaagroindbank_init() {
 		}
 
 		public function receipt_page($order_id) {
-			//$trans_id = get_post_meta($order_id, self::MOD_TRANSACTION_ID, true);
+			//$trans_id = $this->get_order_trans_id($order_id);
 			$trans_id = $_GET[self::MAIB_TRANS_ID];
 			$trans_id = wc_clean($trans_id);
 
@@ -1130,6 +1140,11 @@ function woocommerce_moldovaagroindbank_init() {
 			return wc_get_order($order_id);
 		}
 
+		protected function get_order_trans_id($order_id) {
+			$trans_id = get_post_meta($order_id, self::MOD_TRANSACTION_ID, true);
+			return $trans_id;
+		}
+
 		/**
 		 * Format prices
 		 *
@@ -1173,9 +1188,7 @@ function woocommerce_moldovaagroindbank_init() {
 			return substr($lang, 0, 2);
 		}
 
-		protected function get_client_ip() {
-			//return $_SERVER['REMOTE_ADDR'];
-
+		static function get_client_ip() {
 			return WC_Geolocation::get_ip_address();
 		}
 
@@ -1252,17 +1265,20 @@ function woocommerce_moldovaagroindbank_init() {
 
 		static function order_actions($actions) {
 			global $theorder;
-			if(!$theorder->is_paid() || $theorder->get_payment_method() !== self::MOD_ID) {
+			if($theorder->get_payment_method() !== self::MOD_ID) {
 				return $actions;
 			}
 
-			$transaction_type = get_post_meta($theorder->get_id(), self::MOD_TRANSACTION_TYPE, true);
-			if($transaction_type !== self::TRANSACTION_TYPE_AUTHORIZATION) {
-				return $actions;
+			if($theorder->is_paid()) {
+				$transaction_type = get_post_meta($theorder->get_id(), self::MOD_TRANSACTION_TYPE, true);
+				if($transaction_type === self::TRANSACTION_TYPE_AUTHORIZATION) {
+					$actions['moldovaagroindbank_complete_transaction'] = sprintf(__('Complete %1$s transaction', self::MOD_TEXT_DOMAIN), self::MOD_TITLE);
+					//$actions['moldovaagroindbank_reverse_transaction'] = sprintf(__('Reverse %1$s transaction', self::MOD_TEXT_DOMAIN), self::MOD_TITLE);
+				}
+			} elseif ($theorder->has_status('pending')) {
+				$actions['moldovaagroindbank_verify_transaction'] = sprintf(__('Verify %1$s transaction', self::MOD_TEXT_DOMAIN), self::MOD_TITLE);
 			}
 
-			$actions['moldovaagroindbank_complete_transaction'] = sprintf(__('Complete %1$s transaction', self::MOD_TEXT_DOMAIN), self::MOD_TITLE);
-			//$actions['moldovaagroindbank_reverse_transaction'] = sprintf(__('Reverse %1$s transaction', self::MOD_TEXT_DOMAIN), self::MOD_TITLE);
 			return $actions;
 		}
 
@@ -1278,6 +1294,33 @@ function woocommerce_moldovaagroindbank_init() {
 
 			$plugin = new self();
 			return $plugin->refund_transaction($order_id, $order);
+		}
+
+		static function action_verify_transaction($order) {
+			$order_id = $order->get_id();
+
+			$plugin = new self();
+			$trans_id = $plugin->get_order_trans_id($order_id);
+
+			if(self::string_empty($trans_id)) {
+				$message = sprintf(__('%1$s Transaction ID not found for order #%2$d.', self::MOD_TEXT_DOMAIN), $plugin->method_title, $order_id);
+				$message = $plugin->get_order_message($message);
+				$plugin->log($message, WC_Log_Levels::ERROR);
+				$order->add_order_note($message);
+			}
+
+			$client_result = $plugin->get_transaction_result($trans_id);
+			if(empty($client_result)) {
+				$message = sprintf(__('Could not retrieve transaction status from %1$s for order #%2$d.', self::MOD_TEXT_DOMAIN), $plugin->method_title, $order_id);
+				$message = $plugin->get_order_message($message);
+				$plugin->log($message, WC_Log_Levels::ERROR);
+				$order->add_order_note($message);
+			} else {
+				$message = sprintf(__('Transaction status from %1$s for order #%2$d: %3$s', self::MOD_TEXT_DOMAIN), $plugin->method_title, $order_id, http_build_query($client_result));
+				$message = $plugin->get_order_message($message);
+				$plugin->log($message, WC_Log_Levels::INFO);
+				$order->add_order_note($message);
+			}
 		}
 
 		static function action_close_day() {
@@ -1362,6 +1405,7 @@ function woocommerce_moldovaagroindbank_init() {
 		add_filter('woocommerce_order_actions', array(WC_MoldovaAgroindbank::class, 'order_actions'));
 		add_action('woocommerce_order_action_moldovaagroindbank_complete_transaction', array(WC_MoldovaAgroindbank::class, 'action_complete_transaction'));
 		//add_action('woocommerce_order_action_moldovaagroindbank_reverse_transaction', array(WC_MoldovaAgroindbank::class, 'action_reverse_transaction'));
+		add_action('woocommerce_order_action_moldovaagroindbank_verify_transaction', array(WC_MoldovaAgroindbank::class, 'action_verify_transaction'));
 	}
 	#endregion
 
