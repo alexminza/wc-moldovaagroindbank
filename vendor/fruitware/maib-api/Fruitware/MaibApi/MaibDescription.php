@@ -7,16 +7,17 @@ use GuzzleHttp\Command\Guzzle\Description;
 class MaibDescription extends Description {
 	/**
 	 * @param array $options Custom options to apply to the description
+	 * @param string $merchantHandler Merchant Handler URI
 	 *     - formatter: Can provide a custom SchemaFormatter class
 	 */
-	public function __construct( array $options = [ ] ) {
+	public function __construct( array $options = [ ], $merchantHandler = '/ecomm2/MerchantHandler' ) {
 		parent::__construct( [
 			'name'       => 'Maib API',
 //            'baseUrl' => 'https://ecomm.maib.md:4455/ecomm2/MerchantHandler/', // demo server
 			'operations' => [
 				'registerSmsTransaction'   => [
 					'httpMethod'    => 'POST',
-					'uri'           => '/ecomm2/MerchantHandler',
+					'uri'           => $merchantHandler,
 					'description'   => 'identifies the request for register SMS transaction',
 					'responseModel' => 'getResponse',
 					'parameters'    => [
@@ -65,7 +66,7 @@ class MaibDescription extends Description {
 				],
 				'registerDmsAuthorization' => [
 					'httpMethod'    => 'POST',
-					'uri'           => '/ecomm2/MerchantHandler',
+					'uri'           => $merchantHandler,
 					'description'   => 'identifies the request for register DMS transaction',
 					'responseModel' => 'getResponse',
 					'parameters'    => [
@@ -115,7 +116,7 @@ class MaibDescription extends Description {
 				],
 				'makeDMSTrans'             => [
 					'httpMethod'    => 'POST',
-					'uri'           => '/ecomm2/MerchantHandler',
+					'uri'           => $merchantHandler,
 					'description'   => 'identifies the request for execute DMS transaction',
 					'responseModel' => 'getResponse',
 					'parameters'    => [
@@ -170,7 +171,7 @@ class MaibDescription extends Description {
 				],
 				'getTransactionResult'     => [
 					'httpMethod'    => 'POST',
-					'uri'           => '/ecomm2/MerchantHandler',
+					'uri'           => $merchantHandler,
 					'description'   => 'identifies the request for get transaction result',
 					'responseModel' => 'getResponse',
 					'parameters'    => [
@@ -195,7 +196,7 @@ class MaibDescription extends Description {
 				],
 				'revertTransaction'        => [
 					'httpMethod'    => 'POST',
-					'uri'           => '/ecomm2/MerchantHandler',
+					'uri'           => $merchantHandler,
 					'description'   => 'identifies the request for revert transaction',
 					'responseModel' => 'getResponse',
 					'parameters'    => [
@@ -219,7 +220,7 @@ class MaibDescription extends Description {
 				],
 				'closeDay'                 => [
 					'httpMethod'    => 'POST',
-					'uri'           => '/ecomm2/MerchantHandler',
+					'uri'           => $merchantHandler,
 					'description'   => 'End of business day',
 					'responseModel' => 'getResponse',
 					'parameters'    => [
