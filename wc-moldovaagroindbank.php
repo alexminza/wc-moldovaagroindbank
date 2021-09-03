@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Moldova Agroindbank Payment Gateway
  * Description: Accept Visa and Mastercard directly on your store with the Moldova Agroindbank payment gateway for WooCommerce.
  * Plugin URI: https://github.com/alexminza/wc-moldovaagroindbank
- * Version: 1.2.0
+ * Version: 1.2.1
  * Author: Alexander Minza
  * Author URI: https://profiles.wordpress.org/alexminza
  * Developer: Alexander Minza
@@ -13,9 +13,9 @@
  * License: GPLv3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Requires at least: 4.8
- * Tested up to: 5.6
+ * Tested up to: 5.7.2
  * WC requires at least: 3.3
- * WC tested up to: 4.8.0
+ * WC tested up to: 5.4.1
  */
 
 //Looking to contribute code to this plugin? Go ahead and fork the repository over at GitHub https://github.com/alexminza/wc-moldovaagroindbank
@@ -97,9 +97,6 @@ function woocommerce_moldovaagroindbank_init() {
 			$this->has_fields         = false;
 			$this->supports           = array('products', 'refunds');
 
-			$this->init_form_fields();
-			$this->init_settings();
-
 			#region Initialize user set variables
 			$this->enabled            = $this->get_option('enabled', 'yes');
 			$this->title              = $this->get_option('title', $this->method_title);
@@ -123,14 +120,18 @@ function woocommerce_moldovaagroindbank_init() {
 
 			$this->order_template     = $this->get_option('order_template', self::ORDER_TEMPLATE);
 
-			$this->base_url           = ($this->testmode ? 'https://ecomm.maib.md:4499' : 'https://ecomm.maib.md:4455');
-			$this->client_handler_url = ($this->testmode ? 'https://ecomm.maib.md:7443/ecomm2/ClientHandler' : 'https://ecomm.maib.md/ecomm2/ClientHandler');
-			$this->skip_receipt_page  = true;
+			$this->base_url             = ($this->testmode ? 'https://ecomm.maib.md:4499' : 'https://maib.ecommerce.md:11440');
+			$this->client_handler_url   = ($this->testmode ? 'https://ecomm.maib.md:7443/ecomm2/ClientHandler' : 'https://maib.ecommerce.md:443/ecomm01/ClientHandler');
+			$this->merchant_handler_url = ($this->testmode ? '/ecomm2/MerchantHandler' : '/ecomm01/MerchantHandler');
+			$this->skip_receipt_page    = true;
 
 			$this->maib_pfxcert       = $this->get_option('maib_pfxcert');
 			$this->maib_pcert         = $this->get_option('maib_pcert');
 			$this->maib_key           = $this->get_option('maib_key');
 			$this->maib_key_password  = $this->get_option('maib_key_password');
+
+			$this->init_form_fields();
+			$this->init_settings();
 
 			$this->initialize_certificates();
 
@@ -279,6 +280,7 @@ function woocommerce_moldovaagroindbank_init() {
 					'type'        => 'text',
 					//'default'     => $this->get_callback_url(),
 					//'disabled'    => true,
+					'desc_tip'    => sprintf(__('Bank payment gateway URL: %1$s', self::MOD_TEXT_DOMAIN), esc_url($this->get_maib_gateway_url())),
 					'custom_attributes' => array(
 						'readonly' => 'readonly'
 					)
@@ -632,7 +634,9 @@ function woocommerce_moldovaagroindbank_init() {
 
 			#region Init Client
 			$guzzleClient = new Client($options);
-			$client = new MaibClient($guzzleClient);
+			//https://github.com/alexminza/wc-moldovaagroindbank/issues/17#issuecomment-850337174
+			$maibDescription = new MaibDescription([], $this->merchant_handler_url);
+			$client = new MaibClient($guzzleClient, $maibDescription);
 
 			if($this->debug) {
 				//Create a log for client class (monolog/monolog required)
@@ -645,6 +649,11 @@ function woocommerce_moldovaagroindbank_init() {
 			#endregion
 
 			return $client;
+		}
+
+		protected function get_maib_gateway_url() {
+			$gateway_url = $this->base_url . $this->merchant_handler_url;
+			return $gateway_url;
 		}
 
 		public function process_payment($order_id) {
