@@ -3,7 +3,7 @@ Contributors: alexminza
 Donate link: https://www.paypal.me/AlexMinza
 Tags: WooCommerce, Moldova, Agroindbank, MAIB, bank, payment, gateway, visa, mastercard, credit card
 Requires at least: 4.8
-Tested up to: 5.7.2
+Tested up to: 5.8.1
 Stable tag: trunk
 Requires PHP: 7.0
 License: GPLv3 or later
@@ -84,6 +84,10 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 
 See [wc-moldovaagroindbank project releases on GitHub](https://github.com/alexminza/wc-moldovaagroindbank/releases) for details.
 
+= 1.2.2 =
+Fixed refund transaction amount parameter in the underlying third party module.
+See [GitHub Fruitware/MaibApi issue #6](https://github.com/Fruitware/MaibApi/issues/6) and [Pull request #7](https://github.com/Fruitware/MaibApi/pull/7) for details.
+
 = 1.2.1 =
 Modified MAIB payment gateway URL for 3DS v2 compliance
 
@@ -129,6 +133,9 @@ Basic and Advanced settings configuration modes
 Initial release
 
 == Upgrade Notice ==
+
+= 1.2.2 =
+Fixed refund transaction amount parameter in the underlying third party module
 
 = 1.2.1 =
 Modified MAIB payment gateway URL for 3DS v2 compliance
