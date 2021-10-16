@@ -19,6 +19,6 @@
     },
     "require": {
         "php": ">=7.0",
-        "fruitware/maib-api": "^0.1.3"
+        "fruitware/maib-api": "dev-master"
     }
 }

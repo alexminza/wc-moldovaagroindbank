@@ -25,15 +25,15 @@ use Monolog\Logger;
 $options = [
 	'base_url' => 'https://ecomm.maib.md:4455',
 	'debug'  => true,
-	'verify' => false,
+	'verify' => true,
 	'defaults' => [
-		'verify' => __DIR__.'/cert/cacert.pem',
+		'verify' => true,
 		'cert'    => [__DIR__.'/cert/pcert.pem', 'Pem_pass'],
 		'ssl_key' => __DIR__.'/cert/key.pem',
 		'config'  => [
 			'curl'  =>  [
-				CURLOPT_SSL_VERIFYHOST => false,
-				CURLOPT_SSL_VERIFYPEER => false,
+				CURLOPT_SSL_VERIFYHOST => true,
+				CURLOPT_SSL_VERIFYPEER => true,
 			]
 		]
 	],

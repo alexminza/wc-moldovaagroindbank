@@ -210,7 +210,7 @@ class MaibDescription extends Description {
 							'location' => 'postField',
 							'required' => true,
 						],
-						'amount '  => [
+						'amount'   => [
 							'type'     => 'string',
 							'location' => 'postField',
 							'required' => false,
