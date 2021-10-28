@@ -84,6 +84,10 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 
 See [wc-moldovaagroindbank project releases on GitHub](https://github.com/alexminza/wc-moldovaagroindbank/releases) for details.
 
+= 1.2.3 =
+Fixed refund transaction amount value in the underlying third party module.
+See [GitHub Fruitware/MaibApi issue #9](https://github.com/Fruitware/MaibApi/issues/9) and [Pull request #10](https://github.com/Fruitware/MaibApi/pull/10) for details.
+
 = 1.2.2 =
 Fixed refund transaction amount parameter in the underlying third party module.
 See [GitHub Fruitware/MaibApi issue #6](https://github.com/Fruitware/MaibApi/issues/6) and [Pull request #7](https://github.com/Fruitware/MaibApi/pull/7) for details.
@@ -133,6 +137,9 @@ Basic and Advanced settings configuration modes
 Initial release
 
 == Upgrade Notice ==
+
+= 1.2.3 =
+Fixed refund transaction amount value in the underlying third party module.
 
 = 1.2.2 =
 Fixed refund transaction amount parameter in the underlying third party module

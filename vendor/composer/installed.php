@@ -5,7 +5,7 @@
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '6d7057339a2e9b1eb1b16637ea270cfe18567a72',
+        'reference' => '0aa73bcb4d14602d66383688ab99653cb581445a',
         'name' => 'alexminza/wc-moldovaagroindbank',
         'dev' => false,
     ),
@@ -16,7 +16,7 @@
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '6d7057339a2e9b1eb1b16637ea270cfe18567a72',
+            'reference' => '0aa73bcb4d14602d66383688ab99653cb581445a',
             'dev_requirement' => false,
         ),
         'fruitware/maib-api' => array(
@@ -27,7 +27,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => 'deb65d6a43e14962dd2f7dd2042f9126cf8d6c2a',
+            'reference' => '7bf2cbf7e6de214afe64d307e706bedf86ec4c38',
             'dev_requirement' => false,
         ),
         'guzzlehttp/command' => array(

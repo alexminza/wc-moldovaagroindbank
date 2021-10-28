@@ -217,7 +217,7 @@ class MaibClient extends GuzzleClient
 		$args = array(
 			'command'  => 'r',
 			'trans_id' => $transId,
-			'amount' => $amount,
+			'amount' => (string)($amount * 100),
 		);
 
 		return parent::revertTransaction($args);

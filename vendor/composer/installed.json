@@ -8,12 +8,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Fruitware/MaibApi.git",
-                "reference": "deb65d6a43e14962dd2f7dd2042f9126cf8d6c2a"
+                "reference": "7bf2cbf7e6de214afe64d307e706bedf86ec4c38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Fruitware/MaibApi/zipball/deb65d6a43e14962dd2f7dd2042f9126cf8d6c2a",
-                "reference": "deb65d6a43e14962dd2f7dd2042f9126cf8d6c2a",
+                "url": "https://api.github.com/repos/Fruitware/MaibApi/zipball/7bf2cbf7e6de214afe64d307e706bedf86ec4c38",
+                "reference": "7bf2cbf7e6de214afe64d307e706bedf86ec4c38",
                 "shasum": ""
             },
             "require": {
@@ -23,7 +23,7 @@
                 "monolog/monolog": "~1.14",
                 "php": ">=5.4.0"
             },
-            "time": "2021-10-02T09:13:19+00:00",
+            "time": "2021-10-27T16:50:57+00:00",
             "default-branch": true,
             "type": "library",
             "installation-source": "dist",
