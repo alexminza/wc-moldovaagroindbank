@@ -1,9 +1,9 @@
 === WooCommerce Moldova Agroindbank Payment Gateway ===
 Contributors: alexminza
 Donate link: https://www.paypal.me/AlexMinza
-Tags: WooCommerce, Moldova, Agroindbank, MAIB, bank, payment, gateway, visa, mastercard, credit card
+Tags: WooCommerce, Moldova, Agroindbank, maib, bank, payment, gateway, visa, mastercard, credit card
 Requires at least: 4.8
-Tested up to: 5.8.1
+Tested up to: 6.0
 Stable tag: trunk
 Requires PHP: 7.0
 License: GPLv3 or later
@@ -51,7 +51,7 @@ Use the *WooCommerce > Settings > Payments > Moldova Agroindbank* screen to conf
 
 = Where can I get the Connection Settings data? =
 
-The merchant data and connection settings are provided by Moldova Agroindbank. This data is used by the plugin to connect to the Moldova Agroindbank payment gateway and process the card transactions. Please see [https://www.maib.md/e-commerce/](https://www.maib.md/e-commerce/) and contact [cards@maib.md](mailto:cards@maib.md) for details.
+The merchant data and connection settings are provided by Moldova Agroindbank. This data is used by the plugin to connect to the Moldova Agroindbank payment gateway and process the card transactions. Please see [https://www.maib.md/ro/persoane-juridice/acceptare-plati/e-commerce](https://www.maib.md/ro/persoane-juridice/acceptare-plati/e-commerce) and contact [ecom@maib.md](mailto:ecom@maib.md) for details.
 
 = What store settings are supported? =
 
@@ -83,6 +83,9 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 == Changelog ==
 
 See [wc-moldovaagroindbank project releases on GitHub](https://github.com/alexminza/wc-moldovaagroindbank/releases) for details.
+
+= 1.2.4 =
+Updated maib test payment gateway URL and visual identity
 
 = 1.2.3 =
 Fixed refund transaction amount value in the underlying third party module.
@@ -137,6 +140,9 @@ Basic and Advanced settings configuration modes
 Initial release
 
 == Upgrade Notice ==
+
+= 1.2.4 =
+Updated maib test payment gateway URL and visual identity
 
 = 1.2.3 =
 Fixed refund transaction amount value in the underlying third party module.
