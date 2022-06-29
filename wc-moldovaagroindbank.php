@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Moldova Agroindbank Payment Gateway
  * Description: Accept Visa and Mastercard directly on your store with the Moldova Agroindbank payment gateway for WooCommerce.
  * Plugin URI: https://github.com/alexminza/wc-moldovaagroindbank
- * Version: 1.2.3
+ * Version: 1.2.4
  * Author: Alexander Minza
  * Author URI: https://profiles.wordpress.org/alexminza
  * Developer: Alexander Minza
@@ -13,9 +13,9 @@
  * License: GPLv3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Requires at least: 4.8
- * Tested up to: 5.8.1
+ * Tested up to: 6.0
  * WC requires at least: 3.3
- * WC tested up to: 5.8.0
+ * WC tested up to: 6.6.1
  */
 
 //Looking to contribute code to this plugin? Go ahead and fork the repository over at GitHub https://github.com/alexminza/wc-moldovaagroindbank
@@ -93,7 +93,7 @@ function woocommerce_moldovaagroindbank_init() {
 			$this->id                 = self::MOD_ID;
 			$this->method_title       = self::MOD_TITLE;
 			$this->method_description = 'WooCommerce Payment Gateway for Moldova Agroindbank';
-			$this->icon               = apply_filters('woocommerce_moldovaagroindbank_icon', $plugin_dir . 'assets/img/moldovaagroindbank.png');
+			$this->icon               = apply_filters('woocommerce_moldovaagroindbank_icon', $plugin_dir . 'assets/img/maib.png');
 			$this->has_fields         = false;
 			$this->supports           = array('products', 'refunds');
 
@@ -103,7 +103,7 @@ function woocommerce_moldovaagroindbank_init() {
 			$this->description        = $this->get_option('description');
 
 			$this->logo_type          = $this->get_option('logo_type', self::LOGO_TYPE_BANK);
-			$this->bank_logo          = $plugin_dir . 'assets/img/moldovaagroindbank.png';
+			$this->bank_logo          = $plugin_dir . 'assets/img/maib.png';
 			$this->systems_logo       = $plugin_dir . 'assets/img/paymentsystems.png';
 			$plugin_icon              = ($this->logo_type === self::LOGO_TYPE_BANK ? $this->bank_logo : $this->systems_logo);
 			$this->icon               = apply_filters('woocommerce_moldovaagroindbank_icon', $plugin_icon);
@@ -120,9 +120,9 @@ function woocommerce_moldovaagroindbank_init() {
 
 			$this->order_template     = $this->get_option('order_template', self::ORDER_TEMPLATE);
 
-			$this->base_url             = ($this->testmode ? 'https://ecomm.maib.md:4499' : 'https://maib.ecommerce.md:11440');
-			$this->client_handler_url   = ($this->testmode ? 'https://ecomm.maib.md:7443/ecomm2/ClientHandler' : 'https://maib.ecommerce.md:443/ecomm01/ClientHandler');
-			$this->merchant_handler_url = ($this->testmode ? '/ecomm2/MerchantHandler' : '/ecomm01/MerchantHandler');
+			$this->base_url             = ($this->testmode ? 'https://maib.ecommerce.md:21440' : 'https://maib.ecommerce.md:11440');
+			$this->client_handler_url   = ($this->testmode ? 'https://maib.ecommerce.md:21443/ecomm/ClientHandler' : 'https://maib.ecommerce.md:443/ecomm01/ClientHandler');
+			$this->merchant_handler_url = ($this->testmode ? '/ecomm/MerchantHandler' : '/ecomm01/MerchantHandler');
 			$this->skip_receipt_page    = true;
 
 			$this->maib_pfxcert       = $this->get_option('maib_pfxcert');
