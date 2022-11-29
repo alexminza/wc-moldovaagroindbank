@@ -552,17 +552,17 @@ function woocommerce_moldovaagroindbank_init() {
 				if(isset($pfxCerts['pkey'])) {
 					$pfxPkey = null;
 					if(openssl_pkey_export($pfxCerts['pkey'], $pfxPkey, $pfxPassphrase)) {
-						$result['key'] = $this->save_temp_file($pfxPkey, 'key.pem');
+						$result['key'] = self::save_temp_file($pfxPkey, 'key.pem');
 
 						if(isset($pfxCerts['cert']))
-							$result['pcert'] = $this->save_temp_file($pfxCerts['cert'], 'pcert.pem');
+							$result['pcert'] = self::save_temp_file($pfxCerts['cert'], 'pcert.pem');
 
 						/*if(isset($pfxCerts['extracerts'])) {
 							$pfxExtraCerts = '';
 							foreach($pfxCerts['extracerts'] as $extraCert)
 								$pfxExtraCerts .= $extraCert;
 
-							$result['cacert'] = $this->save_temp_file($pfxExtraCerts, 'cacert.pem');
+							$result['cacert'] = self::save_temp_file($pfxExtraCerts, 'cacert.pem');
 						}*/
 					}
 				}
@@ -583,7 +583,7 @@ function woocommerce_moldovaagroindbank_init() {
 				$this->log($opensslError, WC_Log_Levels::ERROR);
 		}
 
-		protected function save_temp_file($fileData, $fileSuffix = '') {
+		static function save_temp_file($fileData, $fileSuffix = '') {
 			//http://www.pathname.com/fhs/pub/fhs-2.3.html#TMPTEMPORARYFILES
 			$tempFileName = sprintf('%1$s%2$s_', self::MOD_PREFIX, $fileSuffix);
 			$temp_file = tempnam(get_temp_dir(),  $tempFileName);
