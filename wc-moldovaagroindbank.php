@@ -1183,7 +1183,7 @@ function woocommerce_moldovaagroindbank_init() {
 				$order->get_id(),
 				$this->get_order_items_summary($order)
 			);
-			return apply_filters('woocommerce_moldovaagroindbank_order_description', $description, $order);
+			return apply_filters(self::MOD_ID . '_order_description', $description, $order);
 		}
 
 		protected function get_order_items_summary($order) {
