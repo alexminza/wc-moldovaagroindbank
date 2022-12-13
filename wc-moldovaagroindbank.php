@@ -691,9 +691,7 @@ function woocommerce_moldovaagroindbank_init() {
 			$message = sprintf(__('Payment initiation failed via %1$s: %2$s', self::MOD_TEXT_DOMAIN), $this->method_title, self::print_http_query($register_result));
 			$message = $this->get_order_message($message);
 			$order->add_order_note($message);
-
 			$this->log($message, WC_Log_Levels::ERROR);
-			$this->log(self::print_var($register_result), WC_Log_Levels::ERROR);
 
 			$message = sprintf(__('Order #%1$s payment initiation failed via %2$s.', self::MOD_TEXT_DOMAIN), $order_id, $this->method_title);
 			wc_add_notice($message, 'error');
@@ -746,9 +744,7 @@ function woocommerce_moldovaagroindbank_init() {
 			$message = sprintf(__('Payment completion failed via %1$s: %2$s', self::MOD_TEXT_DOMAIN), $this->method_title, self::print_http_query($complete_result));
 			$message = $this->get_order_message($message);
 			$order->add_order_note($message);
-
 			$this->log($message, WC_Log_Levels::ERROR);
-			$this->log(self::print_var($complete_result), WC_Log_Levels::ERROR);
 
 			$this->logs_admin_notice();
 
@@ -786,9 +782,7 @@ function woocommerce_moldovaagroindbank_init() {
 			$message = sprintf(__('Could not retrieve transaction status from %1$s for order #%2$s.', self::MOD_TEXT_DOMAIN), $this->method_title, $order_id);
 			$message = $this->get_order_message($message);
 			$order->add_order_note($message);
-
 			$this->log($message, WC_Log_Levels::ERROR);
-			$this->log(self::print_var($transaction_result), WC_Log_Levels::ERROR);
 
 			$this->logs_admin_notice();
 
@@ -881,9 +875,7 @@ function woocommerce_moldovaagroindbank_init() {
 			$message = sprintf(__('Payment failed via %1$s: %2$s', self::MOD_TEXT_DOMAIN), $this->method_title, self::print_http_query($transaction_result));
 			$message = $this->get_order_message($message);
 			$order->add_order_note($message);
-
 			$this->log($message, WC_Log_Levels::ERROR);
-			$this->log(self::print_var($transaction_result), WC_Log_Levels::ERROR);
 
 			$message = sprintf(__('Order #%1$s payment failed via %2$s.', self::MOD_TEXT_DOMAIN), $order_id, $this->method_title);
 			wc_add_notice($message, 'error');
@@ -966,9 +958,7 @@ function woocommerce_moldovaagroindbank_init() {
 			$message = sprintf(__('Refund of %1$s %2$s via %3$s failed: %4$s', self::MOD_TEXT_DOMAIN), $amount, $order_currency, $this->method_title, self::print_http_query($revert_result));
 			$message = $this->get_order_message($message);
 			$order->add_order_note($message);
-
 			$this->log($message, WC_Log_Levels::ERROR);
-			$this->log(self::print_var($revert_result), WC_Log_Levels::ERROR);
 
 			$this->logs_admin_notice();
 
@@ -1003,7 +993,6 @@ function woocommerce_moldovaagroindbank_init() {
 
 			$message = sprintf(__('Close business day via %1$s failed: %2$s', self::MOD_TEXT_DOMAIN), $this->method_title, $message_result);
 			$this->log($message, WC_Log_Levels::ERROR);
-			$this->log(self::print_var($closeday_result), WC_Log_Levels::ERROR);
 
 			return $message;
 		}
