@@ -111,7 +111,6 @@ function woocommerce_moldovaagroindbank_init() {
 			#https://github.com/maibank/maibapi/blob/main/src/MaibApi/MaibClient.php
 			$this->base_url           = $this->testmode ? MaibClient::MAIB_TEST_BASE_URI : MaibClient::MAIB_LIVE_BASE_URI;
 			$this->redirect_url       = $this->testmode ? MaibClient::MAIB_TEST_REDIRECT_URL : MaibClient::MAIB_LIVE_REDIRECT_URL;
-			$this->skip_receipt_page  = true;
 
 			$this->maib_pfxcert       = $this->get_option('maib_pfxcert');
 			$this->maib_pcert         = $this->get_option('maib_pcert');
@@ -122,14 +121,11 @@ function woocommerce_moldovaagroindbank_init() {
 			$this->init_settings();
 
 			$this->initialize_certificates();
-
-			$this->update_option('maib_callback_url', self::get_callback_url());
 			#endregion
 
 			if(is_admin())
 				add_action('woocommerce_update_options_payment_gateways_' . $this->id, array($this, 'process_admin_options'));
 
-			add_action('woocommerce_receipt_' . $this->id, array($this, 'receipt_page'));
 			add_action('woocommerce_api_wc_' . $this->id, array($this, 'check_response'));
 		}
 
@@ -144,20 +140,23 @@ function woocommerce_moldovaagroindbank_init() {
 				'title'           => array(
 					'title'       => __('Title', self::MOD_TEXT_DOMAIN),
 					'type'        => 'text',
-					'desc_tip'    => __('Payment method title that the customer will see during checkout.', self::MOD_TEXT_DOMAIN),
+					'description' => __('Payment method title that the customer will see during checkout.', self::MOD_TEXT_DOMAIN),
+					'desc_tip'    => true,
 					'default'     => self::MOD_TITLE
 				),
 				'description'     => array(
 					'title'       => __('Description', self::MOD_TEXT_DOMAIN),
 					'type'        => 'textarea',
-					'desc_tip'    => __('Payment method description that the customer will see during checkout.', self::MOD_TEXT_DOMAIN),
+					'description' => __('Payment method description that the customer will see during checkout.', self::MOD_TEXT_DOMAIN),
+					'desc_tip'    => true,
 					'default'     => ''
 				),
 				'logo_type' => array(
 					'title'       => __('Logo', self::MOD_TEXT_DOMAIN),
 					'type'        => 'select',
 					'class'       => 'wc-enhanced-select',
-					'desc_tip'    => __('Payment method logo image that the customer will see during checkout.', self::MOD_TEXT_DOMAIN),
+					'description' => __('Payment method logo image that the customer will see during checkout.', self::MOD_TEXT_DOMAIN),
+					'desc_tip'    => true,
 					'default'     => self::LOGO_TYPE_BANK,
 					'options'     => array(
 						self::LOGO_TYPE_BANK    => __('Bank logo', self::MOD_TEXT_DOMAIN),
@@ -170,7 +169,8 @@ function woocommerce_moldovaagroindbank_init() {
 					'title'       => __('Test mode', self::MOD_TEXT_DOMAIN),
 					'type'        => 'checkbox',
 					'label'       => __('Enabled', self::MOD_TEXT_DOMAIN),
-					'desc_tip'    => __('Use Test or Live bank gateway to process the payments. Disable when ready to accept live payments.', self::MOD_TEXT_DOMAIN),
+					'description' => __('Use Test or Live bank gateway to process the payments. Disable when ready to accept live payments.', self::MOD_TEXT_DOMAIN),
+					'desc_tip'    => true,
 					'default'     => 'no'
 				),
 				'debug'           => array(
@@ -183,12 +183,13 @@ function woocommerce_moldovaagroindbank_init() {
 				),
 
 				'transaction_type' => array(
-					'title'       => __('Transaction type', self::MOD_TEXT_DOMAIN),
-					'type'        => 'select',
-					'class'       => 'wc-enhanced-select',
-					'desc_tip'    => __('Select how transactions should be processed. Charge submits all transactions for settlement, Authorization simply authorizes the order total for capture later.', self::MOD_TEXT_DOMAIN),
-					'default'     => self::TRANSACTION_TYPE_CHARGE,
-					'options'     => array(
+					'title'        => __('Transaction type', self::MOD_TEXT_DOMAIN),
+					'type'         => 'select',
+					'class'        => 'wc-enhanced-select',
+					'description'  => __('Select how transactions should be processed. Charge submits all transactions for settlement, Authorization simply authorizes the order total for capture later.', self::MOD_TEXT_DOMAIN),
+					'desc_tip'     => true,
+					'default'      => self::TRANSACTION_TYPE_CHARGE,
+					'options'      => array(
 						self::TRANSACTION_TYPE_CHARGE        => __('Charge', self::MOD_TEXT_DOMAIN),
 						self::TRANSACTION_TYPE_AUTHORIZATION => __('Authorization', self::MOD_TEXT_DOMAIN)
 					)
@@ -213,7 +214,8 @@ function woocommerce_moldovaagroindbank_init() {
 				'maib_pfxcert' => array(
 					'title'       => __('Client certificate (PFX)', self::MOD_TEXT_DOMAIN),
 					'type'        => 'file',
-					'desc_tip'    => __('Uploaded PFX certificate will be processed and converted to PEM format. Advanced settings will be overwritten and configured automatically.', self::MOD_TEXT_DOMAIN),
+					'description' => __('Uploaded PFX certificate will be processed and converted to PEM format. Advanced settings will be overwritten and configured automatically.', self::MOD_TEXT_DOMAIN),
+					'desc_tip'    => true,
 					'custom_attributes' => array(
 						'accept' => '.pfx'
 					)
@@ -234,25 +236,19 @@ function woocommerce_moldovaagroindbank_init() {
 				'maib_key_password' => array(
 					'title'       => __('Certificate / private key passphrase', self::MOD_TEXT_DOMAIN),
 					'type'        => 'password',
-					'desc_tip'    => __('Leave empty if certificate / private key is not encrypted.', self::MOD_TEXT_DOMAIN),
+					'description' => __('Leave empty if certificate / private key is not encrypted.', self::MOD_TEXT_DOMAIN),
+					'desc_tip'    => true,
 					'placeholder' => __('Optional', self::MOD_TEXT_DOMAIN),
 					'default'     => ''
 				),
 
 				'payment_notification' => array(
 					'title'       => __('Payment Notification', self::MOD_TEXT_DOMAIN),
-					'description' => __('Provide this URL to the bank to enable online payment notifications.', self::MOD_TEXT_DOMAIN),
+					'description' => sprintf('%1$s<br /><br /><b>%2$s:</b> <code>%3$s</code>',
+						__('Provide this URL to the bank to enable online payment notifications.', self::MOD_TEXT_DOMAIN),
+						__('Callback URL', self::MOD_TEXT_DOMAIN),
+						esc_url(self::get_callback_url())),
 					'type'        => 'title'
-				),
-				'maib_callback_url'  => array(
-					'title'       => __('Callback URL', self::MOD_TEXT_DOMAIN),
-					'type'        => 'text',
-					//'default'     => self::get_callback_url(),
-					//'disabled'    => true,
-					'desc_tip'    => sprintf(__('Bank payment gateway URL: %1$s', self::MOD_TEXT_DOMAIN), esc_url($this->base_url)),
-					'custom_attributes' => array(
-						'readonly' => 'readonly'
-					)
 				)
 			);
 		}
@@ -677,9 +673,7 @@ function woocommerce_moldovaagroindbank_init() {
 					$this->log($message, WC_Log_Levels::INFO);
 					$order->add_order_note($message);
 
-					$redirect = add_query_arg(self::MAIB_TRANS_ID, urlencode($trans_id), $this->skip_receipt_page
-						? $this->redirect_url
-						: $order->get_checkout_payment_url(true));
+					$redirect = add_query_arg(self::MAIB_TRANS_ID, urlencode($trans_id), $this->redirect_url);
 
 					return array(
 						'result'   => 'success',
@@ -883,39 +877,6 @@ function woocommerce_moldovaagroindbank_init() {
 
 			wp_safe_redirect($order->get_checkout_payment_url());
 			return false;
-		}
-
-		protected function generate_form($trans_id) {
-			$form_html = '<form name="returnform" action="%1$s" method="POST">
-				<input type="hidden" name="trans_id" value="%2$s">
-				<input type="submit" name="submit" class="button alt" value="%3$s">
-			</form>';
-
-			return sprintf($form_html,
-				$this->redirect_url,
-				$trans_id,
-				__('Pay', self::MOD_TEXT_DOMAIN)
-			);
-		}
-
-		public function receipt_page($order_id) {
-			$trans_id = $_GET[self::MAIB_TRANS_ID];
-			$trans_id = wc_clean($trans_id);
-
-			if(self::string_empty($trans_id)) {
-				$message = sprintf(__('Transaction ID not found for order #%1$s', self::MOD_TEXT_DOMAIN), $order_id);
-				$this->log($message, WC_Log_Levels::ERROR);
-
-				wc_add_notice($message, 'error');
-				$this->logs_admin_website_notice();
-
-				return array(
-					'result'   => 'failure',
-					'messages' => $message
-				);
-			}
-
-			echo $this->generate_form($trans_id);
 		}
 
 		public function process_refund($order_id, $amount = null, $reason = '') {
@@ -1268,9 +1229,7 @@ function woocommerce_moldovaagroindbank_init() {
 	}
 	#endregion
 
-	#region Scheduled actions
 	add_action(WC_MoldovaAgroindbank::MOD_CLOSEDAY_ACTION, array(WC_MoldovaAgroindbank::class, 'action_close_day'));
-	#endregion
 }
 
 #region Register activation hooks
