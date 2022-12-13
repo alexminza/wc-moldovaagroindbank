@@ -1179,10 +1179,11 @@ function woocommerce_moldovaagroindbank_init() {
 		}
 
 		protected function get_order_description($order) {
-			return sprintf(__($this->order_template, self::MOD_TEXT_DOMAIN),
+			$description = sprintf(__($this->order_template, self::MOD_TEXT_DOMAIN),
 				$order->get_id(),
 				$this->get_order_items_summary($order)
 			);
+			return apply_filters(self::MOD_ID . '_order_description', $description, $order);
 		}
 
 		protected function get_order_items_summary($order) {
