@@ -1,12 +1,11 @@
 <?php
-namespace GuzzleHttp\Tests\Command\Guzzle;
+namespace GuzzleHttp\Tests\Command\Guzzle\RequestLocation;
 
 use GuzzleHttp\Command\Command;
-use GuzzleHttp\Command\Guzzle\RequestLocation\HeaderLocation;
-use GuzzleHttp\Message\Request;
-use GuzzleHttp\Command\Guzzle\Parameter;
 use GuzzleHttp\Command\Guzzle\Operation;
-use GuzzleHttp\Command\Guzzle\Description;
+use GuzzleHttp\Command\Guzzle\Parameter;
+use GuzzleHttp\Command\Guzzle\RequestLocation\HeaderLocation;
+use GuzzleHttp\Psr7\Request;
 
 /**
  * @covers \GuzzleHttp\Command\Guzzle\RequestLocation\HeaderLocation
@@ -14,16 +13,25 @@ use GuzzleHttp\Command\Guzzle\Description;
  */
 class HeaderLocationTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @group RequestLocation
+     */
     public function testVisitsLocation()
     {
         $location = new HeaderLocation('header');
         $command = new Command('foo', ['foo' => 'bar']);
         $request = new Request('POST', 'http://httbin.org');
         $param = new Parameter(['name' => 'foo']);
-        $location->visit($command, $request, $param, []);
-        $this->assertEquals('bar', $request->getHeader('foo'));
+        $request = $location->visit($command, $request, $param);
+
+        $header = $request->getHeader('foo');
+        $this->assertTrue(is_array($header));
+        $this->assertArraySubset([0 => 'bar'], $request->getHeader('foo'));
     }
 
+    /**
+     * @group RequestLocation
+     */
     public function testAddsAdditionalProperties()
     {
         $location = new HeaderLocation('header');
@@ -33,9 +41,12 @@ class HeaderLocationTest extends \PHPUnit_Framework_TestCase
             'additionalParameters' => [
                 'location' => 'header'
             ]
-        ], new Description([]));
+        ]);
         $request = new Request('POST', 'http://httbin.org');
-        $location->after($command, $request, $operation, []);
-        $this->assertEquals('props', $request->getHeader('add'));
+        $request = $location->after($command, $request, $operation);
+
+        $header = $request->getHeader('add');
+        $this->assertTrue(is_array($header));
+        $this->assertArraySubset([0 => 'props'], $header);
     }
 }
