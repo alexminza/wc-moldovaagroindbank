@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce maib Moldova Agroindbank Payment Gateway 1.3.0-beta\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-moldovaagroindbank\n"
-"POT-Creation-Date: 2022-12-13 15:12+0200\n"
+"POT-Creation-Date: 2022-12-14 22:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,59 +18,59 @@ msgstr ""
 msgid "Accept Visa and Mastercard directly on your store with the maib Moldova Agroindbank payment gateway for WooCommerce."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:139
+#: wc-moldovaagroindbank.php:135
 msgid "Enable/Disable"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:141
+#: wc-moldovaagroindbank.php:137
 msgid "Enable this gateway"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:145
+#: wc-moldovaagroindbank.php:141
 msgid "Title"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:147
+#: wc-moldovaagroindbank.php:143
 msgid "Payment method title that the customer will see during checkout."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:151
+#: wc-moldovaagroindbank.php:148
 msgid "Description"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:153
+#: wc-moldovaagroindbank.php:150
 msgid "Payment method description that the customer will see during checkout."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:157
+#: wc-moldovaagroindbank.php:155
 msgid "Logo"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:160
+#: wc-moldovaagroindbank.php:158
 msgid "Payment method logo image that the customer will see during checkout."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:163
+#: wc-moldovaagroindbank.php:162
 msgid "Bank logo"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:164
+#: wc-moldovaagroindbank.php:163
 msgid "Payment systems logos"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:165
+#: wc-moldovaagroindbank.php:164
 msgid "No logo"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:170
+#: wc-moldovaagroindbank.php:169
 msgid "Test mode"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:172
+#: wc-moldovaagroindbank.php:171
 msgid "Enabled"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:173
+#: wc-moldovaagroindbank.php:172
 msgid "Use Test or Live bank gateway to process the payments. Disable when ready to accept live payments."
 msgstr ""
 
@@ -98,274 +98,262 @@ msgstr ""
 msgid "Select how transactions should be processed. Charge submits all transactions for settlement, Authorization simply authorizes the order total for capture later."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:192
+#: wc-moldovaagroindbank.php:193
 msgid "Charge"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:193
+#: wc-moldovaagroindbank.php:194
 msgid "Authorization"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:197
+#: wc-moldovaagroindbank.php:198
 msgid "Order description"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:199
+#: wc-moldovaagroindbank.php:200
 msgid "Format: <code>%1$s</code> - Order ID, <code>%2$s</code> - Order items summary"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:200
+#: wc-moldovaagroindbank.php:201
 msgid "Order description that the customer will see on the bank payment page."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:205 wc-moldovaagroindbank.php:360
+#: wc-moldovaagroindbank.php:206 wc-moldovaagroindbank.php:356
 msgid "Connection Settings"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:207
+#: wc-moldovaagroindbank.php:208
 msgid "Use Basic settings to upload the certificate file received from the bank or configure manually using Advanced settings below."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:208
+#: wc-moldovaagroindbank.php:209
 msgid "Basic settings&raquo;"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:209
+#: wc-moldovaagroindbank.php:210
 msgid "or"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:210
+#: wc-moldovaagroindbank.php:211
 msgid "Advanced settings&raquo;"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:214
+#: wc-moldovaagroindbank.php:215
 msgid "Client certificate (PFX)"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:216
+#: wc-moldovaagroindbank.php:217
 msgid "Uploaded PFX certificate will be processed and converted to PEM format. Advanced settings will be overwritten and configured automatically."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:223 wc-moldovaagroindbank.php:365
+#: wc-moldovaagroindbank.php:225 wc-moldovaagroindbank.php:361
 msgid "Client certificate file"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:229 wc-moldovaagroindbank.php:371
+#: wc-moldovaagroindbank.php:231 wc-moldovaagroindbank.php:367
 msgid "Private key file"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:235
+#: wc-moldovaagroindbank.php:237
 msgid "Certificate / private key passphrase"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:237
+#: wc-moldovaagroindbank.php:239
 msgid "Leave empty if certificate / private key is not encrypted."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:238
+#: wc-moldovaagroindbank.php:241
 msgid "Optional"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:243
+#: wc-moldovaagroindbank.php:246
 msgid "Payment Notification"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:244
+#: wc-moldovaagroindbank.php:248
 msgid "Provide this URL to the bank to enable online payment notifications."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:248
+#: wc-moldovaagroindbank.php:249
 msgid "Callback URL"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:252
-msgid "Bank payment gateway URL: %1$s"
-msgstr ""
-
-#: wc-moldovaagroindbank.php:350
+#: wc-moldovaagroindbank.php:346
 msgid "Unsupported store currency"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:352
+#: wc-moldovaagroindbank.php:348
 msgid "Supported currencies"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:359
+#: wc-moldovaagroindbank.php:355
 msgid "See plugin documentation for <a href=\"%1$s\" target=\"_blank\">installation instructions</a>."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:360
+#: wc-moldovaagroindbank.php:356
 msgid "Not configured"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:397
+#: wc-moldovaagroindbank.php:393
 msgid "%1$s is not properly configured. Verify plugin <a href=\"%2$s\">Connection Settings</a>."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:402
+#: wc-moldovaagroindbank.php:398
 msgid "See <a href=\"%2$s\">%1$s settings</a> page for log details and setup instructions."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:490
+#: wc-moldovaagroindbank.php:486
 msgid "Certificate valid until %1$s"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:497
+#: wc-moldovaagroindbank.php:493
 msgid "Invalid certificate"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:500
+#: wc-moldovaagroindbank.php:496
 msgid "Could not validate certificate"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:517
+#: wc-moldovaagroindbank.php:513
 msgid "Invalid private key or wrong private key passphrase"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:529
+#: wc-moldovaagroindbank.php:525
 msgid "Private key does not correspond to client certificate"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:534
+#: wc-moldovaagroindbank.php:530
 msgid "Could not validate private key"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:541
+#: wc-moldovaagroindbank.php:537
 msgid "Invalid value"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:544
+#: wc-moldovaagroindbank.php:540
 msgid "File not found"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:547
+#: wc-moldovaagroindbank.php:543
 msgid "File not readable"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:550
+#: wc-moldovaagroindbank.php:546
 msgid "Could not validate file"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:570
+#: wc-moldovaagroindbank.php:566
 msgid "Invalid certificate or wrong passphrase"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:592
+#: wc-moldovaagroindbank.php:588
 msgid "Unable to create temporary file: %1$s"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:597
+#: wc-moldovaagroindbank.php:593
 msgid "Unable to save data to temporary file: %1$s"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:675
+#: wc-moldovaagroindbank.php:671
 msgid "Payment initiated via %1$s: %2$s"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:691
+#: wc-moldovaagroindbank.php:685
 msgid "Payment initiation failed via %1$s: %2$s"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:698
+#: wc-moldovaagroindbank.php:690
 msgid "Order #%1$s payment initiation failed via %2$s."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:734 wc-moldovaagroindbank.php:860
+#: wc-moldovaagroindbank.php:726 wc-moldovaagroindbank.php:848
 msgid "Payment completed via %1$s: %2$s"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:746
+#: wc-moldovaagroindbank.php:738
 msgid "Payment completion failed via %1$s: %2$s"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:768
+#: wc-moldovaagroindbank.php:758
 msgid "%1$s Transaction ID not found for order #%2$s."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:778
+#: wc-moldovaagroindbank.php:768
 msgid "Transaction status from %1$s for order #%2$s: %3$s"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:786
+#: wc-moldovaagroindbank.php:776
 msgid "Could not retrieve transaction status from %1$s for order #%2$s."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:815
+#: wc-moldovaagroindbank.php:803
 msgid "This Callback URL works and should not be called directly."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:826
+#: wc-moldovaagroindbank.php:814
 msgid "Payment verification failed: Transaction ID not received from %1$s."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:838
+#: wc-moldovaagroindbank.php:826
 msgid "Order not found by Transaction ID: %1$s received from %2$s."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:861
+#: wc-moldovaagroindbank.php:849
 msgid "Payment authorized via %1$s: %2$s"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:872
+#: wc-moldovaagroindbank.php:860
 msgid "Order #%1$s paid successfully via %2$s."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:881
+#: wc-moldovaagroindbank.php:869
 msgid "Payment failed via %1$s: %2$s"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:888
+#: wc-moldovaagroindbank.php:874
 msgid "Order #%1$s payment failed via %2$s."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:905
-msgid "Pay"
-msgstr ""
-
-#: wc-moldovaagroindbank.php:914
-msgid "Transaction ID not found for order #%1$s"
-msgstr ""
-
-#: wc-moldovaagroindbank.php:957
+#: wc-moldovaagroindbank.php:910
 msgid "Refund of %1$s %2$s via %3$s approved: %4$s"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:966
+#: wc-moldovaagroindbank.php:919
 msgid "Refund of %1$s %2$s via %3$s failed: %4$s"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:994
+#: wc-moldovaagroindbank.php:945
 msgid "Close business day via %1$s succeeded: %2$s"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:1001
+#: wc-moldovaagroindbank.php:952
 msgid "%1$s is not properly configured."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:1004
+#: wc-moldovaagroindbank.php:955
 msgid "Close business day via %1$s failed: %2$s"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:1175
+#: wc-moldovaagroindbank.php:1125
 msgid "Settings"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:1190
+#: wc-moldovaagroindbank.php:1140
 msgid "Complete %1$s transaction"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:1193
+#: wc-moldovaagroindbank.php:1143
 msgid "Verify %1$s transaction"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:1221
+#: wc-moldovaagroindbank.php:1171
 msgid "Scheduled action %1$s is already registered."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:1234
+#: wc-moldovaagroindbank.php:1184
 msgid "Registered scheduled action %1$s in timezone %2$s with ID %3$s."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:1241
+#: wc-moldovaagroindbank.php:1191
 msgid "Unregistered scheduled action %1$s."
 msgstr ""
