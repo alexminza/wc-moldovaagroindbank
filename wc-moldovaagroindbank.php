@@ -15,7 +15,7 @@
  * Requires at least: 4.8
  * Tested up to: 6.1.1
  * WC requires at least: 3.3
- * WC tested up to: 7.1.1
+ * WC tested up to: 7.2.2
  */
 
 //Looking to contribute code to this plugin? Go ahead and fork the repository over at GitHub https://github.com/alexminza/wc-moldovaagroindbank
@@ -85,6 +85,9 @@ function woocommerce_moldovaagroindbank_init() {
 
 		const MAIB_ERROR                = 'error';
 		#endregion
+
+		protected $logo_type, $testmode, $debug, $logger, $transaction_type, $order_template;
+		protected $base_url, $redirect_url, $maib_pfxcert, $maib_pcert, $maib_key, $maib_key_password;
 
 		public function __construct() {
 			$this->id                 = self::MOD_ID;
@@ -800,7 +803,7 @@ function woocommerce_moldovaagroindbank_init() {
 
 		public function check_response() {
 			if($_SERVER['REQUEST_METHOD'] === 'GET') {
-				$message = __('This Callback URL works and should not be called directly.', self::MOD_TEXT_DOMAIN);
+				$message = sprintf(__('This %1$s Callback URL works and should not be called directly.', self::MOD_TEXT_DOMAIN), $this->method_title);
 				wc_add_notice($message, 'notice');
 
 				wp_safe_redirect(wc_get_cart_url());
