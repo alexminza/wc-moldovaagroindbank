@@ -2,64 +2,115 @@
 namespace GuzzleHttp\Tests\Command\Guzzle\ResponseLocation;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Command\Command;
 use GuzzleHttp\Command\Guzzle\Description;
 use GuzzleHttp\Command\Guzzle\GuzzleClient;
 use GuzzleHttp\Command\Guzzle\Parameter;
 use GuzzleHttp\Command\Guzzle\ResponseLocation\JsonLocation;
-use GuzzleHttp\Event\BeforeEvent;
-use GuzzleHttp\Message\Response;
-use GuzzleHttp\Stream\Stream;
+use GuzzleHttp\Command\Result;
+use GuzzleHttp\Command\ResultInterface;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * @covers \GuzzleHttp\Command\Guzzle\ResponseLocation\JsonLocation
- * @covers \GuzzleHttp\Command\Guzzle\Subscriber\ProcessResponse
+ * @covers \GuzzleHttp\Command\Guzzle\Deserializer
  */
 class JsonLocationTest extends \PHPUnit_Framework_TestCase
 {
+
+    /**
+     * @group ResponseLocation
+     */
     public function testVisitsLocation()
     {
-        $l = new JsonLocation('json');
-        $command = new Command('foo', []);
+        $location = new JsonLocation();
         $parameter = new Parameter([
             'name'    => 'val',
             'sentAs'  => 'vim',
             'filters' => ['strtoupper']
         ]);
-        $response = new Response(200, [], Stream::factory('{"vim":"bar"}'));
-        $result = [];
-        $l->before($command, $response, $parameter, $result);
-        $l->visit($command, $response, $parameter, $result);
+        $response = new Response(200, [], '{"vim":"bar"}');
+        $result = new Result();
+        $result = $location->before($result, $response, $parameter);
+        $result = $location->visit($result, $response, $parameter);
         $this->assertEquals('BAR', $result['val']);
     }
+    /**
+     * @group ResponseLocation
+     * @param $name
+     * @param $expected
+     */
+    public function testVisitsWiredArray()
+    {
+        $json = ['car_models' => ['ferrari', 'aston martin']];
+        $body = \GuzzleHttp\json_encode($json);
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+        $mock = new MockHandler([$response]);
 
+        $guzzle = new Client(['handler' => $mock]);
+
+        $description = new Description([
+            'operations' => [
+                'getCars' => [
+                    'uri' => 'http://httpbin.org',
+                    'httpMethod' => 'GET',
+                    'responseModel' => 'Cars'
+                ]
+            ],
+            'models' => [
+                'Cars' => [
+                    'type' => 'object',
+                    'location' => 'json',
+                    'properties' => [
+                        'cars' => [
+                            'type' => 'array',
+                            'sentAs' => 'car_models',
+                            'items' => [
+                                'type' => 'object',
+                            ]
+                        ]
+                    ],
+                ]
+            ]
+        ]);
+
+        $guzzle = new GuzzleClient($guzzle, $description);
+        $result = $guzzle->getCars();
+
+        $this->assertEquals(['cars' => ['ferrari', 'aston martin']], $result->toArray());
+    }
+
+    /**
+     * @group ResponseLocation
+     */
     public function testVisitsAdditionalProperties()
     {
-        $l = new JsonLocation('json');
-        $command = new Command('foo', []);
+        $location = new JsonLocation();
         $parameter = new Parameter();
         $model = new Parameter(['additionalProperties' => ['location' => 'json']]);
-        $response = new Response(200, [], Stream::factory('{"vim":"bar","qux":[1,2]}'));
-        $result = [];
-        $l->before($command, $response, $parameter, $result);
-        $l->visit($command, $response, $parameter, $result);
-        $l->after($command, $response, $model, $result);
+        $response = new Response(200, [], '{"vim":"bar","qux":[1,2]}');
+        $result = new Result();
+        $result = $location->before($result, $response, $parameter);
+        $result = $location->visit($result, $response, $parameter);
+        $result = $location->after($result, $response, $model);
         $this->assertEquals('bar', $result['vim']);
         $this->assertEquals([1, 2], $result['qux']);
     }
 
+    /**
+     * @group ResponseLocation
+     */
     public function testVisitsAdditionalPropertiesWithEmptyResponse()
     {
-        $l = new JsonLocation('json');
-        $command = new Command('foo', []);
+        $location = new JsonLocation();
         $parameter = new Parameter();
         $model = new Parameter(['additionalProperties' => ['location' => 'json']]);
         $response = new Response(204);
-        $result = [];
-        $l->before($command, $response, $parameter, $result);
-        $l->visit($command, $response, $parameter, $result);
-        $l->after($command, $response, $model, $result);
-        $this->assertEquals([], $result);
+        $result = new Result();
+        $result = $location->before($result, $response, $parameter);
+        $result = $location->visit($result, $response, $parameter);
+        $result = $location->after($result, $response, $model);
+        $this->assertEquals([], $result->toArray());
     }
 
     public function jsonProvider()
@@ -72,21 +123,21 @@ class JsonLocationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider jsonProvider
+     * @group ResponseLocation
+     * @param $name
+     * @param $expected
      */
     public function testVisitsTopLevelArrays($name, $expected)
     {
-        $hclient = new Client();
+        $json = [
+            ['foo' => 'bar'],
+            ['baz' => 'bam'],
+        ];
+        $body = \GuzzleHttp\json_encode($json);
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+        $mock = new MockHandler([$response]);
 
-        $hclient->getEmitter()->on('before', function (BeforeEvent $event) {
-            $json = [
-                ['foo' => 'bar'],
-                ['baz' => 'bam'],
-            ];
-            $response = new Response(200, [
-                'Content-Type' => 'application/json'
-            ], Stream::factory(json_encode($json)));
-            $event->intercept($response);
-        });
+        $guzzle = new Client(['handler' => $mock]);
 
         $description = new Description([
             'operations' => [
@@ -111,28 +162,29 @@ class JsonLocationTest extends \PHPUnit_Framework_TestCase
                 ]
             ]
         ]);
-        $client = new GuzzleClient($hclient, $description);
-        $result = $client->foo();
-        $this->assertEquals($expected, $result);
+        $guzzle = new GuzzleClient($guzzle, $description);
+        /** @var ResultInterface $result */
+        $result = $guzzle->foo();
+        $this->assertEquals($expected, $result->toArray());
     }
 
+    /**
+     * @group ResponseLocation
+     */
     public function testVisitsNestedArrays()
     {
-        $hclient = new Client();
+        $json = [
+            'scalar' => 'foo',
+            'nested' => [
+                'bar',
+                'baz'
+            ]
+        ];
+        $body = \GuzzleHttp\json_encode($json);
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+        $mock = new MockHandler([$response]);
 
-        $hclient->getEmitter()->on('before', function (BeforeEvent $event) {
-            $json = [
-                'scalar' => 'foo',
-                'nested' => [
-                    'bar',
-                    'baz'
-                ]
-            ];
-            $response = new Response(200, [
-                'Content-Type' => 'application/json'
-            ], Stream::factory(json_encode($json)));
-            $event->intercept($response);
-        });
+        $httpClient = new Client(['handler' => $mock]);
 
         $description = new Description([
             'operations' => [
@@ -156,8 +208,9 @@ class JsonLocationTest extends \PHPUnit_Framework_TestCase
                 ]
             ]
         ]);
-        $client = new GuzzleClient($hclient, $description);
-        $result = $client->foo();
+        $guzzle = new GuzzleClient($httpClient, $description);
+        /** @var ResultInterface $result */
+        $result = $guzzle->foo();
         $expected = [
             'scalar' => 'foo',
             'nested' => [
@@ -165,7 +218,7 @@ class JsonLocationTest extends \PHPUnit_Framework_TestCase
                 'baz'
             ]
         ];
-        $this->assertEquals($expected, $result);
+        $this->assertEquals($expected, $result->toArray());
     }
 
     public function nestedProvider()
@@ -253,30 +306,30 @@ class JsonLocationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider nestedProvider
+     * @group ResponseLocation
      */
     public function testVisitsNestedProperties($desc)
     {
-        $hclient = new Client();
-        $hclient->getEmitter()->on('before', function (BeforeEvent $event) {
-            $json = [
-                'nested' => [
-                    'foo' => 'abc',
-                    'bar' => 123,
-                    'bam' => [
-                        'abc' => 456
-                    ]
-                ],
-                'baz' => 'boo'
-            ];
-            $response = new Response(200, [
-                'Content-Type' => 'application/json'
-            ], Stream::factory(json_encode($json)));
-            $event->intercept($response);
-        });
+        $json = [
+            'nested' => [
+                'foo' => 'abc',
+                'bar' => 123,
+                'bam' => [
+                    'abc' => 456
+                ]
+            ],
+            'baz' => 'boo'
+        ];
+        $body = \GuzzleHttp\json_encode($json);
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+        $mock = new MockHandler([$response]);
+
+        $httpClient = new Client(['handler' => $mock]);
 
         $description = new Description($desc);
-        $client = new GuzzleClient($hclient, $description);
-        $result = $client->foo();
+        $guzzle = new GuzzleClient($httpClient, $description);
+        /** @var ResultInterface $result */
+        $result = $guzzle->foo();
         $expected = [
             'nested' => [
                 'foo' => 'abc',
@@ -288,24 +341,26 @@ class JsonLocationTest extends \PHPUnit_Framework_TestCase
             'baz' => 'BOO'
         ];
 
-        $this->assertEquals($expected, $result);
+        $this->assertEquals($expected, $result->toArray());
     }
 
+    /**
+     * @group ResponseLocation
+     */
     public function testVisitsNullResponseProperties()
     {
-        $hclient = new Client();
 
-        $hclient->getEmitter()->on('before', function (BeforeEvent $event) {
-            $json = [
-                'data' => [
-                    'link' => null
-                ]
-            ];
-            $response = new Response(200, [
-                'Content-Type' => 'application/json'
-            ], Stream::factory(json_encode($json)));
-            $event->intercept($response);
-        });
+        $json = [
+            'data' => [
+                'link' => null
+            ]
+        ];
+
+        $body = \GuzzleHttp\json_encode($json);
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+        $mock = new MockHandler([$response]);
+
+        $httpClient = new Client(['handler' => $mock]);
 
         $description = new Description(
             [
@@ -339,8 +394,9 @@ class JsonLocationTest extends \PHPUnit_Framework_TestCase
                 ]
             ]
         );
-        $client = new GuzzleClient($hclient, $description);
-        $result = $client->foo();
+        $guzzle = new GuzzleClient($httpClient, $description);
+        /** @var ResultInterface $result */
+        $result = $guzzle->foo();
 
         $expected = [
             'data' => [
@@ -348,6 +404,178 @@ class JsonLocationTest extends \PHPUnit_Framework_TestCase
             ]
         ];
 
-        $this->assertEquals($expected, $result);
+        $this->assertEquals($expected, $result->toArray());
+    }
+
+    /**
+     * @group ResponseLocation
+     */
+    public function testVisitsNestedArrayOfArrays()
+    {
+        $json = [
+            'scalar' => 'foo',
+            'nested' => [
+                [
+                    'bar' => 123,
+                    'baz' => false,
+                ],
+                [
+                    'bar' => 345,
+                    'baz' => true,
+                ],
+                [
+                    'bar' => 678,
+                    'baz' => true,
+                ],
+            ]
+        ];
+
+        $body = \GuzzleHttp\json_encode($json);
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+        $mock = new MockHandler([$response]);
+
+        $httpClient = new Client(['handler' => $mock]);
+
+        $description = new Description([
+            'operations' => [
+                'foo' => [
+                    'uri' => 'http://httpbin.org',
+                    'httpMethod' => 'GET',
+                    'responseModel' => 'j'
+                ]
+            ],
+            'models' => [
+                'j' => [
+                    'type' => 'object',
+                    'properties' => [
+                        'scalar' => [
+                            // for some reason (probably because location is also set on array of arrays)
+                            // array of arrays sibling elements must have location set to `json`
+                            // otherwise JsonLocation ignores them
+                            'location' => 'json',
+                            'type' => 'string'
+                        ],
+                        'nested' => [
+                            // array of arrays type must be set to `array`
+                            // without that JsonLocation throws an exception
+                            'type' => 'array',
+                            // for array of arrays `location` must be set to `json`
+                            // otherwise JsonLocation returns an empty array
+                            'location' => 'json',
+                            'items' => [
+                                // although this is array of arrays, array items type
+                                // must be set as `object`
+                                'type' => 'object',
+                                'properties' => [
+                                    'bar' => [
+                                        'type' => 'integer',
+                                    ],
+                                    'baz' => [
+                                        'type' => 'boolean',
+                                    ],
+                                ],
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        $guzzle = new GuzzleClient($httpClient, $description);
+        /** @var ResultInterface $result */
+        $result = $guzzle->foo();
+        $expected = [
+            'scalar' => 'foo',
+            'nested' => [
+                [
+                    'bar' => 123,
+                    'baz' => false,
+                ],
+                [
+                    'bar' => 345,
+                    'baz' => true,
+                ],
+                [
+                    'bar' => 678,
+                    'baz' => true,
+                ],
+            ]
+        ];
+
+        $this->assertEquals($expected, $result->toArray());
+    }
+
+    /**
+     * @group ResponseLocation
+     */
+    public function testVisitsNestedArrayOfObjects()
+    {
+        $json = json_decode('{"scalar":"foo","nested":[{"bar":123,"baz":false},{"bar":345,"baz":true},{"bar":678,"baz":true}]}');
+
+        $body = \GuzzleHttp\json_encode($json);
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+        $mock = new MockHandler([$response]);
+
+        $httpClient = new Client(['handler' => $mock]);
+
+        $description = new Description([
+            'operations' => [
+                'foo' => [
+                    'uri' => 'http://httpbin.org',
+                    'httpMethod' => 'GET',
+                    'responseModel' => 'j'
+                ]
+            ],
+            'models' => [
+                'j' => [
+                    'type' => 'object',
+                    'location' => 'json',
+                    'properties' => [
+                        'scalar' => [
+                            'type' => 'string'
+                        ],
+                        'nested' => [
+                            // array of objects type must be set to `array`
+                            // without that JsonLocation throws an exception
+                            'type' => 'array',
+                            'items' => [
+                                // array elements type must be set to `object`
+                                'type' => 'object',
+                                'properties' => [
+                                    'bar' => [
+                                        'type' => 'integer',
+                                    ],
+                                    'baz' => [
+                                        'type' => 'boolean',
+                                    ],
+                                ],
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        $guzzle = new GuzzleClient($httpClient, $description);
+        /** @var ResultInterface $result */
+        $result = $guzzle->foo();
+        $expected = [
+            'scalar' => 'foo',
+            'nested' => [
+                [
+                    'bar' => 123,
+                    'baz' => false,
+                ],
+                [
+                    'bar' => 345,
+                    'baz' => true,
+                ],
+                [
+                    'bar' => 678,
+                    'baz' => true,
+                ],
+            ]
+        ];
+        $this->assertEquals($expected, $result->toArray());
     }
 }

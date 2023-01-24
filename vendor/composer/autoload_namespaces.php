@@ -6,5 +6,4 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Fruitware\\MaibApi' => array($vendorDir . '/fruitware/maib-api'),
 );

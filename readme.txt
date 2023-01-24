@@ -1,19 +1,19 @@
-=== WooCommerce Moldova Agroindbank Payment Gateway ===
+=== WooCommerce maib Moldova Agroindbank Payment Gateway ===
 Contributors: alexminza
-Donate link: https://www.paypal.me/AlexMinza
+Donate link: https://www.revolut.me/alexminza
 Tags: WooCommerce, Moldova, Agroindbank, maib, bank, payment, gateway, visa, mastercard, credit card
 Requires at least: 4.8
-Tested up to: 6.1
+Tested up to: 6.1.1
 Stable tag: trunk
-Requires PHP: 7.0
+Requires PHP: 7.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-WooCommerce Payment Gateway for Moldova Agroindbank
+WooCommerce Payment Gateway for maib Moldova Agroindbank
 
 == Description ==
 
-Accept Visa and Mastercard directly on your store with the Moldova Agroindbank payment gateway for WooCommerce.
+Accept Visa and Mastercard directly on your store with the maib Moldova Agroindbank payment gateway for WooCommerce.
 
 = Features =
 
@@ -30,6 +30,9 @@ Accept Visa and Mastercard directly on your store with the Moldova Agroindbank p
 
 == Installation ==
 
+Before installation you need to sign up with **maib Moldova Agroindbank** and receive the client certificate.
+See [https://www.maib.md/ro/persoane-juridice/acceptare-plati/e-commerce](https://www.maib.md/ro/persoane-juridice/acceptare-plati/e-commerce) and contact [ecom@maib.md](mailto:ecom@maib.md) for details.
+
 1. Configure the plugin Connection Settings by performing one of the following steps:
     * **BASIC**: Upload the PFX client certificate file received from the bank
     * **ADVANCED**: Convert and copy the private key and certificates PEM files to the server, securely set up the owner and file system permissions, configure the paths to the files
@@ -43,19 +46,21 @@ Accept Visa and Mastercard directly on your store with the Moldova Agroindbank p
 6. Review the *Close day* scheduled action settings on the WooCommerce Status page
 7. Disable *Test* and *Debug* modes when ready to accept live payments
 
+See [MaibApi MAIB Payment PHP SDK](https://github.com/maibank/maibapi) for more details.
+
 == Frequently Asked Questions ==
 
 = How can I configure the plugin settings? =
 
-Use the *WooCommerce > Settings > Payments > Moldova Agroindbank* screen to configure the plugin.
+Use the *WooCommerce > Settings > Payments > maib Moldova Agroindbank* screen to configure the plugin.
 
 = Where can I get the Connection Settings data? =
 
-The merchant data and connection settings are provided by Moldova Agroindbank. This data is used by the plugin to connect to the Moldova Agroindbank payment gateway and process the card transactions. Please see [https://www.maib.md/ro/persoane-juridice/acceptare-plati/e-commerce](https://www.maib.md/ro/persoane-juridice/acceptare-plati/e-commerce) and contact [ecom@maib.md](mailto:ecom@maib.md) for details.
+The merchant data and connection settings are provided by maib Moldova Agroindbank. This data is used by the plugin to connect to the maib Moldova Agroindbank payment gateway and process the card transactions. See [https://www.maib.md/ro/persoane-juridice/acceptare-plati/e-commerce](https://www.maib.md/ro/persoane-juridice/acceptare-plati/e-commerce) and contact [ecom@maib.md](mailto:ecom@maib.md) for details.
 
 = What store settings are supported? =
 
-Moldova Agroindbank currently supports transactions in MDL (Moldovan Leu), EUR (Euro) and USD (United States Dollar).
+maib Moldova Agroindbank currently supports transactions in MDL (Moldovan Leu), EUR (Euro) and USD (United States Dollar).
 
 = What is the difference between transaction types? =
 
@@ -83,6 +88,12 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 == Changelog ==
 
 See [wc-moldovaagroindbank project releases on GitHub](https://github.com/alexminza/wc-moldovaagroindbank/releases) for details.
+
+= 1.3.0 =
+* Migrated to the official [MAIB Payment PHP SDK](https://github.com/maibank/maibapi)
+* Minimum supported PHP version changed to 7.2
+* Added *No logo* option for payment method at checkout
+* Improved logging and admin setup guidance
 
 = 1.2.5 =
 Updated Tested up to 6.1 and WC tested up to 7.1.0
@@ -144,17 +155,9 @@ Initial release
 
 == Upgrade Notice ==
 
-= 1.2.5 =
-Updated Tested up to 6.1 and WC tested up to 7.1.0
+= 1.3.0 =
+* Migrated to the official MAIB Payment PHP SDK
+* Minimum supported PHP version changed to 7.2
 
 = 1.2.4 =
 Updated maib test payment gateway URL and visual identity
-
-= 1.2.3 =
-Fixed refund transaction amount value in the underlying third party module
-
-= 1.2.2 =
-Fixed refund transaction amount parameter in the underlying third party module
-
-= 1.2.1 =
-Modified MAIB payment gateway URL for 3DS v2 compliance
