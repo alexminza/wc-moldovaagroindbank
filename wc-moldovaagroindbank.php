@@ -997,7 +997,7 @@ function woocommerce_moldovaagroindbank_init() {
 				return $orders[0];
 			}
 
-			//self::static_log(self::print_var($orders));
+			self::static_log(self::print_var($orders));
 			return false;
 		}
 
