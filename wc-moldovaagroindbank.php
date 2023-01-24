@@ -937,12 +937,12 @@ function woocommerce_moldovaagroindbank_init() {
 
 					$this->log(self::print_var($closeday_result));
 				} catch(Exception $ex) {
+					$message_result = $ex->getMessage();
 					$this->log($ex, WC_Log_Levels::ERROR);
 				}
 
-				$message_result = self::print_http_query($closeday_result);
-
 				if(!empty($closeday_result)) {
+					$message_result = self::print_http_query($closeday_result);
 					$result = $closeday_result[self::MAIB_RESULT];
 					if($result === self::MAIB_RESULT_OK) {
 						$message = sprintf(__('Close business day via %1$s succeeded: %2$s', self::MOD_TEXT_DOMAIN), $this->method_title, $message_result);
