@@ -90,10 +90,10 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 See [wc-moldovaagroindbank project releases on GitHub](https://github.com/alexminza/wc-moldovaagroindbank/releases) for details.
 
 = 1.3.0 =
-* Migrated to the official [MaibApi MAIB Payment PHP SDK](https://github.com/maibank/maibapi)
+* Migrated to the official [MAIB Payment PHP SDK](https://github.com/maibank/maibapi)
 * Minimum supported PHP version changed to 7.2
 * Added *No logo* option for payment method at checkout
-* Improved logging and admin guidance
+* Improved logging and admin setup guidance
 
 = 1.2.5 =
 Updated Tested up to 6.1 and WC tested up to 7.1.0
@@ -156,8 +156,8 @@ Initial release
 == Upgrade Notice ==
 
 = 1.3.0 =
-Migrated to the official MaibApi MAIB Payment PHP SDK.
-Minimum supported PHP version changed to 7.2.
+* Migrated to the official MAIB Payment PHP SDK
+* Minimum supported PHP version changed to 7.2
 
 = 1.2.4 =
 Updated maib test payment gateway URL and visual identity

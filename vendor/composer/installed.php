@@ -3,7 +3,7 @@
         'name' => 'alexminza/wc-moldovaagroindbank',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'cc4765cccdb86b83a9274d08068f677017d6aed5',
+        'reference' => 'b4136c6b12598b32a3a39c8e6eed8edd69100fa9',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'alexminza/wc-moldovaagroindbank' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'cc4765cccdb86b83a9274d08068f677017d6aed5',
+            'reference' => 'b4136c6b12598b32a3a39c8e6eed8edd69100fa9',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
