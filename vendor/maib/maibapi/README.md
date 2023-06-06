@@ -41,7 +41,7 @@ REQUIREMENTS
  * PHP: >=7.1.0
  * guzzlehttp/guzzle: ~6.0
  * guzzlehttp/guzzle-services: ~1.0
- * monolog/monolog: ^2.7
+ * monolog/monolog: 1.27.1 (PHP 7.1) 2.7 (PHP 7.2)
 
 
 INSTALLATION

@@ -3,11 +3,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce maib Moldova Agroindbank Payment Gateway "
-"1.3.0\n"
+"1.3.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-"
 "moldovaagroindbank\n"
-"POT-Creation-Date: 2023-01-24 17:21+0200\n"
-"PO-Revision-Date: 2023-01-24 17:24+0200\n"
+"POT-Creation-Date: 2023-06-06 11:32+0300\n"
+"PO-Revision-Date: 2023-06-06 11:35+0300\n"
 "Last-Translator: Alexander Minza <alex@alexminza.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.1\n"
 
 #. Description of the plugin
 msgid ""
@@ -307,115 +307,115 @@ msgstr "Ошибка создания временного файла: %1$s"
 msgid "Unable to save data to temporary file: %1$s"
 msgstr "Ошибка записи данных во временный файл: %1$s"
 
-#: wc-moldovaagroindbank.php:674
+#: wc-moldovaagroindbank.php:675
 msgid "Payment initiated via %1$s: %2$s"
 msgstr "Платеж инициирован через %1$s: %2$s"
 
-#: wc-moldovaagroindbank.php:688
+#: wc-moldovaagroindbank.php:689
 msgid "Payment initiation failed via %1$s: %2$s"
 msgstr "Ошибка инициирования платежа через %1$s: %2$s"
 
-#: wc-moldovaagroindbank.php:693
+#: wc-moldovaagroindbank.php:694
 msgid "Order #%1$s payment initiation failed via %2$s."
 msgstr "Ошибка инициирования оплаты заказа #%1$s через %2$s."
 
-#: wc-moldovaagroindbank.php:729 wc-moldovaagroindbank.php:851
+#: wc-moldovaagroindbank.php:731 wc-moldovaagroindbank.php:854
 msgid "Payment completed via %1$s: %2$s"
 msgstr "Платеж проведен через %1$s: %2$s"
 
-#: wc-moldovaagroindbank.php:741
+#: wc-moldovaagroindbank.php:743
 msgid "Payment completion failed via %1$s: %2$s"
 msgstr "Ошибка проведения платежа через %1$s: %2$s"
 
-#: wc-moldovaagroindbank.php:761
+#: wc-moldovaagroindbank.php:763
 msgid "%1$s Transaction ID not found for order #%2$s."
 msgstr ""
 "Идентификатор транзакции (%1$s Transaction ID) не найден для заказа #%2$s."
 
-#: wc-moldovaagroindbank.php:771
+#: wc-moldovaagroindbank.php:773
 msgid "Transaction status from %1$s for order #%2$s: %3$s"
 msgstr "Статус платежа через %1$s для заказа #%2$s: %3$s"
 
-#: wc-moldovaagroindbank.php:779
+#: wc-moldovaagroindbank.php:781
 msgid "Could not retrieve transaction status from %1$s for order #%2$s."
 msgstr "Ошибка запроса статуса платежа через %1$s для заказа #%2$s."
 
-#: wc-moldovaagroindbank.php:806
+#: wc-moldovaagroindbank.php:809
 msgid "This %1$s Callback URL works and should not be called directly."
 msgstr ""
 "Этот URL обратного вызова %1$s (Callback URL) работает и не должен "
 "вызываться напрямую."
 
-#: wc-moldovaagroindbank.php:817
+#: wc-moldovaagroindbank.php:820
 msgid "Payment verification failed: Transaction ID not received from %1$s."
 msgstr ""
 "Ошибка проверки платежа: идентификатор транзакции (Transaction ID) не "
 "получен от %1$s."
 
-#: wc-moldovaagroindbank.php:829
+#: wc-moldovaagroindbank.php:832
 msgid "Order not found by Transaction ID: %1$s received from %2$s."
 msgstr ""
 "Заказ не найден по идентификатору транзакции (Transaction ID): %1$s "
 "полученному от %2$s."
 
-#: wc-moldovaagroindbank.php:852
+#: wc-moldovaagroindbank.php:855
 msgid "Payment authorized via %1$s: %2$s"
 msgstr "Платеж авторизован через %1$s: %2$s"
 
-#: wc-moldovaagroindbank.php:863
+#: wc-moldovaagroindbank.php:866
 msgid "Order #%1$s paid successfully via %2$s."
 msgstr "Заказ #%1$s успешно оплачен через %2$s."
 
-#: wc-moldovaagroindbank.php:872
+#: wc-moldovaagroindbank.php:875
 msgid "Payment failed via %1$s: %2$s"
 msgstr "Ошибка платежа через %1$s: %2$s"
 
-#: wc-moldovaagroindbank.php:877
+#: wc-moldovaagroindbank.php:880
 msgid "Order #%1$s payment failed via %2$s."
 msgstr "Ошибка оплаты заказа #%1$s через %2$s."
 
-#: wc-moldovaagroindbank.php:913
+#: wc-moldovaagroindbank.php:917
 msgid "Refund of %1$s %2$s via %3$s approved: %4$s"
 msgstr "Возврат %1$s %2$s через %3$s подтвержден: %4$s"
 
-#: wc-moldovaagroindbank.php:922
+#: wc-moldovaagroindbank.php:926
 msgid "Refund of %1$s %2$s via %3$s failed: %4$s"
 msgstr "Ошибка возврата %1$s %2$s через %3$s: %4$s"
 
-#: wc-moldovaagroindbank.php:948
+#: wc-moldovaagroindbank.php:954
 msgid "Close business day via %1$s succeeded: %2$s"
 msgstr "Завершение бизнес-дня через %1$s прошло успешно: %2$s"
 
-#: wc-moldovaagroindbank.php:955
+#: wc-moldovaagroindbank.php:961
 msgid "%1$s is not properly configured."
 msgstr "%1$s настроен неправильно."
 
-#: wc-moldovaagroindbank.php:958
+#: wc-moldovaagroindbank.php:964
 msgid "Close business day via %1$s failed: %2$s"
 msgstr "Ошибка завершения бизнес-дня через %1$s: %2$s"
 
-#: wc-moldovaagroindbank.php:1128
+#: wc-moldovaagroindbank.php:1134
 msgid "Settings"
 msgstr "Настройки"
 
-#: wc-moldovaagroindbank.php:1143
+#: wc-moldovaagroindbank.php:1149
 msgid "Complete %1$s transaction"
 msgstr "Провести платеж через %1$s"
 
-#: wc-moldovaagroindbank.php:1146
+#: wc-moldovaagroindbank.php:1152
 msgid "Verify %1$s transaction"
 msgstr "Проверить платеж через %1$s"
 
-#: wc-moldovaagroindbank.php:1174
+#: wc-moldovaagroindbank.php:1180
 msgid "Scheduled action %1$s is already registered."
 msgstr "Запланированное действие %1$s уже зарегистрировано."
 
-#: wc-moldovaagroindbank.php:1187
+#: wc-moldovaagroindbank.php:1193
 msgid "Registered scheduled action %1$s in timezone %2$s with ID %3$s."
 msgstr ""
 "Зарегистрировано запланированное действие %1$s в часовом поясе %2$s с ID "
 "%3$s."
 
-#: wc-moldovaagroindbank.php:1194
+#: wc-moldovaagroindbank.php:1200
 msgid "Unregistered scheduled action %1$s."
 msgstr "Запланированное действие %1$s отменено."
