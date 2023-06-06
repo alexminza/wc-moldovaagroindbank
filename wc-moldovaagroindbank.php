@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce maib Moldova Agroindbank Payment Gateway
  * Description: Accept Visa and Mastercard directly on your store with the maib Moldova Agroindbank payment gateway for WooCommerce.
  * Plugin URI: https://github.com/alexminza/wc-moldovaagroindbank
- * Version: 1.3.0
+ * Version: 1.3.1
  * Author: Alexander Minza
  * Author URI: https://profiles.wordpress.org/alexminza
  * Developer: Alexander Minza
@@ -13,9 +13,9 @@
  * License: GPLv3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Requires at least: 4.8
- * Tested up to: 6.1.1
+ * Tested up to: 6.2.2
  * WC requires at least: 3.3
- * WC tested up to: 7.3.0
+ * WC tested up to: 7.7.2
  */
 
 //Looking to contribute code to this plugin? Go ahead and fork the repository over at GitHub https://github.com/alexminza/wc-moldovaagroindbank
@@ -651,6 +651,7 @@ function woocommerce_moldovaagroindbank_init() {
 			$order_description = $this->get_order_description($order);
 			$client_ip = self::get_client_ip();
 			$lang = self::get_language();
+			$register_result = null;
 
 			try {
 				$client = $this->init_maib_client();
@@ -713,6 +714,7 @@ function woocommerce_moldovaagroindbank_init() {
 			$order_description = $this->get_order_description($order);
 			$client_ip = self::get_client_ip();
 			$lang = self::get_language();
+			$complete_result = null;
 
 			try {
 				$client = $this->init_maib_client();
@@ -788,6 +790,7 @@ function woocommerce_moldovaagroindbank_init() {
 
 		protected function get_transaction_result($trans_id) {
 			$client_ip = self::get_client_ip();
+			$transaction_result = null;
 
 			try {
 				$client = $this->init_maib_client();
@@ -892,6 +895,7 @@ function woocommerce_moldovaagroindbank_init() {
 			$trans_id = self::get_order_transaction_id($order_id);
 			$order_total = $order->get_total();
 			$order_currency = $order->get_currency();
+			$revert_result = null;
 
 			if(!isset($amount)) {
 				//Refund entirely if no amount is specified
@@ -930,6 +934,8 @@ function woocommerce_moldovaagroindbank_init() {
 		}
 
 		public function close_day() {
+			$closeday_result = null;
+
 			if($this->check_settings()) {
 				try {
 					$client = $this->init_maib_client();

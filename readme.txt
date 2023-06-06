@@ -3,7 +3,7 @@ Contributors: alexminza
 Donate link: https://www.revolut.me/alexminza
 Tags: WooCommerce, Moldova, Agroindbank, maib, bank, payment, gateway, visa, mastercard, credit card
 Requires at least: 4.8
-Tested up to: 6.1.1
+Tested up to: 6.2.2
 Stable tag: trunk
 Requires PHP: 7.2
 License: GPLv3 or later
@@ -89,6 +89,10 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 
 See [wc-moldovaagroindbank project releases on GitHub](https://github.com/alexminza/wc-moldovaagroindbank/releases) for details.
 
+= 1.3.1 =
+Updated [MAIB Payment PHP SDK](https://github.com/maibank/maibapi) to fix Windows platform compatibility.
+See [Result code value is parsing wrong issue #29](https://github.com/alexminza/wc-moldovaagroindbank/issues/29) and [Gateway response parsing is platform-dependent issue #3](https://github.com/maibank/maibapi/issues/3) for details.
+
 = 1.3.0 =
 * Migrated to the official [MAIB Payment PHP SDK](https://github.com/maibank/maibapi)
 * Minimum supported PHP version changed to 7.2
@@ -154,6 +158,9 @@ Basic and Advanced settings configuration modes
 Initial release
 
 == Upgrade Notice ==
+
+= 1.3.1 =
+Updated [MAIB Payment PHP SDK](https://github.com/maibank/maibapi) to fix Windows platform compatibility
 
 = 1.3.0 =
 * Migrated to the official MAIB Payment PHP SDK

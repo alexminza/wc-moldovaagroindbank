@@ -74,7 +74,7 @@ class MaibClient extends GuzzleClient
         try {
             $response = parent::__call($name, $arguments);
 
-            $array1 = explode(PHP_EOL, trim((string)$response->offsetGet('additionalProperties')));
+            $array1 = preg_split('/\n|\r\n?/', trim((string)$response->offsetGet('additionalProperties')));
             $result = array();
             foreach ($array1 as $value) {
                 $array2 = explode(':', $value);
