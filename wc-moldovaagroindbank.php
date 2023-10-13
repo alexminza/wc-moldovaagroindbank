@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce maib Moldova Agroindbank Payment Gateway
  * Description: Accept Visa and Mastercard directly on your store with the maib Moldova Agroindbank payment gateway for WooCommerce.
  * Plugin URI: https://github.com/alexminza/wc-moldovaagroindbank
- * Version: 1.3.1
+ * Version: 1.3.2-beta
  * Author: Alexander Minza
  * Author URI: https://profiles.wordpress.org/alexminza
  * Developer: Alexander Minza
@@ -13,9 +13,9 @@
  * License: GPLv3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Requires at least: 4.8
- * Tested up to: 6.2.2
+ * Tested up to: 6.3.1
  * WC requires at least: 3.3
- * WC tested up to: 7.7.2
+ * WC tested up to: 8.2.0
  */
 
 //Looking to contribute code to this plugin? Go ahead and fork the repository over at GitHub https://github.com/alexminza/wc-moldovaagroindbank
@@ -668,8 +668,10 @@ function woocommerce_moldovaagroindbank_init() {
 				$trans_id = $register_result[self::MAIB_TRANSACTION_ID];
 				if(!self::string_empty($trans_id)) {
 					#region Update order payment transaction metadata
-					self::set_post_meta($order_id, self::MOD_TRANSACTION_TYPE, $this->transaction_type);
-					self::set_post_meta($order_id, self::MOD_TRANSACTION_ID, $trans_id);
+					//https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#apis-for-gettingsetting-posts-and-postmeta
+					$order->add_meta_data(self::MOD_TRANSACTION_TYPE, $this->transaction_type, true);
+					$order->add_meta_data(self::MOD_TRANSACTION_ID, $trans_id, true);
+					$order->save();
 					#endregion
 
 					$message = sprintf(__('Payment initiated via %1$s: %2$s', self::MOD_TEXT_DOMAIN), $this->method_title, self::print_http_query($register_result));
@@ -707,8 +709,7 @@ function woocommerce_moldovaagroindbank_init() {
 				return false;
 			}
 
-			$order_id = $order->get_id();
-			$trans_id = self::get_order_transaction_id($order_id);
+			$trans_id = self::get_order_transaction_id($order);
 			$order_total = self::price_format(self::get_order_net_total($order));
 			$order_currency_numcode = self::get_currency_numcode($order->get_currency());
 			$order_description = $this->get_order_description($order);
@@ -757,7 +758,7 @@ function woocommerce_moldovaagroindbank_init() {
 			}
 
 			$order_id = $order->get_id();
-			$trans_id = self::get_order_transaction_id($order_id);
+			$trans_id = self::get_order_transaction_id($order);
 
 			if(self::string_empty($trans_id)) {
 				$message = sprintf(__('%1$s Transaction ID not found for order #%2$s.', self::MOD_TEXT_DOMAIN), $this->method_title, $order_id);
@@ -845,11 +846,14 @@ function woocommerce_moldovaagroindbank_init() {
 				$result = $transaction_result[self::MAIB_RESULT];
 				if($result === self::MAIB_RESULT_OK) {
 					#region Update order payment metadata
+					//https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#apis-for-gettingsetting-posts-and-postmeta
 					foreach($transaction_result as $key => $value)
-						self::set_post_meta($order_id, strtolower(self::MOD_PREFIX . $key), $value);
+						$order->add_meta_data(strtolower(self::MOD_PREFIX . $key), $value, true);
+
+					$order->save();
 					#endregion
 
-					$transaction_type = self::get_order_transaction_type($order_id);
+					$transaction_type = self::get_order_transaction_type($order);
 					$message_action = $transaction_type === self::TRANSACTION_TYPE_CHARGE
 						? __('Payment completed via %1$s: %2$s', self::MOD_TEXT_DOMAIN)
 						: __('Payment authorized via %1$s: %2$s', self::MOD_TEXT_DOMAIN);
@@ -892,7 +896,7 @@ function woocommerce_moldovaagroindbank_init() {
 			}
 
 			$order = wc_get_order($order_id);
-			$trans_id = self::get_order_transaction_id($order_id);
+			$trans_id = self::get_order_transaction_id($order);
 			$order_total = $order->get_total();
 			$order_currency = $order->get_currency();
 			$revert_result = null;
@@ -1007,21 +1011,15 @@ function woocommerce_moldovaagroindbank_init() {
 			return false;
 		}
 
-		protected static function get_order_transaction_id($order_id) {
-			$trans_id = get_post_meta($order_id, self::MOD_TRANSACTION_ID, true);
+		protected static function get_order_transaction_id($order) {
+			//https://woocommerce.github.io/code-reference/classes/WC-Data.html#method_get_meta
+			$trans_id = $order->get_meta(self::MOD_TRANSACTION_ID, true);
 			return $trans_id;
 		}
 
-		protected static function get_order_transaction_type($order_id) {
-			$transaction_type = get_post_meta($order_id, self::MOD_TRANSACTION_TYPE, true);
+		protected static function get_order_transaction_type($order) {
+			$transaction_type = $order->get_meta(self::MOD_TRANSACTION_TYPE, true);
 			return $transaction_type;
-		}
-
-		protected static function set_post_meta($post_id, $meta_key, $meta_value) {
-			//https://developer.wordpress.org/reference/functions/add_post_meta/#comment-465
-			if(!add_post_meta($post_id, $meta_key, $meta_value, true)) {
-				update_post_meta($post_id, $meta_key, $meta_value);
-			 }
 		}
 
 		protected function get_order_description($order) {
@@ -1144,7 +1142,7 @@ function woocommerce_moldovaagroindbank_init() {
 			}
 
 			if($theorder->is_paid()) {
-				$transaction_type = self::get_order_transaction_type($theorder->get_id());
+				$transaction_type = self::get_order_transaction_type($theorder);
 				if($transaction_type === self::TRANSACTION_TYPE_AUTHORIZATION) {
 					$actions['moldovaagroindbank_complete_transaction'] = sprintf(__('Complete %1$s transaction', self::MOD_TEXT_DOMAIN), self::MOD_TITLE);
 				}
@@ -1253,4 +1251,13 @@ function woocommerce_moldovaagroindbank_activation() {
 
 register_activation_hook(__FILE__, 'woocommerce_moldovaagroindbank_activation');
 register_deactivation_hook(__FILE__, array(WC_MoldovaAgroindbank::class, 'unregister_scheduled_actions'));
+#endregion
+
+#region WooCommerce HPOS compatibility
+//https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#declaring-extension-incompatibility
+add_action('before_woocommerce_init', function() {
+	if(class_exists(\Automattic\WooCommerce\Utilities\FeaturesUtil::class)) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables', __FILE__, true);
+	}
+});
 #endregion
