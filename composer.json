@@ -1,6 +1,6 @@
 {
     "name": "alexminza/wc-moldovaagroindbank",
-    "description": "WooCommerce Moldova Agroindbank Payment Gateway",
+    "description": "WooCommerce maib Moldova Agroindbank Payment Gateway",
     "type": "wordpress-plugin",
     "keywords": ["WooCommerce", "Moldova", "Agroindbank", "maib", "bank", "payment", "gateway", "visa", "mastercard", "credit card"],
     "homepage": "https://github.com/alexminza/wc-moldovaagroindbank",
@@ -17,6 +17,16 @@
         "forum": "https://wordpress.org/support/plugin/wc-moldovaagroindbank",
         "source": "https://github.com/alexminza/wc-moldovaagroindbank"
     },
+    "funding": [
+        {
+            "type": "other",
+            "url": "https://www.revolut.me/alexminza"
+        },
+        {
+            "type": "other",
+            "url": "https://www.paypal.me/AlexMinza"
+        }
+    ],
     "require": {
         "php": ">=7.2",
         "maib/maibapi": "^2.0"
