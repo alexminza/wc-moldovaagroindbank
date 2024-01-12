@@ -21,8 +21,22 @@ Accept Visa and Mastercard directly on your store with the maib Moldova Agroindb
 
 ## Screenshots
 
-1. Plugin settings ![Plugin settings](./.wordpress-org/screenshot-1.png)
-2. Connection settings ![Connection settings](./.wordpress-org/screenshot-2.png)
-3. Advanced connection settings ![Advanced connection settings](./.wordpress-org/screenshot-3.png)
-4. Refunds ![Refunds](./.wordpress-org/screenshot-4.png)
-5. Order actions ![Order actions](./.wordpress-org/screenshot-5.png)
+1\. Plugin settings
+
+![Plugin settings](./.wordpress-org/screenshot-1.png)
+
+2\. Connection settings
+
+![Connection settings](./.wordpress-org/screenshot-2.png)
+
+3\. Advanced connection settings
+
+![Advanced connection settings](./.wordpress-org/screenshot-3.png)
+
+4\. Refunds
+
+![Refunds](./.wordpress-org/screenshot-4.png)
+
+5\. Order actions
+
+![Order actions](./.wordpress-org/screenshot-5.png)
