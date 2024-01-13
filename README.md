@@ -4,7 +4,9 @@
 [![WordPress plugin](https://img.shields.io/wordpress/plugin/dt/wc-moldovaagroindbank)](https://wordpress.org/plugins/wc-moldovaagroindbank/)
 [![Active installs](https://img.shields.io/wordpress/plugin/installs/wc-moldovaagroindbank)](https://wordpress.org/plugins/wc-moldovaagroindbank/advanced/)
 
-Accept Visa and Mastercard directly on your store with the maib Moldova Agroindbank payment gateway for WooCommerce.
+_Accept Visa and Mastercard directly on your store with the maib Moldova Agroindbank payment gateway for WooCommerce._
+
+WordPress plugin: https://wordpress.org/plugins/wc-moldovaagroindbank/
 
 ## Features
 
