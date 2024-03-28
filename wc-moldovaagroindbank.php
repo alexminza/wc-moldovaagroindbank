@@ -145,7 +145,7 @@ function woocommerce_moldovaagroindbank_init() {
 			if(is_admin())
 				add_action("woocommerce_update_options_payment_gateways_{$this->id}", array($this, 'process_admin_options'));
 
-			add_action("woocommerce_api_wc_{$this->id}", array($this, 'check_response'));
+			add_action("woocommerce_api_" . strtolower(get_class()), array($this, 'check_response'));
 		}
 
 		public function init_form_fields() {
@@ -1090,7 +1090,7 @@ function woocommerce_moldovaagroindbank_init() {
 
 		protected static function get_callback_url() {
 			//https://developer.woo.com/docs/woocommerce-plugin-api-callbacks/
-			return WC()->api_request_url(get_class());
+			return WC()->api_request_url(strtolower(get_class()));
 		}
 
 		protected static function get_logs_url() {
