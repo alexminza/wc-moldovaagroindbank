@@ -14,7 +14,7 @@
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Requires PHP: 7.2
  * Requires at least: 4.8
- * Tested up to: 6.4.3
+ * Tested up to: 6.5
  * WC requires at least: 3.3
  * WC tested up to: 8.7.0
  * Requires Plugins: woocommerce
@@ -117,8 +117,8 @@ function woocommerce_moldovaagroindbank_init() {
 			$this->logo_type          = $this->get_option('logo_type', self::LOGO_TYPE_BANK);
 			$this->icon               = apply_filters('woocommerce_moldovaagroindbank_icon', self::get_logo_icon($this->logo_type));
 
-			$this->testmode           = 'yes' === $this->get_option('testmode', 'no');
-			$this->debug              = 'yes' === $this->get_option('debug', 'no');
+			$this->testmode           = wc_string_to_bool($this->get_option('testmode', 'no'));
+			$this->debug              = wc_string_to_bool($this->get_option('debug', 'no'));
 			$this->logger             = new WC_Logger(null, $this->debug ? WC_Log_Levels::DEBUG : WC_Log_Levels::INFO);
 
 			if($this->testmode)
