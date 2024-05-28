@@ -15,6 +15,7 @@ WordPress plugin: https://wordpress.org/plugins/wc-moldovaagroindbank/
 * Reverse transactions – partial or complete refunds
 * Admin order actions – complete authorized transaction
 * Close business day scheduled action
+* Supports WooCommerce [block-based checkout experience](https://woo.com/checkout-blocks/)
 * Free to use – [Open-source GPL-3.0 license on GitHub](https://github.com/alexminza/wc-moldovaagroindbank)
 
 ## Getting Started

@@ -3,7 +3,7 @@ Contributors: alexminza
 Donate link: https://www.revolut.me/alexminza
 Tags: WooCommerce, Moldova, Agroindbank, maib, bank, payment, gateway, visa, mastercard, credit card
 Requires at least: 4.8
-Tested up to: 6.3.2
+Tested up to: 6.5.3
 Stable tag: trunk
 Requires PHP: 7.2
 License: GPLv3 or later
@@ -21,6 +21,7 @@ Accept Visa and Mastercard directly on your store with the maib Moldova Agroindb
 * Reverse transactions – partial or complete refunds
 * Admin order actions – complete authorized transaction
 * Close business day scheduled action
+* Supports WooCommerce [block-based checkout experience](https://woo.com/checkout-blocks/)
 * Free to use – [Open-source GPL-3.0 license on GitHub](https://github.com/alexminza/wc-moldovaagroindbank)
 
 = Getting Started =
@@ -88,6 +89,9 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 == Changelog ==
 
 See [wc-moldovaagroindbank project releases on GitHub](https://github.com/alexminza/wc-moldovaagroindbank/releases) for details.
+
+= 1.4.0 =
+Added support for WooCommerce [Cart and Checkout Blocks](https://woo.com/document/cart-checkout-blocks-status/).
 
 = 1.3.2 =
 Added support for WooCommerce [High-Performance Order Storage (HPOS)](https://woocommerce.com/document/high-performance-order-storage/).
@@ -162,15 +166,8 @@ Initial release
 
 == Upgrade Notice ==
 
+= 1.4.0 =
+Added support for WooCommerce [Cart and Checkout Blocks](https://woo.com/document/cart-checkout-blocks-status/).
+
 = 1.3.2 =
-Added support for WooCommerce [High-Performance Order Storage (HPOS)](https://woocommerce.com/document/high-performance-order-storage/)
-
-= 1.3.1 =
-Updated [MAIB Payment PHP SDK](https://github.com/maibank/maibapi) to fix Windows platform compatibility
-
-= 1.3.0 =
-* Migrated to the official MAIB Payment PHP SDK
-* Minimum supported PHP version changed to 7.2
-
-= 1.2.4 =
-Updated maib test payment gateway URL and visual identity
+Added support for WooCommerce [High-Performance Order Storage (HPOS)](https://woocommerce.com/document/high-performance-order-storage/).
