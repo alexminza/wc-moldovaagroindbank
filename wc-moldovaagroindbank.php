@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce maib Moldova Agroindbank Payment Gateway
  * Description: Accept Visa and Mastercard directly on your store with the maib Moldova Agroindbank payment gateway for WooCommerce.
  * Plugin URI: https://github.com/alexminza/wc-moldovaagroindbank
- * Version: 1.4.0-beta
+ * Version: 1.4.0
  * Author: Alexander Minza
  * Author URI: https://profiles.wordpress.org/alexminza
  * Developer: Alexander Minza
@@ -14,9 +14,9 @@
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Requires PHP: 7.2
  * Requires at least: 4.8
- * Tested up to: 6.5
+ * Tested up to: 6.5.3
  * WC requires at least: 3.3
- * WC tested up to: 8.7.0
+ * WC tested up to: 8.9.1
  * Requires Plugins: woocommerce
  */
 
