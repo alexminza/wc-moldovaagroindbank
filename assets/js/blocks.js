@@ -31,7 +31,6 @@ const Label = () => {
 const maib_Block_Gateway = {
     name: maib_settings.id,
     label: Object(window.wp.element.createElement)(Label, null),
-    //icons: [{id: settings.id, src: settings.icon, alt: label_text}],
     icons: ['visa', 'mastercard'],
     content: Object(window.wp.element.createElement)(Content, null),
     edit: Object(window.wp.element.createElement)(Content, null),
@@ -42,5 +41,4 @@ const maib_Block_Gateway = {
     },
 };
 
-//console.debug(maib_Block_Gateway);
 window.wc.wcBlocksRegistry.registerPaymentMethod(maib_Block_Gateway);

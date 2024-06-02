@@ -29,11 +29,15 @@
     ],
     "require": {
         "php": ">=7.2",
-        "maib/maibapi": "^2.0"
+        "maib/maibapi": "^2.0",
+        "automattic/jetpack-autoloader": "^3.0"
     },
     "config": {
         "platform": {
             "php": "7.2"
+        },
+        "allow-plugins": {
+            "automattic/jetpack-autoloader": true
         }
     }
 }

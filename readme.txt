@@ -1,7 +1,7 @@
 === WooCommerce maib Moldova Agroindbank Payment Gateway ===
 Contributors: alexminza
 Donate link: https://www.revolut.me/alexminza
-Tags: WooCommerce, Moldova, Agroindbank, maib, bank, payment, gateway, visa, mastercard, credit card
+Tags: WooCommerce, Moldova, maib, payment gateway, credit card
 Requires at least: 4.8
 Tested up to: 6.5.3
 Stable tag: trunk
