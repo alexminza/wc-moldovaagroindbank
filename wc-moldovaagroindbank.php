@@ -664,7 +664,7 @@ function woocommerce_moldovaagroindbank_init() {
 
 		public function process_payment($order_id) {
 			$order = wc_get_order($order_id);
-			$order_total = self::price_format($order->get_total());
+			$order_total = $order->get_total();
 			$order_currency_numcode = self::get_currency_numcode($order->get_currency());
 			$order_description = $this->get_order_description($order);
 			$client_ip = self::get_client_ip();
@@ -687,6 +687,7 @@ function woocommerce_moldovaagroindbank_init() {
 				if(!self::string_empty($trans_id)) {
 					#region Update order payment transaction metadata
 					//https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#apis-for-gettingsetting-posts-and-postmeta
+					//https://developer.woocommerce.com/docs/hpos-extension-recipe-book/#2-supporting-high-performance-order-storage-in-your-extension
 					$order->add_meta_data(self::MOD_TRANSACTION_TYPE, $this->transaction_type, true);
 					$order->add_meta_data(self::MOD_TRANSACTION_ID, $trans_id, true);
 					$order->save();
@@ -712,6 +713,12 @@ function woocommerce_moldovaagroindbank_init() {
 			$this->log($message, WC_Log_Levels::ERROR);
 
 			$message = sprintf(__('Order #%1$s payment initiation failed via %2$s.', self::MOD_TEXT_DOMAIN), $order_id, $this->method_title);
+
+			//https://github.com/woocommerce/woocommerce/issues/48687#issuecomment-2186475264
+			if(WC()->is_store_api_request()) {
+				throw new Exception($message);
+			}
+
 			wc_add_notice($message, 'error');
 			$this->logs_admin_website_notice();
 
@@ -728,7 +735,7 @@ function woocommerce_moldovaagroindbank_init() {
 			}
 
 			$trans_id = self::get_order_transaction_id($order);
-			$order_total = self::price_format(self::get_order_net_total($order));
+			$order_total = self::get_order_net_total($order);
 			$order_currency_numcode = self::get_currency_numcode($order->get_currency());
 			$order_description = $this->get_order_description($order);
 			$client_ip = self::get_client_ip();
@@ -1053,14 +1060,9 @@ function woocommerce_moldovaagroindbank_init() {
 		#region Utility
 		protected function get_test_message($message) {
 			if($this->testmode)
-				$message = "TEST: $message";
+				$message = sprintf(__('TEST: %1$s', self::MOD_TEXT_DOMAIN), $message);
 
 			return $message;
-		}
-
-		protected static function price_format($price) {
-			$decimals = 2;
-			return number_format($price, $decimals, '.', '');
 		}
 
 		//https://en.wikipedia.org/wiki/ISO_4217

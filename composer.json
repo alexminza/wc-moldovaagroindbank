@@ -28,13 +28,14 @@
         }
     ],
     "require": {
-        "php": ">=7.2",
-        "maib/maibapi": "^2.0",
+        "php": ">=7.2.5",
+        "maib/maibapi": "^3.0",
+        "monolog/monolog": "^2.7",
         "automattic/jetpack-autoloader": "^3.0"
     },
     "config": {
         "platform": {
-            "php": "7.2"
+            "php": "7.2.5"
         },
         "allow-plugins": {
             "automattic/jetpack-autoloader": true

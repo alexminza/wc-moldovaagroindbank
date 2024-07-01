@@ -1,11 +1,11 @@
 const maib_settings = window.wc.wcSettings.getSetting('moldovaagroindbank_data', {});
 const maib_title = window.wp.htmlEntities.decodeEntities(maib_settings.title);
 
-const Content = () => {
+const maib_content = () => {
     return window.wp.htmlEntities.decodeEntities(maib_settings.description || '');
 };
 
-const Label = () => {
+const maib_label = () => {
     let icon = maib_settings.icon
         ? window.wp.element.createElement(
             'img',
@@ -28,12 +28,12 @@ const Label = () => {
     return label;
 };
 
-const maib_Block_Gateway = {
+const maib_blockGateway = {
     name: maib_settings.id,
-    label: Object(window.wp.element.createElement)(Label, null),
+    label: Object(window.wp.element.createElement)(maib_label, null),
     icons: ['visa', 'mastercard'],
-    content: Object(window.wp.element.createElement)(Content, null),
-    edit: Object(window.wp.element.createElement)(Content, null),
+    content: Object(window.wp.element.createElement)(maib_content, null),
+    edit: Object(window.wp.element.createElement)(maib_content, null),
     canMakePayment: () => true,
     ariaLabel: maib_title,
     supports: {
@@ -41,4 +41,4 @@ const maib_Block_Gateway = {
     },
 };
 
-window.wc.wcBlocksRegistry.registerPaymentMethod(maib_Block_Gateway);
+window.wc.wcBlocksRegistry.registerPaymentMethod(maib_blockGateway);
