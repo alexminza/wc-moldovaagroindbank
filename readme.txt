@@ -3,7 +3,7 @@ Contributors: alexminza
 Donate link: https://www.revolut.me/alexminza
 Tags: WooCommerce, Moldova, maib, payment gateway, credit card
 Requires at least: 4.8
-Tested up to: 6.5.5
+Tested up to: 6.6
 Stable tag: trunk
 Requires PHP: 7.2.5
 License: GPLv3 or later

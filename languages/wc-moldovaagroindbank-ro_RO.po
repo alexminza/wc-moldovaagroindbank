@@ -6,8 +6,8 @@ msgstr ""
 "1.4.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-"
 "moldovaagroindbank\n"
-"POT-Creation-Date: 2024-07-01 17:48+0300\n"
-"PO-Revision-Date: 2024-07-01 17:50+0300\n"
+"POT-Creation-Date: 2024-07-18 22:31+0300\n"
+"PO-Revision-Date: 2024-07-18 22:32+0300\n"
 "Last-Translator: Alexander Minza <alex@alexminza.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Acceptă plata cu carduri Visa și Mastercard direct în magazin cu gateway-ul "
 "de plată maib Moldova Agroindbank pentru WooCommerce."
 
-#: wc-moldovaagroindbank.php:50
+#: wc-moldovaagroindbank.php:51
 msgid ""
 "maib Moldova Agroindbank payment gateway requires WooCommerce to be "
 "installed and active."
@@ -35,59 +35,59 @@ msgstr ""
 "Gateway-ul de plată maib Moldova Agroindbank necesită ca modulul WooCommerce "
 "să fie instalat și activ."
 
-#: wc-moldovaagroindbank.php:149
+#: wc-moldovaagroindbank.php:150
 msgid "Enable/Disable"
 msgstr "Activare/Dezactivare"
 
-#: wc-moldovaagroindbank.php:151
+#: wc-moldovaagroindbank.php:152
 msgid "Enable this gateway"
 msgstr "Activează acest gateway de plată"
 
-#: wc-moldovaagroindbank.php:155
+#: wc-moldovaagroindbank.php:156
 msgid "Title"
 msgstr "Titlu"
 
-#: wc-moldovaagroindbank.php:157
+#: wc-moldovaagroindbank.php:158
 msgid "Payment method title that the customer will see during checkout."
 msgstr "Titlul metodei de plată afișat clientului în timpul plății."
 
-#: wc-moldovaagroindbank.php:162
+#: wc-moldovaagroindbank.php:163
 msgid "Description"
 msgstr "Descriere"
 
-#: wc-moldovaagroindbank.php:164
+#: wc-moldovaagroindbank.php:165
 msgid "Payment method description that the customer will see during checkout."
 msgstr "Descrierea metodei de plată afișată clientului în timpul plății."
 
-#: wc-moldovaagroindbank.php:169
+#: wc-moldovaagroindbank.php:170
 msgid "Logo"
 msgstr "Logo"
 
-#: wc-moldovaagroindbank.php:172
+#: wc-moldovaagroindbank.php:173
 msgid "Payment method logo image that the customer will see during checkout."
 msgstr "Sigla metodei de plată afișată clientului în timpul plății."
 
-#: wc-moldovaagroindbank.php:176
+#: wc-moldovaagroindbank.php:177
 msgid "Bank logo"
 msgstr "Logo bancă"
 
-#: wc-moldovaagroindbank.php:177
+#: wc-moldovaagroindbank.php:178
 msgid "Payment systems logos"
 msgstr "Logo sisteme de plăți"
 
-#: wc-moldovaagroindbank.php:178
+#: wc-moldovaagroindbank.php:179
 msgid "No logo"
 msgstr "Fără logo"
 
-#: wc-moldovaagroindbank.php:183
+#: wc-moldovaagroindbank.php:184
 msgid "Test mode"
 msgstr "Mod testare"
 
-#: wc-moldovaagroindbank.php:185
+#: wc-moldovaagroindbank.php:186
 msgid "Enabled"
 msgstr "Activat"
 
-#: wc-moldovaagroindbank.php:186
+#: wc-moldovaagroindbank.php:187
 msgid ""
 "Use Test or Live bank gateway to process the payments. Disable when ready to "
 "accept live payments."
@@ -95,19 +95,19 @@ msgstr ""
 "Conectare la mediul de Test sau Producție al băncii pentru procesarea "
 "plăților. Dezactivați atunci când sunteți gata să acceptați plăți reale."
 
-#: wc-moldovaagroindbank.php:191
+#: wc-moldovaagroindbank.php:192
 msgid "Debug mode"
 msgstr "Mod depanare"
 
-#: wc-moldovaagroindbank.php:193
+#: wc-moldovaagroindbank.php:194
 msgid "Enable logging"
 msgstr "Activează jurnalizare"
 
-#: wc-moldovaagroindbank.php:195
+#: wc-moldovaagroindbank.php:196
 msgid "View logs"
 msgstr "Vizualizați jurnalele"
 
-#: wc-moldovaagroindbank.php:196
+#: wc-moldovaagroindbank.php:197
 msgid ""
 "Save debug messages to the WooCommerce System Status logs. Note: this may "
 "log personal information. Use this for debugging purposes only and delete "
@@ -117,11 +117,11 @@ msgstr ""
 "Notă: acest lucru poate înregistra informații personale. Utilizați această "
 "opțiune numai pentru depanare și ștergeți jurnalele atunci când ați terminat."
 
-#: wc-moldovaagroindbank.php:200
+#: wc-moldovaagroindbank.php:201
 msgid "Transaction type"
 msgstr "Tip tranzacție"
 
-#: wc-moldovaagroindbank.php:203
+#: wc-moldovaagroindbank.php:204
 msgid ""
 "Select how transactions should be processed. Charge submits all transactions "
 "for settlement, Authorization simply authorizes the order total for capture "
@@ -131,35 +131,35 @@ msgstr ""
 "toate tranzacțiile la bancă pentru decontare, Authorization doar autorizează "
 "suma comenzii la bancă pentru decontare ulterioară."
 
-#: wc-moldovaagroindbank.php:207
+#: wc-moldovaagroindbank.php:208
 msgid "Charge"
 msgstr "Plată (Charge)"
 
-#: wc-moldovaagroindbank.php:208
+#: wc-moldovaagroindbank.php:209
 msgid "Authorization"
 msgstr "Autorizare (Authorization)"
 
-#: wc-moldovaagroindbank.php:212
+#: wc-moldovaagroindbank.php:213
 msgid "Order description"
 msgstr "Descriere comandă"
 
-#: wc-moldovaagroindbank.php:214
+#: wc-moldovaagroindbank.php:215
 msgid ""
 "Format: <code>%1$s</code> - Order ID, <code>%2$s</code> - Order items summary"
 msgstr ""
 "Format: <code>%1$s</code> - ID Comandă, <code>%2$s</code> - Sumar conținut "
 "comandă"
 
-#: wc-moldovaagroindbank.php:215
+#: wc-moldovaagroindbank.php:216
 msgid "Order description that the customer will see on the bank payment page."
 msgstr ""
 "Descrierea comenzii afișată clientului pe pagina băncii în timpul plății."
 
-#: wc-moldovaagroindbank.php:220 wc-moldovaagroindbank.php:370
+#: wc-moldovaagroindbank.php:221 wc-moldovaagroindbank.php:370
 msgid "Connection Settings"
 msgstr "Setări conexiune"
 
-#: wc-moldovaagroindbank.php:222
+#: wc-moldovaagroindbank.php:223
 msgid ""
 "Use Basic settings to upload the certificate file received from the bank or "
 "configure manually using Advanced settings below."
@@ -167,13 +167,9 @@ msgstr ""
 "Utilizați Setările de bază pentru a încărca fișierul de certificat primit de "
 "la bancă sau configurați manual utilizând Setările avansate de mai jos."
 
-#: wc-moldovaagroindbank.php:223
+#: wc-moldovaagroindbank.php:224
 msgid "Basic settings&raquo;"
 msgstr "Setări de bază&raquo;"
-
-#: wc-moldovaagroindbank.php:224
-msgid "or"
-msgstr "sau"
 
 #: wc-moldovaagroindbank.php:225
 msgid "Advanced settings&raquo;"

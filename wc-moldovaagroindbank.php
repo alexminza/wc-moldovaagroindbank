@@ -14,9 +14,9 @@
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Requires PHP: 7.2.5
  * Requires at least: 4.8
- * Tested up to: 6.5.5
+ * Tested up to: 6.6
  * WC requires at least: 3.3
- * WC tested up to: 9.0.2
+ * WC tested up to: 9.1.2
  * Requires Plugins: woocommerce
  */
 
@@ -28,6 +28,7 @@ if(!defined('ABSPATH')) {
 }
 
 //https://vanrossum.dev/37-wordpress-and-composer
+//https://github.com/Automattic/jetpack-autoloader
 require_once(__DIR__ . '/vendor/autoload_packages.php');
 
 use Maib\MaibApi\MaibClient;
@@ -218,10 +219,9 @@ function woocommerce_moldovaagroindbank_init() {
 
 				'connection_settings' => array(
 					'title'       => __('Connection Settings', self::MOD_TEXT_DOMAIN),
-					'description' => sprintf('%1$s<br /><br /><a href="#" id="woocommerce_moldovaagroindbank_basic_settings" class="button">%2$s</a>&nbsp;%3$s&nbsp;<a href="#" id="woocommerce_moldovaagroindbank_advanced_settings" class="button">%4$s</a>',
+					'description' => sprintf('%1$s<br /><br /><a href="#" id="woocommerce_moldovaagroindbank_basic_settings" class="button">%2$s</a> <a href="#" id="woocommerce_moldovaagroindbank_advanced_settings" class="button">%3$s</a>',
 						__('Use Basic settings to upload the certificate file received from the bank or configure manually using Advanced settings below.', self::MOD_TEXT_DOMAIN),
 						__('Basic settings&raquo;', self::MOD_TEXT_DOMAIN),
-						__('or', self::MOD_TEXT_DOMAIN),
 						__('Advanced settings&raquo;', self::MOD_TEXT_DOMAIN)),
 					'type'        => 'title'
 				),

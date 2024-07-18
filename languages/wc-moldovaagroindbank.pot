@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce maib Moldova Agroindbank Payment Gateway 1.4.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-moldovaagroindbank\n"
-"POT-Creation-Date: 2024-07-01 17:48+0300\n"
+"POT-Creation-Date: 2024-07-18 22:31+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,124 +19,120 @@ msgstr ""
 msgid "Accept Visa and Mastercard directly on your store with the maib Moldova Agroindbank payment gateway for WooCommerce."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:50
+#: wc-moldovaagroindbank.php:51
 msgid "maib Moldova Agroindbank payment gateway requires WooCommerce to be installed and active."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:149
+#: wc-moldovaagroindbank.php:150
 msgid "Enable/Disable"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:151
+#: wc-moldovaagroindbank.php:152
 msgid "Enable this gateway"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:155
+#: wc-moldovaagroindbank.php:156
 msgid "Title"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:157
+#: wc-moldovaagroindbank.php:158
 msgid "Payment method title that the customer will see during checkout."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:162
+#: wc-moldovaagroindbank.php:163
 msgid "Description"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:164
+#: wc-moldovaagroindbank.php:165
 msgid "Payment method description that the customer will see during checkout."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:169
+#: wc-moldovaagroindbank.php:170
 msgid "Logo"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:172
+#: wc-moldovaagroindbank.php:173
 msgid "Payment method logo image that the customer will see during checkout."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:176
+#: wc-moldovaagroindbank.php:177
 msgid "Bank logo"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:177
+#: wc-moldovaagroindbank.php:178
 msgid "Payment systems logos"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:178
+#: wc-moldovaagroindbank.php:179
 msgid "No logo"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:183
+#: wc-moldovaagroindbank.php:184
 msgid "Test mode"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:185
+#: wc-moldovaagroindbank.php:186
 msgid "Enabled"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:186
+#: wc-moldovaagroindbank.php:187
 msgid "Use Test or Live bank gateway to process the payments. Disable when ready to accept live payments."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:191
+#: wc-moldovaagroindbank.php:192
 msgid "Debug mode"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:193
+#: wc-moldovaagroindbank.php:194
 msgid "Enable logging"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:195
+#: wc-moldovaagroindbank.php:196
 msgid "View logs"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:196
+#: wc-moldovaagroindbank.php:197
 msgid "Save debug messages to the WooCommerce System Status logs. Note: this may log personal information. Use this for debugging purposes only and delete the logs when finished."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:200
+#: wc-moldovaagroindbank.php:201
 msgid "Transaction type"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:203
+#: wc-moldovaagroindbank.php:204
 msgid "Select how transactions should be processed. Charge submits all transactions for settlement, Authorization simply authorizes the order total for capture later."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:207
+#: wc-moldovaagroindbank.php:208
 msgid "Charge"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:208
+#: wc-moldovaagroindbank.php:209
 msgid "Authorization"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:212
+#: wc-moldovaagroindbank.php:213
 msgid "Order description"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:214
+#: wc-moldovaagroindbank.php:215
 msgid "Format: <code>%1$s</code> - Order ID, <code>%2$s</code> - Order items summary"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:215
+#: wc-moldovaagroindbank.php:216
 msgid "Order description that the customer will see on the bank payment page."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:220 wc-moldovaagroindbank.php:370
+#: wc-moldovaagroindbank.php:221 wc-moldovaagroindbank.php:370
 msgid "Connection Settings"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:222
+#: wc-moldovaagroindbank.php:223
 msgid "Use Basic settings to upload the certificate file received from the bank or configure manually using Advanced settings below."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:223
-msgid "Basic settings&raquo;"
-msgstr ""
-
 #: wc-moldovaagroindbank.php:224
-msgid "or"
+msgid "Basic settings&raquo;"
 msgstr ""
 
 #: wc-moldovaagroindbank.php:225
