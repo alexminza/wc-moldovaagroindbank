@@ -6,544 +6,572 @@ $vendorDir = dirname(__DIR__);
 $baseDir   = dirname($vendorDir);
 
 return array(
+	'Attribute' => array(
+		'version' => '1.30.0.0',
+		'path'    => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php'
+	),
 	'Autoloader' => array(
-		'version' => '3.0.8',
+		'version' => '3.0.9',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/class-autoloader.php'
 	),
 	'Autoloader_Handler' => array(
-		'version' => '3.0.8',
+		'version' => '3.0.9',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/class-autoloader-handler.php'
 	),
 	'Autoloader_Locator' => array(
-		'version' => '3.0.8',
+		'version' => '3.0.9',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/class-autoloader-locator.php'
 	),
 	'Automattic\\Jetpack\\Autoloader\\AutoloadFileWriter' => array(
-		'version' => '3.0.8',
+		'version' => '3.0.9',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/AutoloadFileWriter.php'
 	),
 	'Automattic\\Jetpack\\Autoloader\\AutoloadGenerator' => array(
-		'version' => '3.0.8',
+		'version' => '3.0.9',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/AutoloadGenerator.php'
 	),
 	'Automattic\\Jetpack\\Autoloader\\AutoloadProcessor' => array(
-		'version' => '3.0.8',
+		'version' => '3.0.9',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/AutoloadProcessor.php'
 	),
 	'Automattic\\Jetpack\\Autoloader\\CustomAutoloaderPlugin' => array(
-		'version' => '3.0.8',
+		'version' => '3.0.9',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/CustomAutoloaderPlugin.php'
 	),
 	'Automattic\\Jetpack\\Autoloader\\ManifestGenerator' => array(
-		'version' => '3.0.8',
+		'version' => '3.0.9',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/ManifestGenerator.php'
 	),
 	'Container' => array(
-		'version' => '3.0.8',
+		'version' => '3.0.9',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/class-container.php'
 	),
+	'GuzzleHttp\\BodySummarizer' => array(
+		'version' => '7.8.1.0',
+		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/BodySummarizer.php'
+	),
+	'GuzzleHttp\\BodySummarizerInterface' => array(
+		'version' => '7.8.1.0',
+		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/BodySummarizerInterface.php'
+	),
 	'GuzzleHttp\\Client' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Client.php'
 	),
 	'GuzzleHttp\\ClientInterface' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/ClientInterface.php'
 	),
+	'GuzzleHttp\\ClientTrait' => array(
+		'version' => '7.8.1.0',
+		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/ClientTrait.php'
+	),
 	'GuzzleHttp\\Command\\Command' => array(
-		'version' => '1.0.0.0',
+		'version' => '1.3.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/command/src/Command.php'
 	),
 	'GuzzleHttp\\Command\\CommandInterface' => array(
-		'version' => '1.0.0.0',
+		'version' => '1.3.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/command/src/CommandInterface.php'
 	),
 	'GuzzleHttp\\Command\\Exception\\CommandClientException' => array(
-		'version' => '1.0.0.0',
+		'version' => '1.3.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/command/src/Exception/CommandClientException.php'
 	),
 	'GuzzleHttp\\Command\\Exception\\CommandException' => array(
-		'version' => '1.0.0.0',
+		'version' => '1.3.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/command/src/Exception/CommandException.php'
 	),
 	'GuzzleHttp\\Command\\Exception\\CommandServerException' => array(
-		'version' => '1.0.0.0',
+		'version' => '1.3.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/command/src/Exception/CommandServerException.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\Description' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/Description.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\DescriptionInterface' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/DescriptionInterface.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\Deserializer' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/Deserializer.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\GuzzleClient' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/GuzzleClient.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\Handler\\ValidatedDescriptionHandler' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/Handler/ValidatedDescriptionHandler.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\Operation' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/Operation.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\Parameter' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/Parameter.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\QuerySerializer\\QuerySerializerInterface' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/QuerySerializer/QuerySerializerInterface.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\QuerySerializer\\Rfc3986Serializer' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/QuerySerializer/Rfc3986Serializer.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\RequestLocation\\AbstractLocation' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/RequestLocation/AbstractLocation.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\RequestLocation\\BodyLocation' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/RequestLocation/BodyLocation.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\RequestLocation\\FormParamLocation' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/RequestLocation/FormParamLocation.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\RequestLocation\\HeaderLocation' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/RequestLocation/HeaderLocation.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\RequestLocation\\JsonLocation' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/RequestLocation/JsonLocation.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\RequestLocation\\MultiPartLocation' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/RequestLocation/MultiPartLocation.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\RequestLocation\\QueryLocation' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/RequestLocation/QueryLocation.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\RequestLocation\\RequestLocationInterface' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/RequestLocation/RequestLocationInterface.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\RequestLocation\\XmlLocation' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/RequestLocation/XmlLocation.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\ResponseLocation\\AbstractLocation' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/ResponseLocation/AbstractLocation.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\ResponseLocation\\BodyLocation' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/ResponseLocation/BodyLocation.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\ResponseLocation\\HeaderLocation' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/ResponseLocation/HeaderLocation.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\ResponseLocation\\JsonLocation' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/ResponseLocation/JsonLocation.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\ResponseLocation\\ReasonPhraseLocation' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/ResponseLocation/ReasonPhraseLocation.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\ResponseLocation\\ResponseLocationInterface' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/ResponseLocation/ResponseLocationInterface.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\ResponseLocation\\StatusCodeLocation' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/ResponseLocation/StatusCodeLocation.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\ResponseLocation\\XmlLocation' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/ResponseLocation/XmlLocation.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\SchemaFormatter' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/SchemaFormatter.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\SchemaValidator' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/SchemaValidator.php'
 	),
 	'GuzzleHttp\\Command\\Guzzle\\Serializer' => array(
-		'version' => '1.1.3.0',
+		'version' => '1.4.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle-services/src/Serializer.php'
 	),
 	'GuzzleHttp\\Command\\HasDataTrait' => array(
-		'version' => '1.0.0.0',
+		'version' => '1.3.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/command/src/HasDataTrait.php'
 	),
 	'GuzzleHttp\\Command\\Result' => array(
-		'version' => '1.0.0.0',
+		'version' => '1.3.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/command/src/Result.php'
 	),
 	'GuzzleHttp\\Command\\ResultInterface' => array(
-		'version' => '1.0.0.0',
+		'version' => '1.3.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/command/src/ResultInterface.php'
 	),
 	'GuzzleHttp\\Command\\ServiceClient' => array(
-		'version' => '1.0.0.0',
+		'version' => '1.3.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/command/src/ServiceClient.php'
 	),
 	'GuzzleHttp\\Command\\ServiceClientInterface' => array(
-		'version' => '1.0.0.0',
+		'version' => '1.3.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/command/src/ServiceClientInterface.php'
 	),
 	'GuzzleHttp\\Command\\ToArrayInterface' => array(
-		'version' => '1.0.0.0',
+		'version' => '1.3.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/command/src/ToArrayInterface.php'
 	),
 	'GuzzleHttp\\Cookie\\CookieJar' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Cookie/CookieJar.php'
 	),
 	'GuzzleHttp\\Cookie\\CookieJarInterface' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Cookie/CookieJarInterface.php'
 	),
 	'GuzzleHttp\\Cookie\\FileCookieJar' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Cookie/FileCookieJar.php'
 	),
 	'GuzzleHttp\\Cookie\\SessionCookieJar' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Cookie/SessionCookieJar.php'
 	),
 	'GuzzleHttp\\Cookie\\SetCookie' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Cookie/SetCookie.php'
 	),
 	'GuzzleHttp\\Exception\\BadResponseException' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Exception/BadResponseException.php'
 	),
 	'GuzzleHttp\\Exception\\ClientException' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Exception/ClientException.php'
 	),
 	'GuzzleHttp\\Exception\\ConnectException' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Exception/ConnectException.php'
 	),
 	'GuzzleHttp\\Exception\\GuzzleException' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Exception/GuzzleException.php'
 	),
 	'GuzzleHttp\\Exception\\InvalidArgumentException' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Exception/InvalidArgumentException.php'
 	),
 	'GuzzleHttp\\Exception\\RequestException' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Exception/RequestException.php'
 	),
-	'GuzzleHttp\\Exception\\SeekException' => array(
-		'version' => '6.5.8.0',
-		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Exception/SeekException.php'
-	),
 	'GuzzleHttp\\Exception\\ServerException' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Exception/ServerException.php'
 	),
 	'GuzzleHttp\\Exception\\TooManyRedirectsException' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Exception/TooManyRedirectsException.php'
 	),
 	'GuzzleHttp\\Exception\\TransferException' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Exception/TransferException.php'
 	),
 	'GuzzleHttp\\HandlerStack' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/HandlerStack.php'
 	),
 	'GuzzleHttp\\Handler\\CurlFactory' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Handler/CurlFactory.php'
 	),
 	'GuzzleHttp\\Handler\\CurlFactoryInterface' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Handler/CurlFactoryInterface.php'
 	),
 	'GuzzleHttp\\Handler\\CurlHandler' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Handler/CurlHandler.php'
 	),
 	'GuzzleHttp\\Handler\\CurlMultiHandler' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Handler/CurlMultiHandler.php'
 	),
 	'GuzzleHttp\\Handler\\EasyHandle' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Handler/EasyHandle.php'
 	),
+	'GuzzleHttp\\Handler\\HeaderProcessor' => array(
+		'version' => '7.8.1.0',
+		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Handler/HeaderProcessor.php'
+	),
 	'GuzzleHttp\\Handler\\MockHandler' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Handler/MockHandler.php'
 	),
 	'GuzzleHttp\\Handler\\Proxy' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Handler/Proxy.php'
 	),
 	'GuzzleHttp\\Handler\\StreamHandler' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Handler/StreamHandler.php'
 	),
 	'GuzzleHttp\\MessageFormatter' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/MessageFormatter.php'
 	),
+	'GuzzleHttp\\MessageFormatterInterface' => array(
+		'version' => '7.8.1.0',
+		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/MessageFormatterInterface.php'
+	),
 	'GuzzleHttp\\Middleware' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Middleware.php'
 	),
 	'GuzzleHttp\\Pool' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Pool.php'
 	),
 	'GuzzleHttp\\PrepareBodyMiddleware' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/PrepareBodyMiddleware.php'
 	),
 	'GuzzleHttp\\Promise\\AggregateException' => array(
-		'version' => '1.5.3.0',
+		'version' => '2.0.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/AggregateException.php'
 	),
 	'GuzzleHttp\\Promise\\CancellationException' => array(
-		'version' => '1.5.3.0',
+		'version' => '2.0.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/CancellationException.php'
 	),
 	'GuzzleHttp\\Promise\\Coroutine' => array(
-		'version' => '1.5.3.0',
+		'version' => '2.0.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/Coroutine.php'
 	),
 	'GuzzleHttp\\Promise\\Create' => array(
-		'version' => '1.5.3.0',
+		'version' => '2.0.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/Create.php'
 	),
 	'GuzzleHttp\\Promise\\Each' => array(
-		'version' => '1.5.3.0',
+		'version' => '2.0.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/Each.php'
 	),
 	'GuzzleHttp\\Promise\\EachPromise' => array(
-		'version' => '1.5.3.0',
+		'version' => '2.0.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/EachPromise.php'
 	),
 	'GuzzleHttp\\Promise\\FulfilledPromise' => array(
-		'version' => '1.5.3.0',
+		'version' => '2.0.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/FulfilledPromise.php'
 	),
 	'GuzzleHttp\\Promise\\Is' => array(
-		'version' => '1.5.3.0',
+		'version' => '2.0.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/Is.php'
 	),
 	'GuzzleHttp\\Promise\\Promise' => array(
-		'version' => '1.5.3.0',
+		'version' => '2.0.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/Promise.php'
 	),
 	'GuzzleHttp\\Promise\\PromiseInterface' => array(
-		'version' => '1.5.3.0',
+		'version' => '2.0.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/PromiseInterface.php'
 	),
 	'GuzzleHttp\\Promise\\PromisorInterface' => array(
-		'version' => '1.5.3.0',
+		'version' => '2.0.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/PromisorInterface.php'
 	),
 	'GuzzleHttp\\Promise\\RejectedPromise' => array(
-		'version' => '1.5.3.0',
+		'version' => '2.0.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/RejectedPromise.php'
 	),
 	'GuzzleHttp\\Promise\\RejectionException' => array(
-		'version' => '1.5.3.0',
+		'version' => '2.0.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/RejectionException.php'
 	),
 	'GuzzleHttp\\Promise\\TaskQueue' => array(
-		'version' => '1.5.3.0',
+		'version' => '2.0.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/TaskQueue.php'
 	),
 	'GuzzleHttp\\Promise\\TaskQueueInterface' => array(
-		'version' => '1.5.3.0',
+		'version' => '2.0.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/TaskQueueInterface.php'
 	),
 	'GuzzleHttp\\Promise\\Utils' => array(
-		'version' => '1.5.3.0',
+		'version' => '2.0.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/Utils.php'
 	),
 	'GuzzleHttp\\Psr7\\AppendStream' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/AppendStream.php'
 	),
 	'GuzzleHttp\\Psr7\\BufferStream' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/BufferStream.php'
 	),
 	'GuzzleHttp\\Psr7\\CachingStream' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/CachingStream.php'
 	),
 	'GuzzleHttp\\Psr7\\DroppingStream' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/DroppingStream.php'
 	),
+	'GuzzleHttp\\Psr7\\Exception\\MalformedUriException' => array(
+		'version' => '2.6.2.0',
+		'path'    => $vendorDir . '/guzzlehttp/psr7/src/Exception/MalformedUriException.php'
+	),
 	'GuzzleHttp\\Psr7\\FnStream' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/FnStream.php'
 	),
 	'GuzzleHttp\\Psr7\\Header' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/Header.php'
 	),
+	'GuzzleHttp\\Psr7\\HttpFactory' => array(
+		'version' => '2.6.2.0',
+		'path'    => $vendorDir . '/guzzlehttp/psr7/src/HttpFactory.php'
+	),
 	'GuzzleHttp\\Psr7\\InflateStream' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/InflateStream.php'
 	),
 	'GuzzleHttp\\Psr7\\LazyOpenStream' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/LazyOpenStream.php'
 	),
 	'GuzzleHttp\\Psr7\\LimitStream' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/LimitStream.php'
 	),
 	'GuzzleHttp\\Psr7\\Message' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/Message.php'
 	),
 	'GuzzleHttp\\Psr7\\MessageTrait' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/MessageTrait.php'
 	),
 	'GuzzleHttp\\Psr7\\MimeType' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/MimeType.php'
 	),
 	'GuzzleHttp\\Psr7\\MultipartStream' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/MultipartStream.php'
 	),
 	'GuzzleHttp\\Psr7\\NoSeekStream' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/NoSeekStream.php'
 	),
 	'GuzzleHttp\\Psr7\\PumpStream' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/PumpStream.php'
 	),
 	'GuzzleHttp\\Psr7\\Query' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/Query.php'
 	),
 	'GuzzleHttp\\Psr7\\Request' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/Request.php'
 	),
 	'GuzzleHttp\\Psr7\\Response' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/Response.php'
 	),
 	'GuzzleHttp\\Psr7\\Rfc7230' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/Rfc7230.php'
 	),
 	'GuzzleHttp\\Psr7\\ServerRequest' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/ServerRequest.php'
 	),
 	'GuzzleHttp\\Psr7\\Stream' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/Stream.php'
 	),
 	'GuzzleHttp\\Psr7\\StreamDecoratorTrait' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/StreamDecoratorTrait.php'
 	),
 	'GuzzleHttp\\Psr7\\StreamWrapper' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/StreamWrapper.php'
 	),
 	'GuzzleHttp\\Psr7\\UploadedFile' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/UploadedFile.php'
 	),
 	'GuzzleHttp\\Psr7\\Uri' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/Uri.php'
 	),
 	'GuzzleHttp\\Psr7\\UriComparator' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/UriComparator.php'
 	),
 	'GuzzleHttp\\Psr7\\UriNormalizer' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/UriNormalizer.php'
 	),
 	'GuzzleHttp\\Psr7\\UriResolver' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/UriResolver.php'
 	),
 	'GuzzleHttp\\Psr7\\Utils' => array(
-		'version' => '1.9.1.0',
+		'version' => '2.6.2.0',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/Utils.php'
 	),
 	'GuzzleHttp\\RedirectMiddleware' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/RedirectMiddleware.php'
 	),
 	'GuzzleHttp\\RequestOptions' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/RequestOptions.php'
 	),
 	'GuzzleHttp\\RetryMiddleware' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/RetryMiddleware.php'
 	),
 	'GuzzleHttp\\TransferStats' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/TransferStats.php'
 	),
-	'GuzzleHttp\\UriTemplate' => array(
-		'version' => '6.5.8.0',
-		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/UriTemplate.php'
+	'GuzzleHttp\\UriTemplate\\UriTemplate' => array(
+		'version' => '1.0.3.0',
+		'path'    => $vendorDir . '/guzzlehttp/uri-template/src/UriTemplate.php'
 	),
 	'GuzzleHttp\\Utils' => array(
-		'version' => '6.5.8.0',
+		'version' => '7.8.1.0',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Utils.php'
 	),
 	'Hook_Manager' => array(
-		'version' => '3.0.8',
+		'version' => '3.0.9',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/class-hook-manager.php'
 	),
 	'Latest_Autoloader_Guard' => array(
-		'version' => '3.0.8',
+		'version' => '3.0.9',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/class-latest-autoloader-guard.php'
 	),
 	'Maib\\MaibApi\\MaibClient' => array(
-		'version' => '2.0.4.0',
+		'version' => '3.0.5.0',
 		'path'    => $vendorDir . '/maib/maibapi/src/MaibApi/MaibClient.php'
 	),
 	'Maib\\MaibApi\\MaibDescription' => array(
-		'version' => '2.0.4.0',
+		'version' => '3.0.5.0',
 		'path'    => $vendorDir . '/maib/maibapi/src/MaibApi/MaibDescription.php'
 	),
 	'Manifest_Reader' => array(
-		'version' => '3.0.8',
+		'version' => '3.0.9',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/class-manifest-reader.php'
 	),
 	'Monolog\\Attribute\\AsMonologProcessor' => array(
@@ -688,7 +716,7 @@ return array(
 	),
 	'Monolog\\Handler\\ElasticsearchHandler' => array(
 		'version' => '2.9.3.0',
-		'path'    => $vendorDir . '/monolog/monolog/src/Monolog/Handler/ElasticsearchHandler.php'
+		'path'    => $vendorDir . '/monolog/monolog/src/Monolog/Handler/ElasticSearchHandler.php'
 	),
 	'Monolog\\Handler\\ErrorLogHandler' => array(
 		'version' => '2.9.3.0',
@@ -1006,52 +1034,92 @@ return array(
 		'version' => '2.9.3.0',
 		'path'    => $vendorDir . '/monolog/monolog/src/Monolog/Utils.php'
 	),
-	'Normalizer' => array(
-		'version' => '1.29.0.0',
-		'path'    => $vendorDir . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php'
-	),
 	'PHP_Autoloader' => array(
-		'version' => '3.0.8',
+		'version' => '3.0.9',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/class-php-autoloader.php'
 	),
 	'Path_Processor' => array(
-		'version' => '3.0.8',
+		'version' => '3.0.9',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/class-path-processor.php'
 	),
+	'PhpToken' => array(
+		'version' => '1.30.0.0',
+		'path'    => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php'
+	),
 	'Plugin_Locator' => array(
-		'version' => '3.0.8',
+		'version' => '3.0.9',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/class-plugin-locator.php'
 	),
 	'Plugins_Handler' => array(
-		'version' => '3.0.8',
+		'version' => '3.0.9',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/class-plugins-handler.php'
 	),
+	'Psr\\Http\\Client\\ClientExceptionInterface' => array(
+		'version' => '1.0.3.0',
+		'path'    => $vendorDir . '/psr/http-client/src/ClientExceptionInterface.php'
+	),
+	'Psr\\Http\\Client\\ClientInterface' => array(
+		'version' => '1.0.3.0',
+		'path'    => $vendorDir . '/psr/http-client/src/ClientInterface.php'
+	),
+	'Psr\\Http\\Client\\NetworkExceptionInterface' => array(
+		'version' => '1.0.3.0',
+		'path'    => $vendorDir . '/psr/http-client/src/NetworkExceptionInterface.php'
+	),
+	'Psr\\Http\\Client\\RequestExceptionInterface' => array(
+		'version' => '1.0.3.0',
+		'path'    => $vendorDir . '/psr/http-client/src/RequestExceptionInterface.php'
+	),
 	'Psr\\Http\\Message\\MessageInterface' => array(
-		'version' => '1.1.0.0',
+		'version' => '2.0.0.0',
 		'path'    => $vendorDir . '/psr/http-message/src/MessageInterface.php'
 	),
-	'Psr\\Http\\Message\\RequestInterface' => array(
+	'Psr\\Http\\Message\\RequestFactoryInterface' => array(
 		'version' => '1.1.0.0',
+		'path'    => $vendorDir . '/psr/http-factory/src/RequestFactoryInterface.php'
+	),
+	'Psr\\Http\\Message\\RequestInterface' => array(
+		'version' => '2.0.0.0',
 		'path'    => $vendorDir . '/psr/http-message/src/RequestInterface.php'
 	),
-	'Psr\\Http\\Message\\ResponseInterface' => array(
+	'Psr\\Http\\Message\\ResponseFactoryInterface' => array(
 		'version' => '1.1.0.0',
+		'path'    => $vendorDir . '/psr/http-factory/src/ResponseFactoryInterface.php'
+	),
+	'Psr\\Http\\Message\\ResponseInterface' => array(
+		'version' => '2.0.0.0',
 		'path'    => $vendorDir . '/psr/http-message/src/ResponseInterface.php'
 	),
-	'Psr\\Http\\Message\\ServerRequestInterface' => array(
+	'Psr\\Http\\Message\\ServerRequestFactoryInterface' => array(
 		'version' => '1.1.0.0',
+		'path'    => $vendorDir . '/psr/http-factory/src/ServerRequestFactoryInterface.php'
+	),
+	'Psr\\Http\\Message\\ServerRequestInterface' => array(
+		'version' => '2.0.0.0',
 		'path'    => $vendorDir . '/psr/http-message/src/ServerRequestInterface.php'
 	),
-	'Psr\\Http\\Message\\StreamInterface' => array(
+	'Psr\\Http\\Message\\StreamFactoryInterface' => array(
 		'version' => '1.1.0.0',
+		'path'    => $vendorDir . '/psr/http-factory/src/StreamFactoryInterface.php'
+	),
+	'Psr\\Http\\Message\\StreamInterface' => array(
+		'version' => '2.0.0.0',
 		'path'    => $vendorDir . '/psr/http-message/src/StreamInterface.php'
 	),
-	'Psr\\Http\\Message\\UploadedFileInterface' => array(
+	'Psr\\Http\\Message\\UploadedFileFactoryInterface' => array(
 		'version' => '1.1.0.0',
+		'path'    => $vendorDir . '/psr/http-factory/src/UploadedFileFactoryInterface.php'
+	),
+	'Psr\\Http\\Message\\UploadedFileInterface' => array(
+		'version' => '2.0.0.0',
 		'path'    => $vendorDir . '/psr/http-message/src/UploadedFileInterface.php'
 	),
-	'Psr\\Http\\Message\\UriInterface' => array(
+	'Psr\\Http\\Message\\UriFactoryInterface' => array(
 		'version' => '1.1.0.0',
+		'path'    => $vendorDir . '/psr/http-factory/src/UriFactoryInterface.php'
+	),
+	'Psr\\Http\\Message\\UriInterface' => array(
+		'version' => '2.0.0.0',
 		'path'    => $vendorDir . '/psr/http-message/src/UriInterface.php'
 	),
 	'Psr\\Log\\AbstractLogger' => array(
@@ -1099,39 +1167,35 @@ return array(
 		'path'    => $vendorDir . '/psr/log/Psr/Log/Test/TestLogger.php'
 	),
 	'Shutdown_Handler' => array(
-		'version' => '3.0.8',
+		'version' => '3.0.9',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/class-shutdown-handler.php'
 	),
-	'Symfony\\Polyfill\\Intl\\Idn\\Idn' => array(
-		'version' => '1.29.0.0',
-		'path'    => $vendorDir . '/symfony/polyfill-intl-idn/Idn.php'
+	'Stringable' => array(
+		'version' => '1.30.0.0',
+		'path'    => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Stringable.php'
 	),
-	'Symfony\\Polyfill\\Intl\\Idn\\Info' => array(
-		'version' => '1.29.0.0',
-		'path'    => $vendorDir . '/symfony/polyfill-intl-idn/Info.php'
+	'Symfony\\Polyfill\\Php80\\Php80' => array(
+		'version' => '1.30.0.0',
+		'path'    => $vendorDir . '/symfony/polyfill-php80/Php80.php'
 	),
-	'Symfony\\Polyfill\\Intl\\Idn\\Resources\\unidata\\DisallowedRanges' => array(
-		'version' => '1.29.0.0',
-		'path'    => $vendorDir . '/symfony/polyfill-intl-idn/Resources/unidata/DisallowedRanges.php'
+	'Symfony\\Polyfill\\Php80\\PhpToken' => array(
+		'version' => '1.30.0.0',
+		'path'    => $vendorDir . '/symfony/polyfill-php80/PhpToken.php'
 	),
-	'Symfony\\Polyfill\\Intl\\Idn\\Resources\\unidata\\Regex' => array(
-		'version' => '1.29.0.0',
-		'path'    => $vendorDir . '/symfony/polyfill-intl-idn/Resources/unidata/Regex.php'
+	'UnhandledMatchError' => array(
+		'version' => '1.30.0.0',
+		'path'    => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php'
 	),
-	'Symfony\\Polyfill\\Intl\\Normalizer\\Normalizer' => array(
-		'version' => '1.29.0.0',
-		'path'    => $vendorDir . '/symfony/polyfill-intl-normalizer/Normalizer.php'
-	),
-	'Symfony\\Polyfill\\Php72\\Php72' => array(
-		'version' => '1.29.0.0',
-		'path'    => $vendorDir . '/symfony/polyfill-php72/Php72.php'
+	'ValueError' => array(
+		'version' => '1.30.0.0',
+		'path'    => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/ValueError.php'
 	),
 	'Version_Loader' => array(
-		'version' => '3.0.8',
+		'version' => '3.0.9',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/class-version-loader.php'
 	),
 	'Version_Selector' => array(
-		'version' => '3.0.8',
+		'version' => '3.0.9',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/class-version-selector.php'
 	),
 );
