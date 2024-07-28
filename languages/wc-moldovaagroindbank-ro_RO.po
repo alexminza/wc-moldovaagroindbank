@@ -6,8 +6,8 @@ msgstr ""
 "1.4.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-"
 "moldovaagroindbank\n"
-"POT-Creation-Date: 2024-07-18 22:31+0300\n"
-"PO-Revision-Date: 2024-07-18 22:32+0300\n"
+"POT-Creation-Date: 2024-07-28 18:53+0300\n"
+"PO-Revision-Date: 2024-07-28 18:53+0300\n"
 "Last-Translator: Alexander Minza <alex@alexminza.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -321,105 +321,105 @@ msgstr "Inițierea plății prin %1$s a eșuat: %2$s"
 msgid "Order #%1$s payment initiation failed via %2$s."
 msgstr "Inițierea plății comenzii #%1$s prin %2$s a eșuat."
 
-#: wc-moldovaagroindbank.php:757 wc-moldovaagroindbank.php:883
+#: wc-moldovaagroindbank.php:758 wc-moldovaagroindbank.php:884
 msgid "Payment completed via %1$s: %2$s"
 msgstr "Plată finalizată prin %1$s: %2$s"
 
-#: wc-moldovaagroindbank.php:769
+#: wc-moldovaagroindbank.php:770
 msgid "Payment completion failed via %1$s: %2$s"
 msgstr "Finalizarea plății prin %1$s a eșuat: %2$s"
 
-#: wc-moldovaagroindbank.php:789
+#: wc-moldovaagroindbank.php:790
 msgid "%1$s Transaction ID not found for order #%2$s."
 msgstr ""
 "Identificatorul tranzacției (%1$s Transaction ID) nu a fost găsit pentru "
 "comanda #%2$s."
 
-#: wc-moldovaagroindbank.php:799
+#: wc-moldovaagroindbank.php:800
 msgid "Transaction status from %1$s for order #%2$s: %3$s"
 msgstr "Status tranzacție prin %1$s pentru comanda #%2$s: %3$s"
 
-#: wc-moldovaagroindbank.php:807
+#: wc-moldovaagroindbank.php:808
 msgid "Could not retrieve transaction status from %1$s for order #%2$s."
 msgstr ""
 "Verificarea statusului tranzacției prin %1$s pentru comanda #%2$s a eșuat."
 
-#: wc-moldovaagroindbank.php:835
+#: wc-moldovaagroindbank.php:836
 msgid "This %1$s Callback URL works and should not be called directly."
 msgstr ""
 "Această adresă de apel invers %1$s (Callback URL) funcționează și nu trebuie "
 "apelată direct."
 
-#: wc-moldovaagroindbank.php:846
+#: wc-moldovaagroindbank.php:847
 msgid "Payment verification failed: Transaction ID not received from %1$s."
 msgstr ""
 "Verificarea plății a eșuat: Transaction ID nu a fost primit de la %1$s."
 
-#: wc-moldovaagroindbank.php:858
+#: wc-moldovaagroindbank.php:859
 msgid "Order not found by Transaction ID: %1$s received from %2$s."
 msgstr "Comanda nu a fost gasită după Transaction ID: %1$s primit de la %2$s."
 
-#: wc-moldovaagroindbank.php:884
+#: wc-moldovaagroindbank.php:885
 msgid "Payment authorized via %1$s: %2$s"
 msgstr "Plată autorizată prin %1$s: %2$s"
 
-#: wc-moldovaagroindbank.php:895
+#: wc-moldovaagroindbank.php:896
 msgid "Order #%1$s paid successfully via %2$s."
 msgstr "Comanda #%1$s a fost platită cu succes prin %2$s."
 
-#: wc-moldovaagroindbank.php:904
+#: wc-moldovaagroindbank.php:905
 msgid "Payment failed via %1$s: %2$s"
 msgstr "Plată eșuată prin %1$s: %2$s"
 
-#: wc-moldovaagroindbank.php:909
+#: wc-moldovaagroindbank.php:910
 msgid "Order #%1$s payment failed via %2$s."
 msgstr "Plata comenzii #%1$s prin %2$s a eșuat."
 
-#: wc-moldovaagroindbank.php:946
+#: wc-moldovaagroindbank.php:947
 msgid "Refund of %1$s %2$s via %3$s approved: %4$s"
 msgstr "Rambursarea sumei de %1$s %2$s prin %3$s a fost aprobată: %4$s"
 
-#: wc-moldovaagroindbank.php:955
+#: wc-moldovaagroindbank.php:956
 msgid "Refund of %1$s %2$s via %3$s failed: %4$s"
 msgstr "Rambursarea sumei de %1$s %2$s prin %3$s a eșuat: %4$s"
 
-#: wc-moldovaagroindbank.php:983
+#: wc-moldovaagroindbank.php:984
 msgid "Close business day via %1$s succeeded: %2$s"
 msgstr "Închiderea zilei economice prin %1$s a fost efectuată cu succes: %2$s"
 
-#: wc-moldovaagroindbank.php:990
+#: wc-moldovaagroindbank.php:991
 msgid "%1$s is not properly configured."
 msgstr "%1$s nu este configurat corect."
 
-#: wc-moldovaagroindbank.php:993
+#: wc-moldovaagroindbank.php:994
 msgid "Close business day via %1$s failed: %2$s"
 msgstr "Închiderea zilei economice prin %1$s a eșuat: %2$s"
 
-#: wc-moldovaagroindbank.php:1063
+#: wc-moldovaagroindbank.php:1064
 msgid "TEST: %1$s"
 msgstr "TEST: %1$s"
 
-#: wc-moldovaagroindbank.php:1150
+#: wc-moldovaagroindbank.php:1151
 msgid "Settings"
 msgstr "Setări"
 
-#: wc-moldovaagroindbank.php:1165
+#: wc-moldovaagroindbank.php:1166
 msgid "Complete %1$s transaction"
 msgstr "Finalizează tranzacția prin %1$s"
 
-#: wc-moldovaagroindbank.php:1168
+#: wc-moldovaagroindbank.php:1169
 msgid "Verify %1$s transaction"
 msgstr "Verifică tranzacția prin %1$s"
 
-#: wc-moldovaagroindbank.php:1196
+#: wc-moldovaagroindbank.php:1197
 msgid "Scheduled action %1$s is already registered."
 msgstr "Acțiunea programată %1$s este deja înregistrată."
 
-#: wc-moldovaagroindbank.php:1209
+#: wc-moldovaagroindbank.php:1210
 msgid "Registered scheduled action %1$s in timezone %2$s with ID %3$s."
 msgstr ""
 "Acțiunea programată %1$s a fost înregistrată în fusul orar %2$s cu ID %3$s."
 
-#: wc-moldovaagroindbank.php:1216
+#: wc-moldovaagroindbank.php:1217
 msgid "Unregistered scheduled action %1$s."
 msgstr "Acțiunea programată %1$s a fost anulată."
