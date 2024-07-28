@@ -14,9 +14,9 @@
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Requires PHP: 7.2.5
  * Requires at least: 4.8
- * Tested up to: 6.6
+ * Tested up to: 6.6.1
  * WC requires at least: 3.3
- * WC tested up to: 9.1.2
+ * WC tested up to: 9.1.4
  * Requires Plugins: woocommerce
  */
 
@@ -715,7 +715,8 @@ function woocommerce_moldovaagroindbank_init() {
 			$message = sprintf(__('Order #%1$s payment initiation failed via %2$s.', self::MOD_TEXT_DOMAIN), $order_id, $this->method_title);
 
 			//https://github.com/woocommerce/woocommerce/issues/48687#issuecomment-2186475264
-			if(WC()->is_store_api_request()) {
+			$is_store_api_request = method_exists(WC(), 'is_store_api_request') && WC()->is_store_api_request();
+			if($is_store_api_request) {
 				throw new Exception($message);
 			}
 
