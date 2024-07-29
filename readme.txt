@@ -90,6 +90,10 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 
 See [wc-moldovaagroindbank project releases on GitHub](https://github.com/alexminza/wc-moldovaagroindbank/releases) for details.
 
+= 1.4.1 =
+* Improved [Composer packages versions compatibility](https://vanrossum.dev/37-wordpress-and-composer) by using Jetpack Autoloader by Automattic
+* Updated [MAIB Payment PHP SDK](https://github.com/maibank/maibapi) to the latest version [v3.0.5](https://packagist.org/packages/maib/maibapi)
+
 = 1.4.0 =
 Added support for WooCommerce [Cart and Checkout Blocks](https://woocommerce.com/document/cart-checkout-blocks-status/).
 
@@ -165,6 +169,10 @@ Basic and Advanced settings configuration modes
 Initial release
 
 == Upgrade Notice ==
+
+= 1.4.1 =
+* Improved [Composer packages versions compatibility](https://vanrossum.dev/37-wordpress-and-composer) by using Jetpack Autoloader by Automattic
+* Updated [MAIB Payment PHP SDK](https://github.com/maibank/maibapi) to the latest version [v3.0.5](https://packagist.org/packages/maib/maibapi)
 
 = 1.4.0 =
 Added support for WooCommerce [Cart and Checkout Blocks](https://woocommerce.com/document/cart-checkout-blocks-status/).
