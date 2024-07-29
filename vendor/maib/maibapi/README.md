@@ -38,16 +38,16 @@ That Payment PHP SDK includes 6 methods to process the payments:
 REQUIREMENTS
 ============
 
- * PHP: >=7.1.0
- * guzzlehttp/guzzle: ~6.0
+ * PHP: >=8.1.0
+ * guzzlehttp/guzzle: ~7.0
  * guzzlehttp/guzzle-services: ~1.0
- * monolog/monolog: 1.27.1 (PHP 7.1) 2.7 (PHP 7.2)
+ * monolog/monolog: ^2.7
 
 
 INSTALLATION
 ============
 
- * Run  `composer require maib/maibapi ^2.0`
+ * Run  `composer require maib/maibapi ^3.0`
 
 
 BEFORE USAGE
@@ -56,9 +56,12 @@ BEFORE USAGE
 To initiate an payment transaction you need to obtain the SSL certificate, to get the access by IP and to set the callback URL.
  * Need to write an email to maib commerce support: ecom@maib.md with the request including The Merchant IP and callback URL, to receive access and certificate for testing.
  * When you get the certificate, you need to generate the private and the public keys, using the terminal package OpenSSL
-    - openssl pkcs12 -in 0149583.pfx -nocerts -out key.pem
-    - openssl pkcs12 -in 0149583.pfx -clcerts -nokeys -out pcert.pem
-    - openssl pkcs12 -in 0149583.pfx -cacerts -nokeys -out cacert.pem
+        
+        # Public key chain:
+          openssl pkcs12 -in certname.pfx -nokeys -out cert.pem
+        # The private key without a password (decrypted):
+          openssl pkcs12 -in certname.pfx -nocerts -nodes -out key.pem
+
  * Need to save the generated keys into map on server to usage in the requests.
 
 USAGE
@@ -192,7 +195,7 @@ USAGE
         * error          - in case of an error
   ````
     // The execute dms transaction method
-    $makeDMSTrans = $client->makeDMSTrans($dms_transaction_id, $amount, $currency, $clientIpAddr, $description, $language);
+    $makeDMSTrans = $client->makeDMSTrans($dms_transaction_id, $amount, $currency, $clientIpAddr, $description, $lang);
   ````
  * Get transaction result
    You can get the transaction status yourself using the getTransactionResult method. But do not forget, the transaction ID has a timeout of 10 minutes.

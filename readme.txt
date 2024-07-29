@@ -1,11 +1,11 @@
 === WooCommerce maib Moldova Agroindbank Payment Gateway ===
 Contributors: alexminza
 Donate link: https://www.revolut.me/alexminza
-Tags: WooCommerce, Moldova, Agroindbank, maib, bank, payment, gateway, visa, mastercard, credit card
+Tags: WooCommerce, Moldova, maib, payment gateway, credit card
 Requires at least: 4.8
-Tested up to: 6.5.3
+Tested up to: 6.6.1
 Stable tag: trunk
-Requires PHP: 7.2
+Requires PHP: 7.2.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -21,7 +21,7 @@ Accept Visa and Mastercard directly on your store with the maib Moldova Agroindb
 * Reverse transactions – partial or complete refunds
 * Admin order actions – complete authorized transaction
 * Close business day scheduled action
-* Supports WooCommerce [block-based checkout experience](https://woo.com/checkout-blocks/)
+* Supports WooCommerce [block-based checkout experience](https://woocommerce.com/checkout-blocks/)
 * Free to use – [Open-source GPL-3.0 license on GitHub](https://github.com/alexminza/wc-moldovaagroindbank)
 
 = Getting Started =
@@ -90,8 +90,12 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 
 See [wc-moldovaagroindbank project releases on GitHub](https://github.com/alexminza/wc-moldovaagroindbank/releases) for details.
 
+= 1.4.1 =
+* Improved [Composer packages versions compatibility](https://vanrossum.dev/37-wordpress-and-composer) by using Jetpack Autoloader by Automattic
+* Updated [MAIB Payment PHP SDK](https://github.com/maibank/maibapi) to the latest version [v3.0.5](https://packagist.org/packages/maib/maibapi)
+
 = 1.4.0 =
-Added support for WooCommerce [Cart and Checkout Blocks](https://woo.com/document/cart-checkout-blocks-status/).
+Added support for WooCommerce [Cart and Checkout Blocks](https://woocommerce.com/document/cart-checkout-blocks-status/).
 
 = 1.3.2 =
 Added support for WooCommerce [High-Performance Order Storage (HPOS)](https://woocommerce.com/document/high-performance-order-storage/).
@@ -166,8 +170,12 @@ Initial release
 
 == Upgrade Notice ==
 
+= 1.4.1 =
+* Improved [Composer packages versions compatibility](https://vanrossum.dev/37-wordpress-and-composer) by using Jetpack Autoloader by Automattic
+* Updated [MAIB Payment PHP SDK](https://github.com/maibank/maibapi) to the latest version [v3.0.5](https://packagist.org/packages/maib/maibapi)
+
 = 1.4.0 =
-Added support for WooCommerce [Cart and Checkout Blocks](https://woo.com/document/cart-checkout-blocks-status/).
+Added support for WooCommerce [Cart and Checkout Blocks](https://woocommerce.com/document/cart-checkout-blocks-status/).
 
 = 1.3.2 =
 Added support for WooCommerce [High-Performance Order Storage (HPOS)](https://woocommerce.com/document/high-performance-order-storage/).

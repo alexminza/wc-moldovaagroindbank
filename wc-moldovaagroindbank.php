@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce maib Moldova Agroindbank Payment Gateway
  * Description: Accept Visa and Mastercard directly on your store with the maib Moldova Agroindbank payment gateway for WooCommerce.
  * Plugin URI: https://github.com/alexminza/wc-moldovaagroindbank
- * Version: 1.4.0
+ * Version: 1.4.1
  * Author: Alexander Minza
  * Author URI: https://profiles.wordpress.org/alexminza
  * Developer: Alexander Minza
@@ -12,11 +12,11 @@
  * Domain Path: /languages
  * License: GPLv3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
- * Requires PHP: 7.2
+ * Requires PHP: 7.2.5
  * Requires at least: 4.8
- * Tested up to: 6.5.3
+ * Tested up to: 6.6.1
  * WC requires at least: 3.3
- * WC tested up to: 8.9.1
+ * WC tested up to: 9.1.4
  * Requires Plugins: woocommerce
  */
 
@@ -27,14 +27,10 @@ if(!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
 
-require_once(__DIR__ . '/vendor/autoload.php');
+//https://vanrossum.dev/37-wordpress-and-composer
+//https://github.com/Automattic/jetpack-autoloader
+require_once(__DIR__ . '/vendor/autoload_packages.php');
 
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
-use GuzzleHttp\Client;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
-use GuzzleHttp\MessageFormatter;
 use Maib\MaibApi\MaibClient;
 
 add_action('plugins_loaded', 'woocommerce_moldovaagroindbank_plugins_loaded', 0);
@@ -145,7 +141,7 @@ function woocommerce_moldovaagroindbank_init() {
 			if(is_admin())
 				add_action("woocommerce_update_options_payment_gateways_{$this->id}", array($this, 'process_admin_options'));
 
-			add_action("woocommerce_api_" . strtolower(get_class()), array($this, 'check_response'));
+			add_action("woocommerce_api_wc_{$this->id}", array($this, 'check_response'));
 		}
 
 		public function init_form_fields() {
@@ -223,10 +219,9 @@ function woocommerce_moldovaagroindbank_init() {
 
 				'connection_settings' => array(
 					'title'       => __('Connection Settings', self::MOD_TEXT_DOMAIN),
-					'description' => sprintf('%1$s<br /><br /><a href="#" id="woocommerce_moldovaagroindbank_basic_settings" class="button">%2$s</a>&nbsp;%3$s&nbsp;<a href="#" id="woocommerce_moldovaagroindbank_advanced_settings" class="button">%4$s</a>',
+					'description' => sprintf('%1$s<br /><br /><a href="#" id="woocommerce_moldovaagroindbank_basic_settings" class="button">%2$s</a> <a href="#" id="woocommerce_moldovaagroindbank_advanced_settings" class="button">%3$s</a>',
 						__('Use Basic settings to upload the certificate file received from the bank or configure manually using Advanced settings below.', self::MOD_TEXT_DOMAIN),
 						__('Basic settings&raquo;', self::MOD_TEXT_DOMAIN),
-						__('or', self::MOD_TEXT_DOMAIN),
 						__('Advanced settings&raquo;', self::MOD_TEXT_DOMAIN)),
 					'type'        => 'title'
 				),
@@ -266,7 +261,7 @@ function woocommerce_moldovaagroindbank_init() {
 					'description' => sprintf('%1$s<br /><br /><b>%2$s:</b> <code>%3$s</code>',
 						__('Provide this URL to the bank to enable online payment notifications.', self::MOD_TEXT_DOMAIN),
 						__('Callback URL', self::MOD_TEXT_DOMAIN),
-						esc_url(self::get_callback_url())),
+						esc_url($this->get_callback_url())),
 					'type'        => 'title'
 				)
 			);
@@ -652,16 +647,16 @@ function woocommerce_moldovaagroindbank_init() {
 			];
 
 			if($this->debug) {
-				$log = new Logger('maib_guzzle_request');
+				$log = new \Monolog\Logger('maib_guzzle_request');
 				$logFileName = WC_Log_Handler_File::get_log_file_path(self::MOD_ID . '_guzzle');
-				$log->pushHandler(new StreamHandler($logFileName, Logger::DEBUG));
-				$stack = HandlerStack::create();
-				$stack->push(Middleware::log($log, new MessageFormatter(MessageFormatter::DEBUG)));
+				$log->pushHandler(new \Monolog\Handler\StreamHandler($logFileName, \Monolog\Logger::DEBUG));
+				$stack = \GuzzleHttp\HandlerStack::create();
+				$stack->push(\GuzzleHttp\Middleware::log($log, new \GuzzleHttp\MessageFormatter(\GuzzleHttp\MessageFormatter::DEBUG)));
 
 				$options['handler'] = $stack;
 			}
 
-			$guzzleClient = new Client($options);
+			$guzzleClient = new \GuzzleHttp\Client($options);
 			$client = new MaibClient($guzzleClient);
 
 			return $client;
@@ -669,7 +664,7 @@ function woocommerce_moldovaagroindbank_init() {
 
 		public function process_payment($order_id) {
 			$order = wc_get_order($order_id);
-			$order_total = self::price_format($order->get_total());
+			$order_total = $order->get_total();
 			$order_currency_numcode = self::get_currency_numcode($order->get_currency());
 			$order_description = $this->get_order_description($order);
 			$client_ip = self::get_client_ip();
@@ -692,6 +687,7 @@ function woocommerce_moldovaagroindbank_init() {
 				if(!self::string_empty($trans_id)) {
 					#region Update order payment transaction metadata
 					//https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#apis-for-gettingsetting-posts-and-postmeta
+					//https://developer.woocommerce.com/docs/hpos-extension-recipe-book/#2-supporting-high-performance-order-storage-in-your-extension
 					$order->add_meta_data(self::MOD_TRANSACTION_TYPE, $this->transaction_type, true);
 					$order->add_meta_data(self::MOD_TRANSACTION_ID, $trans_id, true);
 					$order->save();
@@ -717,6 +713,13 @@ function woocommerce_moldovaagroindbank_init() {
 			$this->log($message, WC_Log_Levels::ERROR);
 
 			$message = sprintf(__('Order #%1$s payment initiation failed via %2$s.', self::MOD_TEXT_DOMAIN), $order_id, $this->method_title);
+
+			//https://github.com/woocommerce/woocommerce/issues/48687#issuecomment-2186475264
+			$is_store_api_request = method_exists(WC(), 'is_store_api_request') && WC()->is_store_api_request();
+			if($is_store_api_request) {
+				throw new Exception($message);
+			}
+
 			wc_add_notice($message, 'error');
 			$this->logs_admin_website_notice();
 
@@ -733,7 +736,7 @@ function woocommerce_moldovaagroindbank_init() {
 			}
 
 			$trans_id = self::get_order_transaction_id($order);
-			$order_total = self::price_format(self::get_order_net_total($order));
+			$order_total = self::get_order_net_total($order);
 			$order_currency_numcode = self::get_currency_numcode($order->get_currency());
 			$order_description = $this->get_order_description($order);
 			$client_ip = self::get_client_ip();
@@ -1058,14 +1061,9 @@ function woocommerce_moldovaagroindbank_init() {
 		#region Utility
 		protected function get_test_message($message) {
 			if($this->testmode)
-				$message = "TEST: $message";
+				$message = sprintf(__('TEST: %1$s', self::MOD_TEXT_DOMAIN), $message);
 
 			return $message;
-		}
-
-		protected static function price_format($price) {
-			$decimals = 2;
-			return number_format($price, $decimals, '.', '');
 		}
 
 		//https://en.wikipedia.org/wiki/ISO_4217
@@ -1088,17 +1086,17 @@ function woocommerce_moldovaagroindbank_init() {
 			return WC_Geolocation::get_ip_address();
 		}
 
-		protected static function get_callback_url() {
+		protected function get_callback_url() {
 			//https://developer.woo.com/docs/woocommerce-plugin-api-callbacks/
-			return WC()->api_request_url(strtolower(get_class()));
+			return WC()->api_request_url("wc_{$this->id}");
 		}
 
 		protected static function get_logs_url() {
 			return add_query_arg(
 				array(
-					'page'    => 'wc-status',
-					'tab'     => 'logs',
-					'source'  => self::MOD_ID
+					'page'   => 'wc-status',
+					'tab'    => 'logs',
+					'source' => self::MOD_ID
 				),
 				admin_url('admin.php')
 			);
