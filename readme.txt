@@ -32,7 +32,7 @@ Accept Visa and Mastercard directly on your store with the maib Moldova Agroindb
 == Installation ==
 
 Before installation you need to sign up with **maib Moldova Agroindbank** and receive the client certificate.
-See [https://www.maib.md/ro/persoane-juridice/acceptare-plati/e-commerce](https://www.maib.md/ro/persoane-juridice/acceptare-plati/e-commerce) and contact [ecom@maib.md](mailto:ecom@maib.md) for details.
+See [https://www.maib.md/en/persoane-juridice/e-commerce/e-commerce](https://www.maib.md/en/persoane-juridice/e-commerce/e-commerce) and contact [ecom@maib.md](mailto:ecom@maib.md) for details.
 
 1. Configure the plugin Connection Settings by performing one of the following steps:
     * **BASIC**: Upload the PFX client certificate file received from the bank
@@ -90,8 +90,11 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 
 See [wc-moldovaagroindbank project releases on GitHub](https://github.com/alexminza/wc-moldovaagroindbank/releases) for details.
 
+= 1.4.2 =
+Improved reliability of the `maib_close_day` scheduled action registration on certain systems.
+
 = 1.4.1 =
-* Improved [Composer packages versions compatibility](https://vanrossum.dev/37-wordpress-and-composer) by using Jetpack Autoloader by Automattic
+* Improved [Composer packages versions compatibility](https://vanrossum.dev/37-wordpress-and-composer) by using [Jetpack Autoloader by Automattic](https://github.com/Automattic/jetpack-autoloader)
 * Updated [MAIB Payment PHP SDK](https://github.com/maibank/maibapi) to the latest version [v3.0.5](https://packagist.org/packages/maib/maibapi)
 
 = 1.4.0 =
@@ -170,8 +173,11 @@ Initial release
 
 == Upgrade Notice ==
 
+= 1.4.2 =
+Improved reliability of the `maib_close_day` scheduled action registration on certain systems.
+
 = 1.4.1 =
-* Improved [Composer packages versions compatibility](https://vanrossum.dev/37-wordpress-and-composer) by using Jetpack Autoloader by Automattic
+* Improved [Composer packages versions compatibility](https://vanrossum.dev/37-wordpress-and-composer) by using [Jetpack Autoloader by Automattic](https://github.com/Automattic/jetpack-autoloader)
 * Updated [MAIB Payment PHP SDK](https://github.com/maibank/maibapi) to the latest version [v3.0.5](https://packagist.org/packages/maib/maibapi)
 
 = 1.4.0 =
