@@ -3,7 +3,7 @@ Contributors: alexminza
 Donate link: https://www.revolut.me/alexminza
 Tags: WooCommerce, Moldova, maib, payment gateway, credit card
 Requires at least: 4.8
-Tested up to: 6.6.1
+Tested up to: 6.8
 Stable tag: trunk
 Requires PHP: 7.2.5
 License: GPLv3 or later
@@ -32,7 +32,7 @@ Accept Visa and Mastercard directly on your store with the maib Moldova Agroindb
 == Installation ==
 
 Before installation you need to sign up with **maib Moldova Agroindbank** and receive the client certificate.
-See [https://www.maib.md/en/persoane-juridice/e-commerce/e-commerce](https://www.maib.md/en/persoane-juridice/e-commerce/e-commerce) and contact [ecom@maib.md](mailto:ecom@maib.md) for details.
+See [https://www.maib.md/en/persoane-juridice/e-commerce](https://www.maib.md/en/persoane-juridice/e-commerce) and contact [ecom@maib.md](mailto:ecom@maib.md) for details.
 
 1. Configure the plugin Connection Settings by performing one of the following steps:
     * **BASIC**: Upload the PFX client certificate file received from the bank
@@ -89,6 +89,9 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 == Changelog ==
 
 See [wc-moldovaagroindbank project releases on GitHub](https://github.com/alexminza/wc-moldovaagroindbank/releases) for details.
+
+= 1.4.3 =
+Updated Tested up to 6.8 and WC tested up to 9.8.2
 
 = 1.4.2 =
 Improved reliability of the `maib_close_day` scheduled action registration on certain systems.
@@ -172,6 +175,9 @@ Basic and Advanced settings configuration modes
 Initial release
 
 == Upgrade Notice ==
+
+= 1.4.3 =
+Updated Tested up to 6.8 and WC tested up to 9.8.2
 
 = 1.4.2 =
 Improved reliability of the `maib_close_day` scheduled action registration on certain systems.
