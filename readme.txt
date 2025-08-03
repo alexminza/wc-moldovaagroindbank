@@ -9,8 +9,6 @@ Requires PHP: 7.2.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-WooCommerce Payment Gateway for maib
-
 == Description ==
 
 Accept Visa and Mastercard directly on your store with the maib Payment Gateway for WooCommerce.

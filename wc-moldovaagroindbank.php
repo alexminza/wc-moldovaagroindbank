@@ -101,7 +101,7 @@ function woocommerce_moldovaagroindbank_init() {
 		public function __construct() {
 			$this->id                 = self::MOD_ID;
 			$this->method_title       = self::MOD_TITLE;
-			$this->method_description = 'WooCommerce Payment Gateway for maib';
+			$this->method_description = 'maib Payment Gateway for WooCommerce';
 			$this->has_fields         = false;
 			$this->supports           = array('products', 'refunds');
 
