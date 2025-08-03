@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: WooCommerce maib Moldova Agroindbank Payment Gateway
- * Description: Accept Visa and Mastercard directly on your store with the maib Moldova Agroindbank payment gateway for WooCommerce.
+ * Plugin Name: maib Payment Gateway for WooCommerce
+ * Description: Accept Visa and Mastercard directly on your store with the maib payment gateway for WooCommerce.
  * Plugin URI: https://github.com/alexminza/wc-moldovaagroindbank
- * Version: 1.4.3
+ * Version: 1.4.4
  * Author: Alexander Minza
  * Author URI: https://profiles.wordpress.org/alexminza
  * Developer: Alexander Minza
@@ -14,9 +14,9 @@
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Requires PHP: 7.2.5
  * Requires at least: 4.8
- * Tested up to: 6.8
+ * Tested up to: 6.8.2
  * WC requires at least: 3.3
- * WC tested up to: 9.8.2
+ * WC tested up to: 10.0.4
  * Requires Plugins: woocommerce
  */
 
@@ -48,14 +48,14 @@ function woocommerce_moldovaagroindbank_plugins_loaded() {
 }
 
 function woocommerce_moldovaagroindbank_missing_wc_notice() {
-	echo sprintf('<div class="notice notice-error is-dismissible"><p>%1$s</p></div>', __('maib Moldova Agroindbank payment gateway requires WooCommerce to be installed and active.', 'wc-moldovaagroindbank'));
+	echo sprintf('<div class="notice notice-error is-dismissible"><p>%1$s</p></div>', __('maib payment gateway requires WooCommerce to be installed and active.', 'wc-moldovaagroindbank'));
 }
 
 function woocommerce_moldovaagroindbank_init() {
 	class WC_MoldovaAgroindbank extends WC_Payment_Gateway {
 		#region Constants
 		const MOD_ID             = 'moldovaagroindbank';
-		const MOD_TITLE          = 'maib Moldova Agroindbank';
+		const MOD_TITLE          = 'maib';
 		const MOD_PREFIX         = 'maib_';
 		const MOD_TEXT_DOMAIN    = 'wc-moldovaagroindbank';
 
@@ -101,7 +101,7 @@ function woocommerce_moldovaagroindbank_init() {
 		public function __construct() {
 			$this->id                 = self::MOD_ID;
 			$this->method_title       = self::MOD_TITLE;
-			$this->method_description = 'WooCommerce Payment Gateway for maib Moldova Agroindbank';
+			$this->method_description = 'maib Payment Gateway for WooCommerce';
 			$this->has_fields         = false;
 			$this->supports           = array('products', 'refunds');
 
