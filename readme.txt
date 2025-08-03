@@ -1,4 +1,4 @@
-=== maib Moldova Agroindbank Payment Gateway for WooCommerce ===
+=== maib Payment Gateway for WooCommerce ===
 Contributors: alexminza
 Donate link: https://www.revolut.me/alexminza
 Tags: WooCommerce, Moldova, maib, payment gateway, credit card
@@ -9,11 +9,11 @@ Requires PHP: 7.2.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-WooCommerce Payment Gateway for maib Moldova Agroindbank
+WooCommerce Payment Gateway for maib
 
 == Description ==
 
-Accept Visa and Mastercard directly on your store with the maib Moldova Agroindbank payment gateway for WooCommerce.
+Accept Visa and Mastercard directly on your store with the maib Payment Gateway for WooCommerce.
 
 = Features =
 
@@ -31,7 +31,7 @@ Accept Visa and Mastercard directly on your store with the maib Moldova Agroindb
 
 == Installation ==
 
-Before installation you need to sign up with **maib Moldova Agroindbank** and receive the client certificate.
+Before installation you need to sign up with **maib** and receive the client certificate.
 See [https://www.maib.md/en/persoane-juridice/e-commerce](https://www.maib.md/en/persoane-juridice/e-commerce) and contact [ecom@maib.md](mailto:ecom@maib.md) for details.
 
 1. Configure the plugin Connection Settings by performing one of the following steps:
@@ -53,15 +53,15 @@ See [MaibApi MAIB Payment PHP SDK](https://github.com/maibank/maibapi) for more 
 
 = How can I configure the plugin settings? =
 
-Use the *WooCommerce > Settings > Payments > maib Moldova Agroindbank* screen to configure the plugin.
+Use the *WooCommerce > Settings > Payments > maib* screen to configure the plugin.
 
 = Where can I get the Connection Settings data? =
 
-The merchant data and connection settings are provided by maib Moldova Agroindbank. This data is used by the plugin to connect to the maib Moldova Agroindbank payment gateway and process the card transactions. See [https://www.maib.md/ro/persoane-juridice/acceptare-plati/e-commerce](https://www.maib.md/ro/persoane-juridice/acceptare-plati/e-commerce) and contact [ecom@maib.md](mailto:ecom@maib.md) for details.
+The merchant data and connection settings are provided by maib. This data is used by the plugin to connect to the maib payment gateway and process the card transactions. See [https://www.maib.md/ro/persoane-juridice/acceptare-plati/e-commerce](https://www.maib.md/ro/persoane-juridice/acceptare-plati/e-commerce) and contact [ecom@maib.md](mailto:ecom@maib.md) for details.
 
 = What store settings are supported? =
 
-maib Moldova Agroindbank currently supports transactions in MDL (Moldovan Leu), EUR (Euro) and USD (United States Dollar).
+maib currently supports transactions in MDL (Moldovan Leu), EUR (Euro) and USD (United States Dollar).
 
 = What is the difference between transaction types? =
 

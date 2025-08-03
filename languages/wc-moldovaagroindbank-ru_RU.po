@@ -1,13 +1,12 @@
-# Copyright (C) 2018 WooCommerce Moldova Agroindbank Payment Gateway
-# This file is distributed under the same license as the WooCommerce Moldova Agroindbank Payment Gateway package.
+# Copyright (C) 2025 Alexander Minza
+# This file is distributed under the same license as the maib Payment Gateway for WooCommerce package.
 msgid ""
 msgstr ""
-"Project-Id-Version: maib Moldova Agroindbank Payment Gateway for WooCommerce "
-"1.4.4\n"
+"Project-Id-Version: maib Payment Gateway for WooCommerce 1.4.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-"
 "moldovaagroindbank\n"
-"POT-Creation-Date: 2025-08-03 17:49+0300\n"
-"PO-Revision-Date: 2025-08-03 17:52+0300\n"
+"POT-Creation-Date: 2025-08-03 18:07+0300\n"
+"PO-Revision-Date: 2025-08-03 18:12+0300\n"
 "Last-Translator: Alexander Minza <alex@alexminza.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -21,19 +20,15 @@ msgstr ""
 #. Description of the plugin
 #: wc-moldovaagroindbank.php
 msgid ""
-"Accept Visa and Mastercard directly on your store with the maib Moldova "
-"Agroindbank payment gateway for WooCommerce."
+"Accept Visa and Mastercard directly on your store with the maib payment "
+"gateway for WooCommerce."
 msgstr ""
 "Принимайте оплату картами Visa и Mastercard прямо в своем магазине с помощью "
-"платежного шлюза maib Moldova Agroindbank для WooCommerce."
+"платежного шлюза maib для WooCommerce."
 
 #: wc-moldovaagroindbank.php:51
-msgid ""
-"maib Moldova Agroindbank payment gateway requires WooCommerce to be "
-"installed and active."
-msgstr ""
-"Платежный шлюз maib Moldova Agroindbank требует установки и активации "
-"плагина WooCommerce."
+msgid "maib payment gateway requires WooCommerce to be installed and active."
+msgstr "Платежный шлюз maib требует установки и активации плагина WooCommerce."
 
 #: wc-moldovaagroindbank.php:150
 msgid "Enable/Disable"
