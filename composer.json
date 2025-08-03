@@ -1,6 +1,6 @@
 {
     "name": "alexminza/wc-moldovaagroindbank",
-    "description": "WooCommerce maib Moldova Agroindbank Payment Gateway",
+    "description": "maib Moldova Agroindbank Payment Gateway for WooCommerce",
     "type": "wordpress-plugin",
     "keywords": ["WooCommerce", "Moldova", "Agroindbank", "maib", "bank", "payment", "gateway", "visa", "mastercard", "credit card"],
     "homepage": "https://github.com/alexminza/wc-moldovaagroindbank",

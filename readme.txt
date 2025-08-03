@@ -1,9 +1,9 @@
-=== WooCommerce maib Moldova Agroindbank Payment Gateway ===
+=== maib Moldova Agroindbank Payment Gateway for WooCommerce ===
 Contributors: alexminza
 Donate link: https://www.revolut.me/alexminza
 Tags: WooCommerce, Moldova, maib, payment gateway, credit card
 Requires at least: 4.8
-Tested up to: 6.8
+Tested up to: 6.8.2
 Stable tag: trunk
 Requires PHP: 7.2.5
 License: GPLv3 or later
@@ -90,8 +90,11 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 
 See [wc-moldovaagroindbank project releases on GitHub](https://github.com/alexminza/wc-moldovaagroindbank/releases) for details.
 
+= 1.4.4 =
+Adjusted plugin name to comply with the [WooCommerce trademark guidelines](https://woocommerce.com/trademark-guidelines/).
+
 = 1.4.3 =
-Updated Tested up to 6.8 and WC tested up to 9.8.2
+Updated Tested up to 6.8 and WC tested up to 9.8.2.
 
 = 1.4.2 =
 Improved reliability of the `maib_close_day` scheduled action registration on certain systems.
@@ -176,8 +179,11 @@ Initial release
 
 == Upgrade Notice ==
 
+= 1.4.4 =
+Adjusted plugin name to comply with the [WooCommerce trademark guidelines](https://woocommerce.com/trademark-guidelines/).
+
 = 1.4.3 =
-Updated Tested up to 6.8 and WC tested up to 9.8.2
+Updated Tested up to 6.8 and WC tested up to 9.8.2.
 
 = 1.4.2 =
 Improved reliability of the `maib_close_day` scheduled action registration on certain systems.

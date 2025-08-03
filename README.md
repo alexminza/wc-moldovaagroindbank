@@ -1,4 +1,4 @@
-# WooCommerce maib Moldova Agroindbank Payment Gateway
+# maib Moldova Agroindbank Payment Gateway for WooCommerce
 
 [![WordPress Plugin Version](https://img.shields.io/wordpress/plugin/v/wc-moldovaagroindbank?logo=wordpress)](https://wordpress.org/plugins/wc-moldovaagroindbank/)
 [![WordPress Plugin Downloads](https://img.shields.io/wordpress/plugin/dt/wc-moldovaagroindbank?logo=wordpress)](https://wordpress.org/plugins/wc-moldovaagroindbank/advanced/)
