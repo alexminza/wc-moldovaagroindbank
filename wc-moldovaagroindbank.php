@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: maib Payment Gateway for WooCommerce
- * Description: Accept Visa and Mastercard directly on your store with the maib payment gateway for WooCommerce.
+ * Plugin Name: Payment Gateway for maib for WooCommerce
+ * Description: Accept Visa and Mastercard directly on your store with the Payment Gateway for maib for WooCommerce.
  * Plugin URI: https://github.com/alexminza/wc-moldovaagroindbank
- * Version: 1.4.5
+ * Version: 1.4.6
  * Author: Alexander Minza
  * Author URI: https://profiles.wordpress.org/alexminza
  * Developer: Alexander Minza
@@ -16,7 +16,7 @@
  * Requires at least: 4.8
  * Tested up to: 6.8
  * WC requires at least: 3.3
- * WC tested up to: 10.0.4
+ * WC tested up to: 10.3.5
  * Requires Plugins: woocommerce
  */
 
@@ -36,7 +36,7 @@ use Maib\MaibApi\MaibClient;
 add_action('plugins_loaded', 'woocommerce_moldovaagroindbank_plugins_loaded', 0);
 
 function woocommerce_moldovaagroindbank_plugins_loaded() {
-	load_plugin_textdomain('wc-moldovaagroindbank', false, dirname(plugin_basename(__FILE__)) . '/languages');
+	#load_plugin_textdomain('wc-moldovaagroindbank', false, dirname(plugin_basename(__FILE__)) . '/languages');
 
 	//https://docs.woocommerce.com/document/query-whether-woocommerce-is-activated/
 	if(!class_exists('WooCommerce')) {
@@ -48,7 +48,7 @@ function woocommerce_moldovaagroindbank_plugins_loaded() {
 }
 
 function woocommerce_moldovaagroindbank_missing_wc_notice() {
-	echo sprintf('<div class="notice notice-error is-dismissible"><p>%1$s</p></div>', esc_html__('maib payment gateway requires WooCommerce to be installed and active.', 'wc-moldovaagroindbank'));
+	echo sprintf('<div class="notice notice-error is-dismissible"><p>%1$s</p></div>', esc_html__('Payment Gateway for maib requires WooCommerce to be installed and active.', 'wc-moldovaagroindbank'));
 }
 
 function woocommerce_moldovaagroindbank_init() {
@@ -100,7 +100,7 @@ function woocommerce_moldovaagroindbank_init() {
 		public function __construct() {
 			$this->id                 = self::MOD_ID;
 			$this->method_title       = self::MOD_TITLE;
-			$this->method_description = 'maib Payment Gateway for WooCommerce';
+			$this->method_description = 'Payment Gateway for maib for WooCommerce';
 			$this->has_fields         = false;
 			$this->supports           = array('products', 'refunds');
 
@@ -310,8 +310,13 @@ function woocommerce_moldovaagroindbank_init() {
 			$this->validate_settings();
 			$this->display_errors();
 
-			wc_enqueue_js('
-				jQuery(function() {
+			//https://developer.woocommerce.com/2025/11/19/deprecation-of-wc_enqueue_js-in-10-4/
+			$script_handle = self::MOD_PREFIX . 'connection_settings';
+			wp_register_script($script_handle, '', array('jquery'), false, true);
+			wp_enqueue_script($script_handle);
+
+			wp_add_inline_script($script_handle,
+				'jQuery(function() {
 					var basic_fields_ids    = "#woocommerce_moldovaagroindbank_maib_pfxcert, #woocommerce_moldovaagroindbank_maib_key_password";
 					var advanced_fields_ids = "#woocommerce_moldovaagroindbank_maib_pcert, #woocommerce_moldovaagroindbank_maib_key, #woocommerce_moldovaagroindbank_maib_key_password";
 
@@ -334,8 +339,8 @@ function woocommerce_moldovaagroindbank_init() {
 						advanced_fields.show();
 						return false;
 					});
-				});
-			');
+				});'
+			);
 
 			parent::admin_options();
 		}
@@ -523,12 +528,7 @@ function woocommerce_moldovaagroindbank_init() {
 				$keyData = file_get_contents($keyFile);
 				$privateKey = openssl_pkey_get_private($keyData, $keyPassphrase);
 
-				if(false !== $privateKey) {
-					//https://php.watch/versions/8.0/OpenSSL-resource
-					//https://stackoverflow.com/questions/69559775/php-openssl-free-key-deprecated
-					if(\PHP_VERSION_ID < 80000)
-						openssl_pkey_free($privateKey);
-				} else {
+				if(false === $privateKey) {
 					$this->log_openssl_errors();
 					return esc_html__('Invalid private key or wrong private key passphrase', 'wc-moldovaagroindbank');
 				}
