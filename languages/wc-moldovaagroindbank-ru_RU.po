@@ -2,11 +2,11 @@
 # This file is distributed under the same license as the maib Payment Gateway for WooCommerce package.
 msgid ""
 msgstr ""
-"Project-Id-Version: maib Payment Gateway for WooCommerce 1.4.5\n"
+"Project-Id-Version: Payment Gateway for maib for WooCommerce 1.4.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-"
 "moldovaagroindbank\n"
-"POT-Creation-Date: 2025-08-05 18:23+0300\n"
-"PO-Revision-Date: 2025-08-05 18:24+0300\n"
+"POT-Creation-Date: 2025-11-23 18:54+0200\n"
+"PO-Revision-Date: 2025-11-23 18:57+0200\n"
 "Last-Translator: Alexander Minza <alex@alexminza.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -15,19 +15,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.8\n"
 
 #. Description of the plugin
 #: wc-moldovaagroindbank.php
 msgid ""
-"Accept Visa and Mastercard directly on your store with the maib payment "
-"gateway for WooCommerce."
+"Accept Visa and Mastercard directly on your store with the Payment Gateway "
+"for maib for WooCommerce."
 msgstr ""
 "Принимайте оплату картами Visa и Mastercard прямо в своем магазине с помощью "
 "платежного шлюза maib для WooCommerce."
 
 #: wc-moldovaagroindbank.php:51
-msgid "maib payment gateway requires WooCommerce to be installed and active."
+msgid ""
+"Payment Gateway for maib requires WooCommerce to be installed and active."
 msgstr "Платежный шлюз maib требует установки и активации плагина WooCommerce."
 
 #: wc-moldovaagroindbank.php:149
@@ -154,7 +155,7 @@ msgid "Order description that the customer will see on the bank payment page."
 msgstr ""
 "Описание заказа, которое клиент будет видеть при оплате на странице банка."
 
-#: wc-moldovaagroindbank.php:220 wc-moldovaagroindbank.php:369
+#: wc-moldovaagroindbank.php:220 wc-moldovaagroindbank.php:374
 msgid "Connection Settings"
 msgstr "Настройки подключения"
 
@@ -186,11 +187,11 @@ msgstr ""
 "Загруженный сертификат PFX будет обработан и преобразован в формат PEM. "
 "Расширенные настройки будут перезаписаны и заданы автоматически."
 
-#: wc-moldovaagroindbank.php:238 wc-moldovaagroindbank.php:374
+#: wc-moldovaagroindbank.php:238 wc-moldovaagroindbank.php:379
 msgid "Client certificate file"
 msgstr "Файл сертификата клиента"
 
-#: wc-moldovaagroindbank.php:244 wc-moldovaagroindbank.php:380
+#: wc-moldovaagroindbank.php:244 wc-moldovaagroindbank.php:385
 msgid "Private key file"
 msgstr "Файл закрытого ключа"
 
@@ -220,15 +221,15 @@ msgstr ""
 msgid "Callback URL"
 msgstr "URL обратного вызова (Callback URL)"
 
-#: wc-moldovaagroindbank.php:359
+#: wc-moldovaagroindbank.php:364
 msgid "Unsupported store currency"
 msgstr "Валюта магазина не поддерживается"
 
-#: wc-moldovaagroindbank.php:361
+#: wc-moldovaagroindbank.php:366
 msgid "Supported currencies"
 msgstr "Поддерживаемые валюты"
 
-#: wc-moldovaagroindbank.php:368
+#: wc-moldovaagroindbank.php:373
 #, php-format
 msgid ""
 "See plugin documentation for <a href=\"%1$s\" target=\"_blank\">installation "
@@ -237,11 +238,11 @@ msgstr ""
 "Перейдите на страницу документации плагина для <a href=\"%1$s\" "
 "target=\"_blank\">инструкций по установке</a>."
 
-#: wc-moldovaagroindbank.php:369
+#: wc-moldovaagroindbank.php:374
 msgid "Not configured"
 msgstr "Не настроено"
 
-#: wc-moldovaagroindbank.php:406
+#: wc-moldovaagroindbank.php:411
 #, php-format
 msgid ""
 "%1$s is not properly configured. Verify plugin <a href=\"%2$s\">Connection "
@@ -250,7 +251,7 @@ msgstr ""
 "%1$s настроен неправильно. Проверьте <a href=\"%2$s\">Настройки подключения</"
 "a> плагина."
 
-#: wc-moldovaagroindbank.php:411
+#: wc-moldovaagroindbank.php:416
 #, php-format
 msgid ""
 "See <a href=\"%2$s\">%1$s settings</a> page for log details and setup "
@@ -259,16 +260,16 @@ msgstr ""
 "Перейдите на страницу <a href=\"%2$s\">настроек %1$s</a> для просмотра "
 "сведений журнала и инструкций по установке."
 
-#: wc-moldovaagroindbank.php:503
+#: wc-moldovaagroindbank.php:508
 #, php-format
 msgid "Certificate valid until %1$s"
 msgstr "Сертификат действителен до %1$s"
 
-#: wc-moldovaagroindbank.php:510
+#: wc-moldovaagroindbank.php:515
 msgid "Invalid certificate"
 msgstr "Невалидный сертификат"
 
-#: wc-moldovaagroindbank.php:513
+#: wc-moldovaagroindbank.php:518
 msgid "Could not validate certificate"
 msgstr "Ошибка проверки сертификата"
 

@@ -1,17 +1,16 @@
-=== maib Payment Gateway for WooCommerce ===
+=== Payment Gateway for maib for WooCommerce ===
 Contributors: alexminza
-Donate link: https://www.revolut.me/alexminza
 Tags: WooCommerce, Moldova, maib, payment gateway, credit card
 Requires at least: 4.8
 Tested up to: 6.8
-Stable tag: 1.4.5
+Stable tag: 1.4.6
 Requires PHP: 7.2.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 == Description ==
 
-Accept Visa and Mastercard directly on your store with the maib Payment Gateway for WooCommerce.
+Accept Visa and Mastercard directly on your store with the Payment Gateway for maib for WooCommerce.
 
 = Features =
 
@@ -87,6 +86,9 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 == Changelog ==
 
 See [wc-moldovaagroindbank project releases on GitHub](https://github.com/alexminza/wc-moldovaagroindbank/releases) for details.
+
+= 1.4.6 =
+Adjusted plugin name and code to comply with the WordPress Plugin Directory review feedback.
 
 = 1.4.5 =
 Adjusted plugin code to comply with the WordPress Plugin Directory review feedback.
@@ -179,6 +181,9 @@ Basic and Advanced settings configuration modes
 Initial release
 
 == Upgrade Notice ==
+
+= 1.4.6 =
+Adjusted plugin name and code to comply with the WordPress Plugin Directory review feedback.
 
 = 1.4.5 =
 Adjusted plugin code to comply with the WordPress Plugin Directory review feedback.

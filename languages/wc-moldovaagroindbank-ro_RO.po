@@ -2,11 +2,11 @@
 # This file is distributed under the same license as the maib Payment Gateway for WooCommerce package.
 msgid ""
 msgstr ""
-"Project-Id-Version: maib Payment Gateway for WooCommerce 1.4.5\n"
+"Project-Id-Version: Payment Gateway for maib for WooCommerce 1.4.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-"
 "moldovaagroindbank\n"
-"POT-Creation-Date: 2025-08-05 18:23+0300\n"
-"PO-Revision-Date: 2025-08-05 18:24+0300\n"
+"POT-Creation-Date: 2025-11-23 18:54+0200\n"
+"PO-Revision-Date: 2025-11-23 18:56+0200\n"
 "Last-Translator: Alexander Minza <alex@alexminza.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -15,19 +15,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.8\n"
 
 #. Description of the plugin
 #: wc-moldovaagroindbank.php
 msgid ""
-"Accept Visa and Mastercard directly on your store with the maib payment "
-"gateway for WooCommerce."
+"Accept Visa and Mastercard directly on your store with the Payment Gateway "
+"for maib for WooCommerce."
 msgstr ""
 "Acceptă plata cu carduri Visa și Mastercard direct în magazin cu gateway-ul "
 "de plată maib pentru WooCommerce."
 
 #: wc-moldovaagroindbank.php:51
-msgid "maib payment gateway requires WooCommerce to be installed and active."
+msgid ""
+"Payment Gateway for maib requires WooCommerce to be installed and active."
 msgstr ""
 "Gateway-ul de plată maib necesită ca modulul WooCommerce să fie instalat și "
 "activ."
@@ -153,7 +154,7 @@ msgid "Order description that the customer will see on the bank payment page."
 msgstr ""
 "Descrierea comenzii afișată clientului pe pagina băncii în timpul plății."
 
-#: wc-moldovaagroindbank.php:220 wc-moldovaagroindbank.php:369
+#: wc-moldovaagroindbank.php:220 wc-moldovaagroindbank.php:374
 msgid "Connection Settings"
 msgstr "Setări conexiune"
 
@@ -185,11 +186,11 @@ msgstr ""
 "Certificatul PFX încărcat va fi procesat și transformat în format PEM. "
 "Setările avansate vor fi suprascrise și configurate automat."
 
-#: wc-moldovaagroindbank.php:238 wc-moldovaagroindbank.php:374
+#: wc-moldovaagroindbank.php:238 wc-moldovaagroindbank.php:379
 msgid "Client certificate file"
 msgstr "Fișier certificat client"
 
-#: wc-moldovaagroindbank.php:244 wc-moldovaagroindbank.php:380
+#: wc-moldovaagroindbank.php:244 wc-moldovaagroindbank.php:385
 msgid "Private key file"
 msgstr "Fișier cheie privată"
 
@@ -219,15 +220,15 @@ msgstr ""
 msgid "Callback URL"
 msgstr "URL apel invers (Callback URL)"
 
-#: wc-moldovaagroindbank.php:359
+#: wc-moldovaagroindbank.php:364
 msgid "Unsupported store currency"
 msgstr "Valuta magazinului nu este suportată"
 
-#: wc-moldovaagroindbank.php:361
+#: wc-moldovaagroindbank.php:366
 msgid "Supported currencies"
 msgstr "Valute suportate"
 
-#: wc-moldovaagroindbank.php:368
+#: wc-moldovaagroindbank.php:373
 #, php-format
 msgid ""
 "See plugin documentation for <a href=\"%1$s\" target=\"_blank\">installation "
@@ -236,11 +237,11 @@ msgstr ""
 "Consultați documentația modulului pentru <a href=\"%1$s\" "
 "target=\"_blank\">instrucțiuni de instalare</a>."
 
-#: wc-moldovaagroindbank.php:369
+#: wc-moldovaagroindbank.php:374
 msgid "Not configured"
 msgstr "Neconfigurat"
 
-#: wc-moldovaagroindbank.php:406
+#: wc-moldovaagroindbank.php:411
 #, php-format
 msgid ""
 "%1$s is not properly configured. Verify plugin <a href=\"%2$s\">Connection "
@@ -249,7 +250,7 @@ msgstr ""
 "%1$s nu este configurat corect. Verificați <a href=\"%2$s\">Setările de "
 "conexiune</a>."
 
-#: wc-moldovaagroindbank.php:411
+#: wc-moldovaagroindbank.php:416
 #, php-format
 msgid ""
 "See <a href=\"%2$s\">%1$s settings</a> page for log details and setup "
@@ -258,16 +259,16 @@ msgstr ""
 "Consultați pagina de <a href=\"%2$s\">setări %1$s</a> pentru vizualizarea "
 "jurnalului și instrucțiuni de configurare."
 
-#: wc-moldovaagroindbank.php:503
+#: wc-moldovaagroindbank.php:508
 #, php-format
 msgid "Certificate valid until %1$s"
 msgstr "Certificatul este valabil până la %1$s"
 
-#: wc-moldovaagroindbank.php:510
+#: wc-moldovaagroindbank.php:515
 msgid "Invalid certificate"
 msgstr "Certificat nevalid"
 
-#: wc-moldovaagroindbank.php:513
+#: wc-moldovaagroindbank.php:518
 msgid "Could not validate certificate"
 msgstr "Nu s-a putut valida certificatul"
 
