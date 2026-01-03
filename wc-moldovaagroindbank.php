@@ -431,18 +431,22 @@ function maib_plugins_loaded_init()
         }
 
         //region Certificates
-        protected function process_pfx_setting($pfx_field_id, $pfx_option_value, $pass_field_id)
+        protected function process_pfx_setting(string $pfx_field_id, string $pfx_option_value, string $pass_field_id)
         {
             try {
+                // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verification is handled by WooCommerce.
                 if (array_key_exists($pfx_field_id, $_FILES)) {
+                    // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing -- File validation is performed via is_uploaded_file and error check. Nonce verification is handled by WooCommerce.
                     $pfx_file = $_FILES[$pfx_field_id];
                     $tmp_name = $pfx_file['tmp_name'];
 
-                    if ($pfx_file['error'] === UPLOAD_ERR_OK && is_uploaded_file($tmp_name)) {
-                        $pfx_data = file_get_contents($tmp_name);
+                    if (UPLOAD_ERR_OK === $pfx_file['error'] && is_uploaded_file($tmp_name)) {
+                        $wp_filesystem = self::get_wp_filesystem();
+                        $pfx_data = $wp_filesystem->get_contents($tmp_name);
 
-                        if ($pfx_data !== false) {
-                            $pfx_passphrase = $_POST[$pass_field_id];
+                        if (false !== $pfx_data) {
+                            // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verification is handled by WooCommerce.
+                            $pfx_passphrase = isset($_POST[$pass_field_id]) ? sanitize_textarea_field(wp_unslash($_POST[$pass_field_id])) : '';
 
                             $result = $this->process_export_certificates($pfx_data, $pfx_passphrase);
 
@@ -454,7 +458,8 @@ function maib_plugins_loaded_init()
                                 $_POST['woocommerce_moldovaagroindbank_maib_pcert'] = $result_p_cert;
                                 $_POST['woocommerce_moldovaagroindbank_maib_key'] = $result_key;
 
-                                //Certificates export success - save PFX bundle to settings
+                                // Certificates export success - save PFX bundle to settings
+                                // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- Base64 is required for storing binary PFX data.
                                 $_POST[$pfx_field_id] = base64_encode($pfx_data);
 
                                 return;
@@ -463,10 +468,19 @@ function maib_plugins_loaded_init()
                     }
                 }
             } catch (Exception $ex) {
-                $this->log($ex, WC_Log_Levels::ERROR);
+                $this->log(
+                    $ex->getMessage(),
+                    WC_Log_Levels::ERROR,
+                    array(
+                        'pfx_field_id' => $pfx_field_id,
+                        'pass_field_id' => $pass_field_id,
+                        'exception' => (string) $ex,
+                        'backtrace' => true,
+                    )
+                );
             }
 
-            //Preserve existing value
+            // Preserve existing value
             $_POST[$pfx_field_id] = $pfx_option_value;
         }
 
@@ -495,7 +509,14 @@ function maib_plugins_loaded_init()
                     }
                 }
             } catch (Exception $ex) {
-                $this->log($ex, WC_Log_Levels::ERROR);
+                $this->log(
+                    $ex->getMessage(),
+                    WC_Log_Levels::ERROR,
+                    array(
+                        'exception' => (string) $ex,
+                        'backtrace' => true,
+                    )
+                );
             }
         }
 
