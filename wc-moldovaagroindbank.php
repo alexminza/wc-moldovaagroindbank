@@ -526,7 +526,7 @@ function maib_plugins_loaded_init()
             }
         }
 
-        protected function validate_certificate($cert_file)
+        protected function validate_certificate(string $cert_file)
         {
             try {
                 $validate_result = $this->validate_file($cert_file);
@@ -572,7 +572,7 @@ function maib_plugins_loaded_init()
             }
         }
 
-        protected function validate_private_key($cert_file, $key_file, $key_passphrase)
+        protected function validate_private_key(string $cert_file, string $key_file, string $key_passphrase)
         {
             try {
                 $validate_result = $this->validate_file($key_file);
@@ -646,7 +646,7 @@ function maib_plugins_loaded_init()
             }
         }
 
-        protected function process_export_certificates($pfx_cert_data, $pfx_passphrase)
+        protected function process_export_certificates(string $pfx_cert_data, string $pfx_passphrase)
         {
             $result = array();
             $pfx_certs = array();
@@ -855,7 +855,7 @@ function maib_plugins_loaded_init()
             );
         }
 
-        public function complete_transaction($order)
+        public function complete_transaction(\WC_Order $order)
         {
             if (!$this->check_settings()) {
                 $this->settings_admin_notice();
@@ -915,7 +915,7 @@ function maib_plugins_loaded_init()
             return false;
         }
 
-        public function verify_transaction($order)
+        public function verify_transaction(\WC_Order $order)
         {
             if (!$this->check_settings()) {
                 $this->settings_admin_notice();
@@ -957,7 +957,7 @@ function maib_plugins_loaded_init()
             return false;
         }
 
-        protected function get_transaction_result($trans_id)
+        protected function get_transaction_result(string $trans_id)
         {
             $client_ip = self::get_client_ip();
             $transaction_result = null;
@@ -1198,7 +1198,7 @@ function maib_plugins_loaded_init()
         //endregion
 
         //region Order
-        protected static function get_order_net_total($order)
+        protected static function get_order_net_total(\WC_Order $order)
         {
             //https://github.com/woocommerce/woocommerce/issues/17795
             //https://github.com/woocommerce/woocommerce/pull/18196
@@ -1220,7 +1220,7 @@ function maib_plugins_loaded_init()
          *
          * @link https://stackoverflow.com/questions/71438717/extend-wc-get-orders-with-a-custom-meta-key-and-meta-value
          */
-        protected function get_order_by_trans_id($trans_id)
+        protected function get_order_by_trans_id(string $trans_id)
         {
             $args = array(
                 'meta_key'   => self::MOD_TRANSACTION_ID, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
@@ -1245,16 +1245,16 @@ function maib_plugins_loaded_init()
             return false;
         }
 
-        protected static function get_order_transaction_id($order)
+        protected static function get_order_transaction_id(\WC_Order $order)
         {
             //https://woocommerce.github.io/code-reference/classes/WC-Data.html#method_get_meta
-            $trans_id = $order->get_meta(self::MOD_TRANSACTION_ID, true);
+            $trans_id = strval($order->get_meta(self::MOD_TRANSACTION_ID, true));
             return $trans_id;
         }
 
-        protected static function get_order_transaction_type($order)
+        protected static function get_order_transaction_type(\WC_Order $order)
         {
-            $transaction_type = $order->get_meta(self::MOD_TRANSACTION_TYPE, true);
+            $transaction_type = strval($order->get_meta(self::MOD_TRANSACTION_TYPE, true));
             return $transaction_type;
         }
 
@@ -1283,7 +1283,7 @@ function maib_plugins_loaded_init()
             'MDL' => 498,
         );
 
-        protected static function get_currency_numcode($currency)
+        protected static function get_currency_numcode(string $currency)
         {
             return self::$currency_numcodes[$currency];
         }
@@ -1341,7 +1341,7 @@ function maib_plugins_loaded_init()
             $this->logger->log($level, $message, $log_context);
         }
 
-        protected static function static_log($message, $level = WC_Log_Levels::DEBUG)
+        protected static function static_log(string $message, string $level = WC_Log_Levels::DEBUG)
         {
             $logger = wc_get_logger();
             $log_context = array('source' => self::MOD_ID);
@@ -1380,20 +1380,19 @@ function maib_plugins_loaded_init()
             return array_merge($plugin_links, $links);
         }
 
-        public static function order_actions($actions)
+        public static function order_actions(array $actions, \WC_Order $order)
         {
-            global $theorder;
-            if ($theorder->get_payment_method() !== self::MOD_ID) {
+            if ($order->get_payment_method() !== self::MOD_ID) {
                 return $actions;
             }
 
-            if ($theorder->is_paid()) {
-                $transaction_type = self::get_order_transaction_type($theorder);
+            if ($order->is_paid()) {
+                $transaction_type = self::get_order_transaction_type($order);
                 if (self::TRANSACTION_TYPE_AUTHORIZATION === $transaction_type) {
                     /* translators: 1: Payment method title */
                     $actions['moldovaagroindbank_complete_transaction'] = esc_html(sprintf(__('Complete %1$s transaction', 'wc-moldovaagroindbank'), self::MOD_TITLE));
                 }
-            } elseif ($theorder->has_status('pending')) {
+            } elseif ($order->has_status('pending')) {
                 /* translators: 1: Payment method title */
                 $actions['moldovaagroindbank_verify_transaction'] = esc_html(sprintf(__('Verify %1$s transaction', 'wc-moldovaagroindbank'), self::MOD_TITLE));
             }
@@ -1401,13 +1400,13 @@ function maib_plugins_loaded_init()
             return $actions;
         }
 
-        public static function action_complete_transaction($order)
+        public static function action_complete_transaction(\WC_Order $order)
         {
             $plugin = new self();
             return $plugin->complete_transaction($order);
         }
 
-        public static function action_verify_transaction($order)
+        public static function action_verify_transaction(\WC_Order $order)
         {
             $plugin = new self();
             return $plugin->verify_transaction($order);
@@ -1455,7 +1454,7 @@ function maib_plugins_loaded_init()
             self::static_log($message, WC_Log_Levels::INFO);
         }
 
-        protected static function find_scheduled_action($status = null)
+        protected static function find_scheduled_action(string $status = null)
         {
             $params = $status ? array('status' => $status) : null;
             $action_id = ActionScheduler::store()->find_action(self::MOD_CLOSEDAY_ACTION, $params);
@@ -1464,7 +1463,7 @@ function maib_plugins_loaded_init()
         //endregion
 
         //region WooCommerce
-        public static function add_gateway($methods)
+        public static function add_gateway(array $methods)
         {
             $methods[] = self::class;
             return $methods;
@@ -1480,7 +1479,7 @@ function maib_plugins_loaded_init()
         add_filter('plugin_action_links_' . plugin_basename(__FILE__), array(WC_Gateway_MAIB::class, 'plugin_links'));
 
         //Add WooCommerce order actions
-        add_filter('woocommerce_order_actions', array(WC_Gateway_MAIB::class, 'order_actions'));
+        add_filter('woocommerce_order_actions', array(WC_Gateway_MAIB::class, 'order_actions'), 10, 2);
         add_action('woocommerce_order_action_moldovaagroindbank_complete_transaction', array(WC_Gateway_MAIB::class, 'action_complete_transaction'));
         add_action('woocommerce_order_action_moldovaagroindbank_verify_transaction', array(WC_Gateway_MAIB::class, 'action_verify_transaction'));
     }
@@ -1490,7 +1489,7 @@ function maib_plugins_loaded_init()
 }
 
 //region Register activation hooks
-function woocommerce_moldovaagroindbank_activation_deactivation($activate = true)
+function woocommerce_moldovaagroindbank_activation_deactivation(bool $activate = true)
 {
     if (!class_exists(WC_Gateway_MAIB::class)) {
         maib_plugins_loaded_init();
