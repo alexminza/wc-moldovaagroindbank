@@ -203,8 +203,8 @@ Adjusted plugin name to comply with the [WooCommerce trademark guidelines](https
 Improved reliability of the `maib_close_day` scheduled action registration on certain systems.
 
 = 1.4.1 =
-* Improved [Composer packages versions compatibility](https://vanrossum.dev/37-wordpress-and-composer) by using [Jetpack Autoloader by Automattic](https://github.com/Automattic/jetpack-autoloader)
-* Updated [MAIB Payment PHP SDK](https://github.com/maibank/maibapi) to the latest version [v3.0.5](https://packagist.org/packages/maib/maibapi)
+* Improved Composer packages versions compatibility by using Jetpack Autoloader by Automattic
+* Updated MAIB Payment PHP SDK to the latest version
 
 = 1.4.0 =
 Added support for WooCommerce [Cart and Checkout Blocks](https://woocommerce.com/document/cart-checkout-blocks-status/).
