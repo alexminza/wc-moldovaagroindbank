@@ -547,7 +547,7 @@ function maib_plugins_loaded_init()
                         if ($valid_until < (time() - 2592000)) {
                             // Certificate already expired or expires in the next 30 days
                             /* translators: 1: Date string */
-                            return sprintf(esc_html__('Certificate valid until %1$s', 'wc-moldovaagroindbank'), esc_html(date_i18n(get_option('date_format'), $valid_until)));
+                            return esc_html(sprintf(__('Certificate valid until %1$s', 'wc-moldovaagroindbank'), date_i18n(get_option('date_format'), $valid_until)));
                         }
 
                         return null;
@@ -818,7 +818,7 @@ function maib_plugins_loaded_init()
                     //endregion
 
                     /* translators: 1: Payment method title, 2: Payment gateway response */
-                    $message = sprintf(esc_html__('Payment initiated via %1$s: %2$s', 'wc-moldovaagroindbank'), esc_html($this->get_method_title()), esc_html(self::print_http_query($register_result)));
+                    $message = esc_html(sprintf(__('Payment initiated via %1$s: %2$s', 'wc-moldovaagroindbank'), $this->get_method_title(), self::print_http_query($register_result)));
                     $message = $this->get_test_message($message);
                     $this->log($message, WC_Log_Levels::INFO);
                     $order->add_order_note($message);
@@ -833,13 +833,13 @@ function maib_plugins_loaded_init()
             }
 
             /* translators: 1: Payment method title, 2: Payment gateway response */
-            $message = sprintf(esc_html__('Payment initiation failed via %1$s: %2$s', 'wc-moldovaagroindbank'), esc_html($this->get_method_title()), esc_html(self::print_http_query($register_result)));
+            $message = esc_html(sprintf(__('Payment initiation failed via %1$s: %2$s', 'wc-moldovaagroindbank'), $this->get_method_title(), self::print_http_query($register_result)));
             $message = $this->get_test_message($message);
             $order->add_order_note($message);
             $this->log($message, WC_Log_Levels::ERROR);
 
             /* translators: 1: Order ID, 2: Payment method title */
-            $message = sprintf(esc_html__('Order #%1$s payment initiation failed via %2$s.', 'wc-moldovaagroindbank'), esc_html($order_id), esc_html($this->get_method_title()));
+            $message = esc_html(sprintf(__('Order #%1$s payment initiation failed via %2$s.', 'wc-moldovaagroindbank'), $order_id, $this->get_method_title()));
 
             // https://github.com/woocommerce/woocommerce/issues/48687#issuecomment-2186475264
             if (WC()->is_store_api_request()) {
@@ -892,7 +892,7 @@ function maib_plugins_loaded_init()
                 $result = $complete_result[self::MAIB_RESULT];
                 if (self::MAIB_RESULT_OK === $result) {
                     /* translators: 1: Payment method title, 2: Payment gateway response */
-                    $message = sprintf(esc_html__('Payment completed via %1$s: %2$s', 'wc-moldovaagroindbank'), esc_html($this->get_method_title()), esc_html(self::print_http_query($complete_result)));
+                    $message = esc_html(sprintf(__('Payment completed via %1$s: %2$s', 'wc-moldovaagroindbank'), $this->get_method_title(), self::print_http_query($complete_result)));
                     $message = $this->get_test_message($message);
                     $this->log($message, WC_Log_Levels::INFO);
                     $order->add_order_note($message);
@@ -905,7 +905,7 @@ function maib_plugins_loaded_init()
             }
 
             /* translators: 1: Payment method title, 2: Payment gateway response */
-            $message = sprintf(esc_html__('Payment completion failed via %1$s: %2$s', 'wc-moldovaagroindbank'), esc_html($this->get_method_title()), esc_html(self::print_http_query($complete_result)));
+            $message = esc_html(sprintf(__('Payment completion failed via %1$s: %2$s', 'wc-moldovaagroindbank'), $this->get_method_title(), self::print_http_query($complete_result)));
             $message = $this->get_test_message($message);
             $order->add_order_note($message);
             $this->log($message, WC_Log_Levels::ERROR);
@@ -999,7 +999,7 @@ function maib_plugins_loaded_init()
             $trans_id = isset($_POST[self::MAIB_TRANS_ID]) ? sanitize_textarea_field(wp_unslash($_POST[self::MAIB_TRANS_ID])) : '';
             if (empty($trans_id)) {
                 /* translators: 1: Payment method title */
-                $message = sprintf(esc_html__('Payment verification failed: Transaction ID not received from %1$s.', 'wc-moldovaagroindbank'), esc_html($this->get_method_title()));
+                $message = esc_html(sprintf(__('Payment verification failed: Transaction ID not received from %1$s.', 'wc-moldovaagroindbank'), $this->get_method_title()));
                 $this->log($message, WC_Log_Levels::ERROR);
 
                 wc_add_notice($message, 'error');
@@ -1012,7 +1012,7 @@ function maib_plugins_loaded_init()
             $order = self::get_order_by_trans_id($trans_id);
             if (!$order) {
                 /* translators: 1: Transaction ID, 2: Payment method title */
-                $message = sprintf(esc_html__('Order not found by Transaction ID: %1$s received from %2$s.', 'wc-moldovaagroindbank'), esc_html($trans_id), esc_html($this->get_method_title()));
+                $message = esc_html(sprintf(__('Order not found by Transaction ID: %1$s received from %2$s.', 'wc-moldovaagroindbank'), $trans_id, $this->get_method_title()));
                 $this->log($message, WC_Log_Levels::ERROR);
 
                 wc_add_notice($message, 'error');
@@ -1063,13 +1063,13 @@ function maib_plugins_loaded_init()
             }
 
             /* translators: 1: Payment method title, 2: Payment gateway response */
-            $message = sprintf(esc_html__('Payment failed via %1$s: %2$s', 'wc-moldovaagroindbank'), esc_html($this->get_method_title()), esc_html(self::print_http_query($transaction_result)));
+            $message = esc_html(sprintf(__('Payment failed via %1$s: %2$s', 'wc-moldovaagroindbank'), $this->get_method_title(), self::print_http_query($transaction_result)));
             $message = $this->get_test_message($message);
             $order->add_order_note($message);
             $this->log($message, WC_Log_Levels::ERROR);
 
             /* translators: 1: Order ID, 2: Payment method title */
-            $message = sprintf(esc_html__('Order #%1$s payment failed via %2$s.', 'wc-moldovaagroindbank'), esc_html($order_id), esc_html($this->get_method_title()));
+            $message = esc_html(sprintf(__('Order #%1$s payment failed via %2$s.', 'wc-moldovaagroindbank'), $order_id, $this->get_method_title()));
             wc_add_notice($message, 'error');
             $this->logs_admin_website_notice();
 
@@ -1123,7 +1123,7 @@ function maib_plugins_loaded_init()
                 $result = $revert_result[self::MAIB_RESULT];
                 if (self::MAIB_RESULT_REVERSED === $result || self::MAIB_RESULT_OK === $result) {
                     /* translators: 1: Refund amount, 2: Currency code, 3: Payment method title, 4: Payment gateway response */
-                    $message = sprintf(esc_html__('Refund of %1$s %2$s via %3$s approved: %4$s', 'wc-moldovaagroindbank'), esc_html($amount), esc_html($order_currency), esc_html($this->get_method_title()), esc_html(self::print_http_query($revert_result)));
+                    $message = esc_html(sprintf(__('Refund of %1$s %2$s via %3$s approved: %4$s', 'wc-moldovaagroindbank'), $amount, $order_currency, $this->get_method_title(), self::print_http_query($revert_result)));
                     $message = $this->get_test_message($message);
                     $this->log($message, WC_Log_Levels::INFO);
                     $order->add_order_note($message);
@@ -1133,7 +1133,7 @@ function maib_plugins_loaded_init()
             }
 
             /* translators: 1: Refund amount, 2: Currency code, 3: Payment method title, 4: Payment gateway response */
-            $message = sprintf(esc_html__('Refund of %1$s %2$s via %3$s failed: %4$s', 'wc-moldovaagroindbank'), esc_html($amount), esc_html($order_currency), esc_html($this->get_method_title()), esc_html(self::print_http_query($revert_result)));
+            $message = esc_html(sprintf(__('Refund of %1$s %2$s via %3$s failed: %4$s', 'wc-moldovaagroindbank'), $amount, $order_currency, $this->get_method_title(), self::print_http_query($revert_result)));
             $message = $this->get_test_message($message);
             $order->add_order_note($message);
             $this->log($message, WC_Log_Levels::ERROR);
@@ -1178,7 +1178,7 @@ function maib_plugins_loaded_init()
                     $result = $closeday_result[self::MAIB_RESULT];
                     if (self::MAIB_RESULT_OK === $result) {
                         /* translators: 1: Payment method title, 2: Payment gateway response */
-                        $message = sprintf(esc_html__('Close business day via %1$s succeeded: %2$s', 'wc-moldovaagroindbank'), esc_html($this->get_method_title()), esc_html($message_result));
+                        $message = esc_html(sprintf(__('Close business day via %1$s succeeded: %2$s', 'wc-moldovaagroindbank'), $this->get_method_title(), $message_result));
                         $this->log($message, WC_Log_Levels::INFO);
 
                         return $message;
@@ -1186,11 +1186,11 @@ function maib_plugins_loaded_init()
                 }
             } else {
                 /* translators: 1: Payment method title */
-                $message_result = sprintf(esc_html__('%1$s is not properly configured.', 'wc-moldovaagroindbank'), esc_html($this->get_method_title()));
+                $message_result = esc_html(sprintf(__('%1$s is not properly configured.', 'wc-moldovaagroindbank'), $this->get_method_title()));
             }
 
             /* translators: 1: Payment method title, 2: Payment gateway response */
-            $message = sprintf(esc_html__('Close business day via %1$s failed: %2$s', 'wc-moldovaagroindbank'), esc_html($this->get_method_title()), esc_html($message_result));
+            $message = esc_html(sprintf(__('Close business day via %1$s failed: %2$s', 'wc-moldovaagroindbank'), $this->get_method_title(), $message_result));
             $this->log($message, WC_Log_Levels::ERROR);
 
             return $message;
@@ -1391,11 +1391,11 @@ function maib_plugins_loaded_init()
                 $transaction_type = self::get_order_transaction_type($theorder);
                 if (self::TRANSACTION_TYPE_AUTHORIZATION === $transaction_type) {
                     /* translators: 1: Payment method title */
-                    $actions['moldovaagroindbank_complete_transaction'] = sprintf(esc_html__('Complete %1$s transaction', 'wc-moldovaagroindbank'), esc_html(self::MOD_TITLE));
+                    $actions['moldovaagroindbank_complete_transaction'] = esc_html(sprintf(__('Complete %1$s transaction', 'wc-moldovaagroindbank'), self::MOD_TITLE));
                 }
             } elseif ($theorder->has_status('pending')) {
                 /* translators: 1: Payment method title */
-                $actions['moldovaagroindbank_verify_transaction'] = sprintf(esc_html__('Verify %1$s transaction', 'wc-moldovaagroindbank'), esc_html(self::MOD_TITLE));
+                $actions['moldovaagroindbank_verify_transaction'] = esc_html(sprintf(__('Verify %1$s transaction', 'wc-moldovaagroindbank'), self::MOD_TITLE));
             }
 
             return $actions;
@@ -1428,7 +1428,7 @@ function maib_plugins_loaded_init()
         {
             if (false !== as_next_scheduled_action(self::MOD_CLOSEDAY_ACTION)) {
                 /* translators: 1: Scheduled action name */
-                $message = sprintf(esc_html__('Scheduled action %1$s is already registered.', 'wc-moldovaagroindbank'), esc_html(self::MOD_CLOSEDAY_ACTION));
+                $message = esc_html(sprintf(__('Scheduled action %1$s is already registered.', 'wc-moldovaagroindbank'), self::MOD_CLOSEDAY_ACTION));
                 self::static_log($message, WC_Log_Levels::WARNING);
 
                 self::unregister_scheduled_actions();
@@ -1442,7 +1442,7 @@ function maib_plugins_loaded_init()
             $action_id = as_schedule_cron_action(null, $cron_schedule, self::MOD_CLOSEDAY_ACTION, array(), self::MOD_ID);
 
             /* translators: 1: Scheduled action name, 2: Timezone name, 3: Scheduled action ID */
-            $message = sprintf(esc_html__('Registered scheduled action %1$s in timezone %2$s with ID %3$s.', 'wc-moldovaagroindbank'), esc_html(self::MOD_CLOSEDAY_ACTION), esc_html($timezone_id), esc_html($action_id));
+            $message = esc_html(sprintf(__('Registered scheduled action %1$s in timezone %2$s with ID %3$s.', 'wc-moldovaagroindbank'), self::MOD_CLOSEDAY_ACTION, $timezone_id, $action_id));
             self::static_log($message, WC_Log_Levels::INFO);
         }
 
@@ -1451,7 +1451,7 @@ function maib_plugins_loaded_init()
             as_unschedule_all_actions(self::MOD_CLOSEDAY_ACTION);
 
             /* translators: 1: Scheduled action name */
-            $message = sprintf(esc_html__('Unregistered scheduled action %1$s.', 'wc-moldovaagroindbank'), esc_html(self::MOD_CLOSEDAY_ACTION));
+            $message = esc_html(sprintf(__('Unregistered scheduled action %1$s.', 'wc-moldovaagroindbank'), self::MOD_CLOSEDAY_ACTION));
             self::static_log($message, WC_Log_Levels::INFO);
         }
 
