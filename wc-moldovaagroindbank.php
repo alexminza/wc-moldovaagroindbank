@@ -955,18 +955,24 @@ function maib_plugins_loaded_init()
                 /* translators: 1: Payment method title, 2: Order ID, 3: Payment gateway response */
                 $message = esc_html(sprintf(__('Transaction status from %1$s for order #%2$s: %3$s', 'wc-moldovaagroindbank'), $this->get_method_title(), $order_id, self::print_http_query($transaction_result)));
                 $message = $this->get_test_message($message);
-                $this->log($message, WC_Log_Levels::INFO);
-                $order->add_order_note($message);
+                $this->log(
+                    $message,
+                    WC_Log_Levels::INFO,
+                    array(
+                        'transaction_result' => $transaction_result,
+                    )
+                );
 
+                $order->add_order_note($message);
                 return true;
             }
 
             /* translators: 1: Payment method title, 2: Order ID */
             $message = esc_html(sprintf(__('Could not retrieve transaction status from %1$s for order #%2$s.', 'wc-moldovaagroindbank'), $this->get_method_title(), $order_id));
             $message = $this->get_test_message($message);
-            $order->add_order_note($message);
             $this->log($message, WC_Log_Levels::ERROR);
 
+            $order->add_order_note($message);
             return false;
         }
 
@@ -978,8 +984,6 @@ function maib_plugins_loaded_init()
             try {
                 $client = $this->init_maib_client();
                 $transaction_result = $client->getTransactionResult($trans_id, $client_ip);
-
-                $this->log(self::print_var($transaction_result));
             } catch (Exception $ex) {
                 $this->log(
                     $ex->getMessage(),
@@ -1040,34 +1044,38 @@ function maib_plugins_loaded_init()
             if (!empty($transaction_result)) {
                 $result = $transaction_result[self::MAIB_RESULT];
                 if (self::MAIB_RESULT_OK === $result) {
-                    //region Update order payment metadata
+                    //region Update order payment data
                     //https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#apis-for-gettingsetting-posts-and-postmeta
                     foreach ($transaction_result as $key => $value) {
                         $order->add_meta_data(strtolower(self::MOD_PREFIX . $key), $value, true);
                     }
 
                     $order->save();
+
+                    $rrn = $transaction_result[self::MAIB_RESULT_RRN];
+                    $order->payment_complete($rrn);
                     //endregion
 
                     $transaction_type = self::get_order_transaction_type($order);
                     $message_action = self::TRANSACTION_TYPE_CHARGE === $transaction_type
-                        /* translators: 1: Payment method title, 2: Payment gateway response */
-                        ? __('Payment completed via %1$s: %2$s', 'wc-moldovaagroindbank')
-                        /* translators: 1: Payment method title, 2: Payment gateway response */
-                        : __('Payment authorized via %1$s: %2$s', 'wc-moldovaagroindbank');
+                        /* translators: 1: Order ID, 2: Payment method title, 3: Payment data */
+                        ? __('Order #%1$s payment completed via %2$s: %3$s', 'wc-moldovaagroindbank')
+                        /* translators: 1: Order ID, 2: Payment method title, 3: Payment data */
+                        : __('Order #%1$s payment authorized via %2$s: %3$s', 'wc-moldovaagroindbank');
 
-                    $message = esc_html(sprintf($message_action, $this->get_method_title(), self::print_http_query($transaction_result)));
+                    $message = esc_html(sprintf($message_action, $order_id, $this->get_method_title(), $rrn));
                     $message = $this->get_test_message($message);
-                    $this->log($message, WC_Log_Levels::INFO);
+                    $this->log(
+                        $message,
+                        WC_Log_Levels::INFO,
+                        array(
+                            'transaction_result' => $transaction_result,
+                        )
+                    );
+
                     $order->add_order_note($message);
 
-                    $rrn = $transaction_result[self::MAIB_RESULT_RRN];
-                    $order->payment_complete($rrn);
                     WC()->cart->empty_cart();
-
-                    /* translators: 1: Order ID, 2: Payment method title */
-                    $message = esc_html(sprintf(__('Order #%1$s paid successfully via %2$s.', 'wc-moldovaagroindbank'), $order_id, $this->get_method_title()));
-                    $this->log($message, WC_Log_Levels::INFO);
                     wc_add_notice($message, 'success');
 
                     wp_safe_redirect($this->get_return_url($order));
@@ -1075,14 +1083,18 @@ function maib_plugins_loaded_init()
                 }
             }
 
-            /* translators: 1: Payment method title, 2: Payment gateway response */
-            $message = esc_html(sprintf(__('Payment failed via %1$s: %2$s', 'wc-moldovaagroindbank'), $this->get_method_title(), self::print_http_query($transaction_result)));
-            $message = $this->get_test_message($message);
-            $order->add_order_note($message);
-            $this->log($message, WC_Log_Levels::ERROR);
-
             /* translators: 1: Order ID, 2: Payment method title */
             $message = esc_html(sprintf(__('Order #%1$s payment failed via %2$s.', 'wc-moldovaagroindbank'), $order_id, $this->get_method_title()));
+            $message = $this->get_test_message($message);
+            $this->log(
+                $message,
+                WC_Log_Levels::ERROR,
+                array(
+                    'transaction_result' => $transaction_result,
+                )
+            );
+
+            $order->add_order_note($message);
             wc_add_notice($message, 'error');
             $this->logs_admin_website_notice();
 
