@@ -490,8 +490,9 @@ function maib_plugins_loaded_init()
                 if (!is_readable($this->maib_pcert) || !is_readable($this->maib_key)) {
                     if (self::is_overwritable($this->maib_pcert) && self::is_overwritable($this->maib_key)) {
                         if (!empty($this->maib_pfxcert)) {
+                            // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode -- Base64 is required for decoding stored binary PFX data.
                             $pfx_cert_data = base64_decode($this->maib_pfxcert);
-                            if ($pfx_cert_data !== false) {
+                            if (false !== $pfx_cert_data) {
                                 $result = $this->process_export_certificates($pfx_cert_data, $this->maib_key_password);
 
                                 $result_p_cert = isset($result['pcert']) ? $result['pcert'] : null;
