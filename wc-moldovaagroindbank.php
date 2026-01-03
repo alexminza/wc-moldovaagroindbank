@@ -1282,7 +1282,7 @@ function maib_plugins_loaded_init()
         protected function get_order_description(\WC_Order $order)
         {
             $description = sprintf($this->order_template, $order->get_id());
-            return apply_filters('victoriabank_order_description', $description, $order);
+            return apply_filters('moldovaagroindbank_order_description', $description, $order);
         }
         //endregion
 
@@ -1332,8 +1332,9 @@ function maib_plugins_loaded_init()
 
         protected function get_callback_url()
         {
-            //https://developer.woo.com/docs/woocommerce-plugin-api-callbacks/
-            return WC()->api_request_url("wc_{$this->id}");
+            // https://developer.woocommerce.com/docs/extensions/core-concepts/woocommerce-plugin-api-callback/
+            $callback_url = WC()->api_request_url("wc_{$this->id}");
+            return apply_filters('moldovaagroindbank_callback_url', $callback_url);
         }
 
         protected static function get_logs_url()
