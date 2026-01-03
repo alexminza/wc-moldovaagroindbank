@@ -1410,7 +1410,7 @@ function maib_plugins_loaded_init()
                     /* translators: 1: Payment method title */
                     $actions['moldovaagroindbank_complete_transaction'] = esc_html(sprintf(__('Complete %1$s transaction', 'wc-moldovaagroindbank'), self::MOD_TITLE));
                 }
-            } elseif ($order->has_status('pending')) {
+            } elseif ($order->needs_payment()) {
                 /* translators: 1: Payment method title */
                 $actions['moldovaagroindbank_verify_transaction'] = esc_html(sprintf(__('Verify %1$s transaction', 'wc-moldovaagroindbank'), self::MOD_TITLE));
             }
