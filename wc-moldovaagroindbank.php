@@ -101,7 +101,7 @@ function maib_plugins_loaded_init()
             $this->init_settings();
 
             $this->enabled     = $this->get_option('enabled', 'no');
-            $this->title       = $this->get_option('title', $this->method_title);
+            $this->title       = $this->get_option('title', $this->get_method_title());
             $this->description = $this->get_option('description');
 
             $this->logo_type   = $this->get_option('logo_type', self::LOGO_TYPE_BANK);
@@ -423,13 +423,13 @@ function maib_plugins_loaded_init()
 
         protected function get_settings_admin_message()
         {
-            $message = sprintf(wp_kses_post(__('%1$s is not properly configured. Verify plugin <a href="%2$s">Connection Settings</a>.', 'wc-moldovaagroindbank')), esc_html($this->method_title), esc_url(self::get_settings_url()));
+            $message = sprintf(wp_kses_post(__('%1$s is not properly configured. Verify plugin <a href="%2$s">Connection Settings</a>.', 'wc-moldovaagroindbank')), esc_html($this->get_method_title()), esc_url(self::get_settings_url()));
             return $message;
         }
 
         protected function get_logs_admin_message()
         {
-            $message = sprintf(wp_kses_post(__('See <a href="%2$s">%1$s settings</a> page for log details and setup instructions.', 'wc-moldovaagroindbank')), esc_html($this->method_title), esc_url(self::get_settings_url()));
+            $message = sprintf(wp_kses_post(__('See <a href="%2$s">%1$s settings</a> page for log details and setup instructions.', 'wc-moldovaagroindbank')), esc_html($this->get_method_title()), esc_url(self::get_settings_url()));
             return $message;
         }
 
@@ -814,7 +814,7 @@ function maib_plugins_loaded_init()
                     $order->save();
                     //endregion
 
-                    $message = sprintf(esc_html__('Payment initiated via %1$s: %2$s', 'wc-moldovaagroindbank'), esc_html($this->method_title), esc_html(self::print_http_query($register_result)));
+                    $message = sprintf(esc_html__('Payment initiated via %1$s: %2$s', 'wc-moldovaagroindbank'), esc_html($this->get_method_title()), esc_html(self::print_http_query($register_result)));
                     $message = $this->get_test_message($message);
                     $this->log($message, WC_Log_Levels::INFO);
                     $order->add_order_note($message);
@@ -828,12 +828,12 @@ function maib_plugins_loaded_init()
                 }
             }
 
-            $message = sprintf(esc_html__('Payment initiation failed via %1$s: %2$s', 'wc-moldovaagroindbank'), esc_html($this->method_title), esc_html(self::print_http_query($register_result)));
+            $message = sprintf(esc_html__('Payment initiation failed via %1$s: %2$s', 'wc-moldovaagroindbank'), esc_html($this->get_method_title()), esc_html(self::print_http_query($register_result)));
             $message = $this->get_test_message($message);
             $order->add_order_note($message);
             $this->log($message, WC_Log_Levels::ERROR);
 
-            $message = sprintf(esc_html__('Order #%1$s payment initiation failed via %2$s.', 'wc-moldovaagroindbank'), esc_html($order_id), esc_html($this->method_title));
+            $message = sprintf(esc_html__('Order #%1$s payment initiation failed via %2$s.', 'wc-moldovaagroindbank'), esc_html($order_id), esc_html($this->get_method_title()));
 
             // https://github.com/woocommerce/woocommerce/issues/48687#issuecomment-2186475264
             if (WC()->is_store_api_request()) {
@@ -885,7 +885,7 @@ function maib_plugins_loaded_init()
             if (!empty($complete_result)) {
                 $result = $complete_result[self::MAIB_RESULT];
                 if (self::MAIB_RESULT_OK === $result) {
-                    $message = sprintf(esc_html__('Payment completed via %1$s: %2$s', 'wc-moldovaagroindbank'), esc_html($this->method_title), esc_html(self::print_http_query($complete_result)));
+                    $message = sprintf(esc_html__('Payment completed via %1$s: %2$s', 'wc-moldovaagroindbank'), esc_html($this->get_method_title()), esc_html(self::print_http_query($complete_result)));
                     $message = $this->get_test_message($message);
                     $this->log($message, WC_Log_Levels::INFO);
                     $order->add_order_note($message);
@@ -897,7 +897,7 @@ function maib_plugins_loaded_init()
                 }
             }
 
-            $message = sprintf(esc_html__('Payment completion failed via %1$s: %2$s', 'wc-moldovaagroindbank'), esc_html($this->method_title), esc_html(self::print_http_query($complete_result)));
+            $message = sprintf(esc_html__('Payment completion failed via %1$s: %2$s', 'wc-moldovaagroindbank'), esc_html($this->get_method_title()), esc_html(self::print_http_query($complete_result)));
             $message = $this->get_test_message($message);
             $order->add_order_note($message);
             $this->log($message, WC_Log_Levels::ERROR);
@@ -918,7 +918,7 @@ function maib_plugins_loaded_init()
             $trans_id = self::get_order_transaction_id($order);
 
             if (empty($trans_id)) {
-                $message = sprintf(esc_html__('%1$s Transaction ID not found for order #%2$s.', 'wc-moldovaagroindbank'), esc_html($this->method_title), esc_html($order_id));
+                $message = sprintf(esc_html__('%1$s Transaction ID not found for order #%2$s.', 'wc-moldovaagroindbank'), esc_html($this->get_method_title()), esc_html($order_id));
                 $message = $this->get_test_message($message);
                 $this->log($message, WC_Log_Levels::ERROR);
                 $order->add_order_note($message);
@@ -928,7 +928,7 @@ function maib_plugins_loaded_init()
 
             $transaction_result = $this->get_transaction_result($trans_id);
             if (!empty($transaction_result)) {
-                $message = sprintf(esc_html__('Transaction status from %1$s for order #%2$s: %3$s', 'wc-moldovaagroindbank'), esc_html($this->method_title), esc_html($order_id), esc_html(self::print_http_query($transaction_result)));
+                $message = sprintf(esc_html__('Transaction status from %1$s for order #%2$s: %3$s', 'wc-moldovaagroindbank'), esc_html($this->get_method_title()), esc_html($order_id), esc_html(self::print_http_query($transaction_result)));
                 $message = $this->get_test_message($message);
                 $this->log($message, WC_Log_Levels::INFO);
                 $order->add_order_note($message);
@@ -936,7 +936,7 @@ function maib_plugins_loaded_init()
                 return true;
             }
 
-            $message = sprintf(esc_html__('Could not retrieve transaction status from %1$s for order #%2$s.', 'wc-moldovaagroindbank'), esc_html($this->method_title), esc_html($order_id));
+            $message = sprintf(esc_html__('Could not retrieve transaction status from %1$s for order #%2$s.', 'wc-moldovaagroindbank'), esc_html($this->get_method_title()), esc_html($order_id));
             $message = $this->get_test_message($message);
             $order->add_order_note($message);
             $this->log($message, WC_Log_Levels::ERROR);
@@ -987,7 +987,7 @@ function maib_plugins_loaded_init()
             // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Callback from the bank does not include a nonce.
             $trans_id = isset($_POST[self::MAIB_TRANS_ID]) ? sanitize_textarea_field(wp_unslash($_POST[self::MAIB_TRANS_ID])) : '';
             if (empty($trans_id)) {
-                $message = sprintf(esc_html__('Payment verification failed: Transaction ID not received from %1$s.', 'wc-moldovaagroindbank'), esc_html($this->method_title));
+                $message = sprintf(esc_html__('Payment verification failed: Transaction ID not received from %1$s.', 'wc-moldovaagroindbank'), esc_html($this->get_method_title()));
                 $this->log($message, WC_Log_Levels::ERROR);
 
                 wc_add_notice($message, 'error');
@@ -999,7 +999,7 @@ function maib_plugins_loaded_init()
 
             $order = self::get_order_by_trans_id($trans_id);
             if (!$order) {
-                $message = sprintf(esc_html__('Order not found by Transaction ID: %1$s received from %2$s.', 'wc-moldovaagroindbank'), esc_html($trans_id), esc_html($this->method_title));
+                $message = sprintf(esc_html__('Order not found by Transaction ID: %1$s received from %2$s.', 'wc-moldovaagroindbank'), esc_html($trans_id), esc_html($this->get_method_title()));
                 $this->log($message, WC_Log_Levels::ERROR);
 
                 wc_add_notice($message, 'error');
@@ -1028,7 +1028,7 @@ function maib_plugins_loaded_init()
                         ? esc_html__('Payment completed via %1$s: %2$s', 'wc-moldovaagroindbank')
                         : esc_html__('Payment authorized via %1$s: %2$s', 'wc-moldovaagroindbank');
 
-                    $message = sprintf($message_action, esc_html($this->method_title), esc_html(self::print_http_query($transaction_result)));
+                    $message = sprintf($message_action, esc_html($this->get_method_title()), esc_html(self::print_http_query($transaction_result)));
                     $message = $this->get_test_message($message);
                     $this->log($message, WC_Log_Levels::INFO);
                     $order->add_order_note($message);
@@ -1037,7 +1037,7 @@ function maib_plugins_loaded_init()
                     $order->payment_complete($rrn);
                     WC()->cart->empty_cart();
 
-                    $message = sprintf(esc_html__('Order #%1$s paid successfully via %2$s.', 'wc-moldovaagroindbank'), esc_html($order_id), esc_html($this->method_title));
+                    $message = sprintf(esc_html__('Order #%1$s paid successfully via %2$s.', 'wc-moldovaagroindbank'), esc_html($order_id), esc_html($this->get_method_title()));
                     $this->log($message, WC_Log_Levels::INFO);
                     wc_add_notice($message, 'success');
 
@@ -1046,12 +1046,12 @@ function maib_plugins_loaded_init()
                 }
             }
 
-            $message = sprintf(esc_html__('Payment failed via %1$s: %2$s', 'wc-moldovaagroindbank'), esc_html($this->method_title), esc_html(self::print_http_query($transaction_result)));
+            $message = sprintf(esc_html__('Payment failed via %1$s: %2$s', 'wc-moldovaagroindbank'), esc_html($this->get_method_title()), esc_html(self::print_http_query($transaction_result)));
             $message = $this->get_test_message($message);
             $order->add_order_note($message);
             $this->log($message, WC_Log_Levels::ERROR);
 
-            $message = sprintf(esc_html__('Order #%1$s payment failed via %2$s.', 'wc-moldovaagroindbank'), esc_html($order_id), esc_html($this->method_title));
+            $message = sprintf(esc_html__('Order #%1$s payment failed via %2$s.', 'wc-moldovaagroindbank'), esc_html($order_id), esc_html($this->get_method_title()));
             wc_add_notice($message, 'error');
             $this->logs_admin_website_notice();
 
@@ -1104,7 +1104,7 @@ function maib_plugins_loaded_init()
             if (!empty($revert_result)) {
                 $result = $revert_result[self::MAIB_RESULT];
                 if (self::MAIB_RESULT_REVERSED === $result || self::MAIB_RESULT_OK === $result) {
-                    $message = sprintf(esc_html__('Refund of %1$s %2$s via %3$s approved: %4$s', 'wc-moldovaagroindbank'), esc_html($amount), esc_html($order_currency), esc_html($this->method_title), esc_html(self::print_http_query($revert_result)));
+                    $message = sprintf(esc_html__('Refund of %1$s %2$s via %3$s approved: %4$s', 'wc-moldovaagroindbank'), esc_html($amount), esc_html($order_currency), esc_html($this->get_method_title()), esc_html(self::print_http_query($revert_result)));
                     $message = $this->get_test_message($message);
                     $this->log($message, WC_Log_Levels::INFO);
                     $order->add_order_note($message);
@@ -1113,7 +1113,7 @@ function maib_plugins_loaded_init()
                 }
             }
 
-            $message = sprintf(esc_html__('Refund of %1$s %2$s via %3$s failed: %4$s', 'wc-moldovaagroindbank'), esc_html($amount), esc_html($order_currency), esc_html($this->method_title), esc_html(self::print_http_query($revert_result)));
+            $message = sprintf(esc_html__('Refund of %1$s %2$s via %3$s failed: %4$s', 'wc-moldovaagroindbank'), esc_html($amount), esc_html($order_currency), esc_html($this->get_method_title()), esc_html(self::print_http_query($revert_result)));
             $message = $this->get_test_message($message);
             $order->add_order_note($message);
             $this->log($message, WC_Log_Levels::ERROR);
@@ -1157,17 +1157,17 @@ function maib_plugins_loaded_init()
                     $message_result = self::print_http_query($closeday_result);
                     $result = $closeday_result[self::MAIB_RESULT];
                     if (self::MAIB_RESULT_OK === $result) {
-                        $message = sprintf(esc_html__('Close business day via %1$s succeeded: %2$s', 'wc-moldovaagroindbank'), esc_html($this->method_title), esc_html($message_result));
+                        $message = sprintf(esc_html__('Close business day via %1$s succeeded: %2$s', 'wc-moldovaagroindbank'), esc_html($this->get_method_title()), esc_html($message_result));
                         $this->log($message, WC_Log_Levels::INFO);
 
                         return $message;
                     }
                 }
             } else {
-                $message_result = sprintf(esc_html__('%1$s is not properly configured.', 'wc-moldovaagroindbank'), esc_html($this->method_title));
+                $message_result = sprintf(esc_html__('%1$s is not properly configured.', 'wc-moldovaagroindbank'), esc_html($this->get_method_title()));
             }
 
-            $message = sprintf(esc_html__('Close business day via %1$s failed: %2$s', 'wc-moldovaagroindbank'), esc_html($this->method_title), esc_html($message_result));
+            $message = sprintf(esc_html__('Close business day via %1$s failed: %2$s', 'wc-moldovaagroindbank'), esc_html($this->get_method_title()), esc_html($message_result));
             $this->log($message, WC_Log_Levels::ERROR);
 
             return $message;
