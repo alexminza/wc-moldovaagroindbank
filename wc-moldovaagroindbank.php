@@ -910,8 +910,6 @@ function maib_plugins_loaded_init()
             $order->add_order_note($message);
             $this->log($message, WC_Log_Levels::ERROR);
 
-            $this->logs_admin_notice();
-
             return false;
         }
 
@@ -951,8 +949,6 @@ function maib_plugins_loaded_init()
             $message = $this->get_test_message($message);
             $order->add_order_note($message);
             $this->log($message, WC_Log_Levels::ERROR);
-
-            $this->logs_admin_notice();
 
             return false;
         }
@@ -1086,25 +1082,23 @@ function maib_plugins_loaded_init()
         {
             if (!$this->check_settings()) {
                 $message = $this->get_settings_admin_message();
-                return new WP_Error('error', $message);
+                return new WP_Error('check_settings', $message);
             }
 
             $order = wc_get_order($order_id);
-            $trans_id = self::get_order_transaction_id($order);
-            $order_total = $order->get_total();
             $order_currency = $order->get_currency();
-            $revert_result = null;
 
-            if (!isset($amount)) {
-                //Refund entirely if no amount is specified
-                $amount = $order_total;
+            $trans_id = self::get_order_transaction_id($order);
+            if (empty($trans_id)) {
+                /* translators: 1: Order ID, 2: Meta field key */
+                $message = esc_html(sprintf(__('Order #%1$s missing meta field %2$s.', 'wc-moldovaagroindbank'), $order_id, self::transaction_id));
+                return new WP_Error('order_transaction_id', $message);
             }
 
+            $revert_result = null;
             try {
                 $client = $this->init_maib_client();
                 $revert_result = $client->revertTransaction($trans_id, $amount);
-
-                $this->log(self::print_var($revert_result));
             } catch (Exception $ex) {
                 $this->log(
                     $ex->getMessage(),
@@ -1122,25 +1116,35 @@ function maib_plugins_loaded_init()
             if (!empty($revert_result)) {
                 $result = $revert_result[self::MAIB_RESULT];
                 if (self::MAIB_RESULT_REVERSED === $result || self::MAIB_RESULT_OK === $result) {
-                    /* translators: 1: Refund amount, 2: Currency code, 3: Payment method title, 4: Payment gateway response */
-                    $message = esc_html(sprintf(__('Refund of %1$s %2$s via %3$s approved: %4$s', 'wc-moldovaagroindbank'), $amount, $order_currency, $this->get_method_title(), self::print_http_query($revert_result)));
+                    /* translators: 1: Order ID, 2: Refund amount, 3: Payment method title */
+                    $message = esc_html(sprintf(__('Order #%1$s refund of %2$s via %3$s approved.', 'wc-moldovaagroindbank'), $order_id, $this->format_price($amount, $order_currency), $this->get_method_title()));
                     $message = $this->get_test_message($message);
-                    $this->log($message, WC_Log_Levels::INFO);
-                    $order->add_order_note($message);
+                    $this->log(
+                        $message,
+                        WC_Log_Levels::INFO,
+                        array(
+                            'revert_result' => $revert_result,
+                        )
+                    );
 
+                    $order->add_order_note($message);
                     return true;
                 }
             }
 
-            /* translators: 1: Refund amount, 2: Currency code, 3: Payment method title, 4: Payment gateway response */
-            $message = esc_html(sprintf(__('Refund of %1$s %2$s via %3$s failed: %4$s', 'wc-moldovaagroindbank'), $amount, $order_currency, $this->get_method_title(), self::print_http_query($revert_result)));
+            /* translators: 1: Order ID, 2: Refund amount, 3: Payment method title */
+            $message = esc_html(sprintf(__('Order #%1$s refund of %2$s via %3$s failed.', 'wc-moldovaagroindbank'), $order_id, $this->format_price($amount, $order_currency), $this->get_method_title()));
             $message = $this->get_test_message($message);
+            $this->log(
+                $message,
+                WC_Log_Levels::ERROR,
+                array(
+                    'revert_result' => $revert_result,
+                )
+            );
+
             $order->add_order_note($message);
-            $this->log($message, WC_Log_Levels::ERROR);
-
-            $this->logs_admin_notice();
-
-            return new WP_Error('error', $message);
+            return new WP_Error('process_refund', $message);
         }
 
         public function close_day()
@@ -1266,6 +1270,16 @@ function maib_plugins_loaded_init()
         //endregion
 
         //region Utility
+        protected static function format_price(float $price, string $currency)
+        {
+            $args = array(
+                'currency' => $currency,
+                'in_span' => false,
+            );
+
+            return html_entity_decode(wc_price($price, $args));
+        }
+
         protected function get_test_message(string $message)
         {
             if ($this->testmode) {
