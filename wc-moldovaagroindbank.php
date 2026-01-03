@@ -34,9 +34,9 @@ require_once __DIR__ . '/vendor/autoload_packages.php';
 
 use Maib\MaibApi\MaibClient;
 
-add_action('plugins_loaded', 'maib_plugins_loaded_init', 0);
+add_action('plugins_loaded', 'moldovaagroindbank_plugins_loaded_init', 0);
 
-function maib_plugins_loaded_init()
+function moldovaagroindbank_plugins_loaded_init()
 {
     // https://developer.woocommerce.com/docs/features/payments/payment-gateway-plugin-base/
     if (!class_exists('WC_Payment_Gateway')) {
@@ -1521,7 +1521,7 @@ function maib_plugins_loaded_init()
 function woocommerce_moldovaagroindbank_activation_deactivation(bool $activate = true)
 {
     if (!class_exists(WC_Gateway_MAIB::class)) {
-        maib_plugins_loaded_init();
+        moldovaagroindbank_plugins_loaded_init();
     }
 
     if ($activate) {
