@@ -645,34 +645,48 @@ function maib_plugins_loaded_init()
             );
         }
 
-        protected static function save_temp_file($fileData, $fileSuffix = '')
+        /**
+         * @global WP_Filesystem_Base $wp_filesystem
+         */
+        protected static function get_wp_filesystem()
         {
-            //http://www.pathname.com/fhs/pub/fhs-2.3.html#TMPTEMPORARYFILES
-            $tempFileName = sprintf('%1$s%2$s_', self::MOD_PREFIX, $fileSuffix);
-            $temp_file = tempnam(get_temp_dir(),  $tempFileName);
+            /**
+             * @var WP_Filesystem_Base
+             */
+            global $wp_filesystem;
 
-            if (!$temp_file) {
-                self::static_log(sprintf(__('Unable to create temporary file: %1$s', 'wc-moldovaagroindbank'), $temp_file), WC_Log_Levels::ERROR);
-                return null;
+            if (empty($wp_filesystem)) {
+                require_once ABSPATH . 'wp-admin/includes/file.php';
+                WP_Filesystem();
             }
 
-            if (false === file_put_contents($temp_file, $fileData)) {
-                self::static_log(sprintf(__('Unable to save data to temporary file: %1$s', 'wc-moldovaagroindbank'), $temp_file), WC_Log_Levels::ERROR);
+            return $wp_filesystem;
+        }
+
+        protected function save_temp_file(string $file_data, string $file_suffix = '')
+        {
+            $temp_file_name = sprintf('%1$s%2$s_', self::MOD_PREFIX, $file_suffix);
+            $temp_file = wp_tempnam($temp_file_name);
+
+            $wp_filesystem = self::get_wp_filesystem();
+            if (!$wp_filesystem->put_contents($temp_file, $file_data, FS_CHMOD_FILE)) {
+                /* translators: 1: Temporary file name */
+                $this->log(sprintf(__('Unable to save data to temporary file: %1$s', 'wc-moldovaagroindbank'), $temp_file), WC_Log_Levels::ERROR);
                 return null;
             }
 
             return $temp_file;
         }
 
-        protected static function is_temp_file($fileName)
+        protected static function is_temp_file(string $file_name)
         {
             $temp_dir = get_temp_dir();
-            return strncmp($fileName, $temp_dir, strlen($temp_dir)) === 0;
+            return strncmp($file_name, $temp_dir, strlen($temp_dir)) === 0;
         }
 
-        protected static function is_overwritable($fileName)
+        protected static function is_overwritable(string $file_name)
         {
-            return empty($fileName) || self::is_temp_file($fileName);
+            return empty($file_name) || self::is_temp_file($file_name);
         }
         //endregion
 
