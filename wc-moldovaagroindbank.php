@@ -503,25 +503,24 @@ function maib_plugins_loaded_init()
         {
             try {
                 $validate_result = $this->validate_file($cert_file);
-                if (!empty($validate_result))
+                if (!empty($validate_result)) {
                     return $validate_result;
+                }
 
-                $cert_data = file_get_contents($cert_file);
+                $wp_filesystem = self::get_wp_filesystem();
+                $cert_data = $wp_filesystem->get_contents($cert_file);
                 $cert = openssl_x509_read($cert_data);
 
                 if (false !== $cert) {
                     $cert_info = openssl_x509_parse($cert);
 
-                    //https://php.watch/versions/8.0/OpenSSL-resource
-                    //https://stackoverflow.com/questions/69559775/php-openssl-free-key-deprecated
-                    if (\PHP_VERSION_ID < 80000)
-                        openssl_x509_free($cert);
-
                     if (false !== $cert_info) {
                         $valid_until = $cert_info['validTo_time_t'];
 
-                        if ($valid_until < (time() - 2592000)) //Certificate already expired or expires in the next 30 days
+                        if ($valid_until < (time() - 2592000)) {
+                            // Certificate already expired or expires in the next 30 days
                             return sprintf(esc_html__('Certificate valid until %1$s', 'wc-moldovaagroindbank'), esc_html(date_i18n(get_option('date_format'), $valid_until)));
+                        }
 
                         return null;
                     }
@@ -531,7 +530,16 @@ function maib_plugins_loaded_init()
                 $this->log_openssl_errors($message);
                 return $message;
             } catch (Exception $ex) {
-                $this->log($ex, WC_Log_Levels::ERROR);
+                $this->log(
+                    $ex->getMessage(),
+                    WC_Log_Levels::ERROR,
+                    array(
+                        'cert_file' => $cert_file,
+                        'exception' => (string) $ex,
+                        'backtrace' => true,
+                    )
+                );
+
                 return esc_html__('Could not validate certificate', 'wc-moldovaagroindbank');
             }
         }
@@ -544,23 +552,24 @@ function maib_plugins_loaded_init()
                     return $validate_result;
                 }
 
-                $key_data = file_get_contents($key_file);
+                $wp_filesystem = self::get_wp_filesystem();
+                $key_data = $wp_filesystem->get_contents($key_file);
                 $private_key = openssl_pkey_get_private($key_data, $key_passphrase);
 
                 if (false === $private_key) {
-                    $message = esc_html__('Invalid private key or wrong private key passphrase', 'wc-moldovaagroindbank');
+                    $message = __('Invalid private key or wrong private key passphrase', 'wc-moldovaagroindbank');
                     $this->log_openssl_errors($message);
                     return $message;
                 }
 
-                $cert_data = file_get_contents($cert_file);
+                $cert_data = $wp_filesystem->get_contents($cert_file);
                 $key_check_data = array(
                     0 => $key_data,
                     1 => $key_passphrase,
                 );
 
                 $validate_result = openssl_x509_check_private_key($cert_data, $key_check_data);
-                $message = esc_html__('Private key does not correspond to client certificate', 'wc-moldovaagroindbank');
+                $message = __('Private key does not correspond to client certificate', 'wc-moldovaagroindbank');
                 if (false === $validate_result) {
                     $this->log_openssl_errors($message);
                     return $message;
@@ -583,17 +592,29 @@ function maib_plugins_loaded_init()
         protected function validate_file($file)
         {
             try {
-                if (empty($file))
-                    return esc_html__('Invalid value', 'wc-moldovaagroindbank');
+                if (empty($file)) {
+                    return __('Invalid value', 'wc-moldovaagroindbank');
+                }
 
-                if (!file_exists($file))
-                    return esc_html__('File not found', 'wc-moldovaagroindbank');
+                if (!file_exists($file)) {
+                    return __('File not found', 'wc-moldovaagroindbank');
+                }
 
-                if (!is_readable($file))
-                    return esc_html__('File not readable', 'wc-moldovaagroindbank');
+                if (!is_readable($file)) {
+                    return __('File not readable', 'wc-moldovaagroindbank');
+                }
             } catch (Exception $ex) {
-                $this->log($ex, WC_Log_Levels::ERROR);
-                return esc_html__('Could not validate file', 'wc-moldovaagroindbank');
+                $this->log(
+                    $ex->getMessage(),
+                    WC_Log_Levels::ERROR,
+                    array(
+                        'file' => $file,
+                        'exception' => (string) $ex,
+                        'backtrace' => true,
+                    )
+                );
+
+                return __('Could not validate file', 'wc-moldovaagroindbank');
             }
         }
 
