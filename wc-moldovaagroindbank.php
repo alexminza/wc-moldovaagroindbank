@@ -15,44 +15,33 @@
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Requires PHP: 7.2.5
  * Requires at least: 4.8
- * Tested up to: 6.8
+ * Tested up to: 6.9
  * WC requires at least: 3.3
- * WC tested up to: 10.3.5
+ * WC tested up to: 10.4.3
  * Requires Plugins: woocommerce
  */
 
-//Looking to contribute code to this plugin? Go ahead and fork the repository over at GitHub https://github.com/alexminza/wc-moldovaagroindbank
-//This plugin is based on MAIB Payment PHP SDK https://github.com/maibank/maibapi (https://packagist.org/packages/maib/maibapi)
+// Looking to contribute code to this plugin? Go ahead and fork the repository over at GitHub https://github.com/alexminza/wc-moldovaagroindbank
+// This plugin is based on MAIB Payment PHP SDK https://github.com/maibank/maibapi (https://packagist.org/packages/maib/maibapi)
 
 if(!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
 
-//https://vanrossum.dev/37-wordpress-and-composer
-//https://github.com/Automattic/jetpack-autoloader
-require_once(__DIR__ . '/vendor/autoload_packages.php');
+// https://vanrossum.dev/37-wordpress-and-composer
+// https://github.com/Automattic/jetpack-autoloader
+require_once __DIR__ . '/vendor/autoload_packages.php';
 
 use Maib\MaibApi\MaibClient;
 
-add_action('plugins_loaded', 'woocommerce_moldovaagroindbank_plugins_loaded', 0);
+add_action('plugins_loaded', 'maib_plugins_loaded_init', 0);
 
-function woocommerce_moldovaagroindbank_plugins_loaded() {
-	#load_plugin_textdomain('wc-moldovaagroindbank', false, dirname(plugin_basename(__FILE__)) . '/languages');
+function maib_plugins_loaded_init() {
+	// https://developer.woocommerce.com/docs/features/payments/payment-gateway-plugin-base/
+    if (!class_exists('WC_Payment_Gateway')) {
+        return;
+    }
 
-	//https://docs.woocommerce.com/document/query-whether-woocommerce-is-activated/
-	if(!class_exists('WooCommerce')) {
-		add_action('admin_notices', 'woocommerce_moldovaagroindbank_missing_wc_notice');
-		return;
-	}
-
-	woocommerce_moldovaagroindbank_init();
-}
-
-function woocommerce_moldovaagroindbank_missing_wc_notice() {
-	echo sprintf('<div class="notice notice-error is-dismissible"><p>%1$s</p></div>', esc_html__('Payment Gateway for maib requires WooCommerce to be installed and active.', 'wc-moldovaagroindbank'));
-}
-
-function woocommerce_moldovaagroindbank_init() {
 	class WC_Gateway_MAIB extends WC_Payment_Gateway {
 		#region Constants
 		const MOD_ID      = 'moldovaagroindbank';
