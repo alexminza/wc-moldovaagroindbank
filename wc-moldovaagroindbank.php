@@ -1045,21 +1045,34 @@ function maib_plugins_loaded_init()
             return $order_total - $total_refunded;
         }
 
-        protected static function get_order_by_trans_id($trans_id)
+        /**
+         * Lookup order by Trans ID meta field value.
+         * MAIB Payment Gateway API does not currently support passing Order ID for transactions.
+         *
+         * @link https://stackoverflow.com/questions/71438717/extend-wc-get-orders-with-a-custom-meta-key-and-meta-value
+         */
+        protected function get_order_by_trans_id($trans_id)
         {
-            //NOTE: MAIB Payment Gateway API does not currently support passing Order ID for transactions
-            // https://stackoverflow.com/questions/71438717/extend-wc-get-orders-with-a-custom-meta-key-and-meta-value
             $args = array(
-                'meta_key'   => self::MOD_TRANSACTION_ID,
-                'meta_value' => $trans_id,
+                'meta_key'   => self::MOD_TRANSACTION_ID, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+                'meta_value' => $trans_id,                // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
             );
 
             $orders = wc_get_orders($args);
-            if (count($orders) === 1) {
+            $orders_count = count($orders);
+
+            if (1 === $orders_count) {
                 return $orders[0];
+            } elseif ($orders_count > 1) {
+                $this->log(
+                    sprintf('Duplicate order meta %1$s: %2$s', self::MOD_TRANSACTION_ID, $trans_id),
+                    WC_Log_Levels::ERROR,
+                    array(
+                        'orders' => $orders,
+                    )
+                );
             }
 
-            self::static_log(self::print_var($orders));
             return false;
         }
 
@@ -1147,11 +1160,15 @@ function maib_plugins_loaded_init()
             );
         }
 
-        protected function log($message, $level = WC_Log_Levels::DEBUG)
+        protected function log(string $message, string $level = WC_Log_Levels::DEBUG, ?array $additional_context = null)
         {
-            //https://developer.woo.com/docs/logging-in-woocommerce/
-            //https://stackoverflow.com/questions/1423157/print-php-call-stack
-            $log_context = array('source' => self::MOD_ID);
+            // https://developer.woocommerce.com/docs/best-practices/data-management/logging/
+            // https://stackoverflow.com/questions/1423157/print-php-call-stack
+            $log_context = array('source' => $this->id);
+            if (!empty($additional_context)) {
+                $log_context = array_merge($log_context, $additional_context);
+            }
+
             $this->logger->log($level, $message, $log_context);
         }
 
