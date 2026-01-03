@@ -1,0 +1,11 @@
+{
+    "intelephense.environment.phpVersion": "7.2.5",
+    "intelephense.environment.includePaths": [
+        "../../WooCommerce",
+        "../../WordPress"
+    ],
+    "intelephense.stubs": [
+        "*",
+        "wordpress"
+    ]
+}

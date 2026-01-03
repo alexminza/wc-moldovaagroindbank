@@ -1,0 +1,67 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "composer update",
+            "type": "shell",
+            "command": "composer",
+            "args": [
+                "update",
+                "--no-dev"
+            ],
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "curl composer",
+            "type": "shell",
+            "command": "curl",
+            "args": [
+                "-s",
+                "https://getcomposer.org/installer",
+                "|",
+                "php"
+            ],
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "wp i18n make-pot",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "command": "wp",
+            "args": [
+                "i18n",
+                "make-pot",
+                "./",
+                "./languages/${workspaceFolderBasename}.pot",
+                "--slug=${workspaceFolderBasename}",
+                "--ignore-domain"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "wp dist-archive",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "command": "wp",
+            "args": [
+                "dist-archive",
+                ".",
+                "./",
+                "--force"
+            ],
+            "problemMatcher": []
+        },
+    ]
+}
