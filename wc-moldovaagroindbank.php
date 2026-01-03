@@ -894,7 +894,7 @@ function maib_plugins_loaded_init()
             }
 
             if (!empty($complete_result)) {
-                $result = $complete_result[self::MAIB_RESULT];
+                $result = strval($complete_result[self::MAIB_RESULT]);
                 if (self::MAIB_RESULT_OK === $result) {
                     $rrn = $complete_result[self::MAIB_RESULT_RRN];
 
@@ -952,8 +952,10 @@ function maib_plugins_loaded_init()
 
             $transaction_result = $this->get_transaction_result($trans_id);
             if (!empty($transaction_result)) {
+                $result = strval($transaction_result[self::MAIB_RESULT]);
+
                 /* translators: 1: Payment method title, 2: Order ID, 3: Payment gateway response */
-                $message = esc_html(sprintf(__('Transaction status from %1$s for order #%2$s: %3$s', 'wc-moldovaagroindbank'), $this->get_method_title(), $order_id, self::print_http_query($transaction_result)));
+                $message = esc_html(sprintf(__('Transaction status from %1$s for order #%2$s: %3$s', 'wc-moldovaagroindbank'), $this->get_method_title(), $order_id, $result));
                 $message = $this->get_test_message($message);
                 $this->log(
                     $message,
@@ -1042,7 +1044,7 @@ function maib_plugins_loaded_init()
             $order_id = $order->get_id();
             $transaction_result = $this->get_transaction_result($trans_id);
             if (!empty($transaction_result)) {
-                $result = $transaction_result[self::MAIB_RESULT];
+                $result = strval($transaction_result[self::MAIB_RESULT]);
                 if (self::MAIB_RESULT_OK === $result) {
                     //region Update order payment data
                     //https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#apis-for-gettingsetting-posts-and-postmeta
@@ -1143,7 +1145,7 @@ function maib_plugins_loaded_init()
             }
 
             if (!empty($revert_result)) {
-                $result = $revert_result[self::MAIB_RESULT];
+                $result = strval($revert_result[self::MAIB_RESULT]);
                 if (self::MAIB_RESULT_REVERSED === $result || self::MAIB_RESULT_OK === $result) {
                     /* translators: 1: Order ID, 2: Refund amount, 3: Payment method title */
                     $message = esc_html(sprintf(__('Order #%1$s refund of %2$s via %3$s approved.', 'wc-moldovaagroindbank'), $order_id, $this->format_price($amount, $order_currency), $this->get_method_title()));
@@ -1208,7 +1210,7 @@ function maib_plugins_loaded_init()
 
                 if (!empty($closeday_result)) {
                     $message_result = self::print_http_query($closeday_result);
-                    $result = $closeday_result[self::MAIB_RESULT];
+                    $result = strval($closeday_result[self::MAIB_RESULT]);
                     if (self::MAIB_RESULT_OK === $result) {
                         /* translators: 1: Payment method title, 2: Payment gateway response */
                         $message = esc_html(sprintf(__('Close business day via %1$s succeeded: %2$s', 'wc-moldovaagroindbank'), $this->get_method_title(), $message_result));
