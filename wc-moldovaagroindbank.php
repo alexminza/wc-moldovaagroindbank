@@ -837,7 +837,7 @@ function maib_plugins_loaded_init()
 
             // https://github.com/woocommerce/woocommerce/issues/48687#issuecomment-2186475264
             if (WC()->is_store_api_request()) {
-                throw new Exception($message);
+                throw new Exception(esc_html($message));
             }
 
             wc_add_notice($message, 'error');
