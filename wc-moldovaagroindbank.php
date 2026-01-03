@@ -1098,7 +1098,7 @@ function maib_plugins_loaded_init()
             $trans_id = self::get_order_transaction_id($order);
             if (empty($trans_id)) {
                 /* translators: 1: Order ID, 2: Meta field key */
-                $message = esc_html(sprintf(__('Order #%1$s missing meta field %2$s.', 'wc-moldovaagroindbank'), $order_id, self::transaction_id));
+                $message = esc_html(sprintf(__('Order #%1$s missing meta field %2$s.', 'wc-moldovaagroindbank'), $order_id, self::MOD_TRANSACTION_ID));
                 return new WP_Error('order_transaction_id', $message);
             }
 
