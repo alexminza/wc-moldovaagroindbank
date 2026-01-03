@@ -1209,7 +1209,7 @@ function maib_plugins_loaded_init()
                 }
 
                 if (!empty($closeday_result)) {
-                    $message_result = self::print_http_query($closeday_result);
+                    $message_result = wp_json_encode($closeday_result);
                     $result = strval($closeday_result[self::MAIB_RESULT]);
                     if (self::MAIB_RESULT_OK === $result) {
                         /* translators: 1: Payment method title, 2: Payment gateway response */
@@ -1392,23 +1392,6 @@ function maib_plugins_loaded_init()
             $logger = wc_get_logger();
             $log_context = array('source' => self::MOD_ID);
             $logger->log($level, $message, $log_context);
-        }
-
-        protected static function print_var($expression)
-        {
-            //https://woocommerce.github.io/code-reference/namespaces/default.html#function_wc_print_r
-            return wc_print_r($expression, true);
-        }
-
-        protected static function print_http_query($expression)
-        {
-            if (empty($expression)) {
-                return $expression;
-            }
-
-            return is_array($expression)
-                ? http_build_query($expression)
-                : $expression;
         }
         //endregion
 
