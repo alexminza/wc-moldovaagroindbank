@@ -973,17 +973,19 @@ function maib_plugins_loaded_init()
 
         public function check_response()
         {
-            if ('GET' === $_SERVER['REQUEST_METHOD']) {
-                $message = sprintf(esc_html__('This %1$s Callback URL works and should not be called directly.', 'wc-moldovaagroindbank'), esc_html($this->method_title));
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Callback from the bank does not include a nonce.
+            $request_method = isset($_SERVER['REQUEST_METHOD']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_METHOD'])) : '';
+            if ('GET' === $request_method) {
+                $message = __('This Callback URL works and should not be called directly.', 'wc-moldovaagroindbank');
+
                 wc_add_notice($message, 'notice');
 
                 wp_safe_redirect(wc_get_cart_url());
                 return false;
             }
 
-            $trans_id = $_POST[self::MAIB_TRANS_ID];
-            $trans_id = wc_clean($trans_id);
-
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Callback from the bank does not include a nonce.
+            $trans_id = isset($_POST[self::MAIB_TRANS_ID]) ? sanitize_textarea_field(wp_unslash($_POST[self::MAIB_TRANS_ID])) : '';
             if (empty($trans_id)) {
                 $message = sprintf(esc_html__('Payment verification failed: Transaction ID not received from %1$s.', 'wc-moldovaagroindbank'), esc_html($this->method_title));
                 $this->log($message, WC_Log_Levels::ERROR);
