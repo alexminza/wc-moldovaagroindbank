@@ -229,7 +229,7 @@ function maib_plugins_loaded_init()
                     'desc_tip'    => true,
                     'custom_attributes' => array(
                         'accept' => '.pfx',
-                    )
+                    ),
                 ),
 
                 'maib_pcert'      => array(
@@ -262,7 +262,7 @@ function maib_plugins_loaded_init()
                         esc_url($this->get_callback_url())
                     ),
                     'type'        => 'title',
-                )
+                ),
             );
         }
 
@@ -431,31 +431,31 @@ function maib_plugins_loaded_init()
         }
 
         //region Certificates
-        protected function process_pfx_setting($pfxFieldId, $pfxOptionValue, $passFieldId)
+        protected function process_pfx_setting($pfx_field_id, $pfx_option_value, $pass_field_id)
         {
             try {
-                if (array_key_exists($pfxFieldId, $_FILES)) {
-                    $pfxFile = $_FILES[$pfxFieldId];
-                    $tmpName = $pfxFile['tmp_name'];
+                if (array_key_exists($pfx_field_id, $_FILES)) {
+                    $pfx_file = $_FILES[$pfx_field_id];
+                    $tmp_name = $pfx_file['tmp_name'];
 
-                    if ($pfxFile['error'] == UPLOAD_ERR_OK && is_uploaded_file($tmpName)) {
-                        $pfxData = file_get_contents($tmpName);
+                    if ($pfx_file['error'] === UPLOAD_ERR_OK && is_uploaded_file($tmp_name)) {
+                        $pfx_data = file_get_contents($tmp_name);
 
-                        if ($pfxData !== false) {
-                            $pfxPassphrase = $_POST[$passFieldId];
+                        if ($pfx_data !== false) {
+                            $pfx_passphrase = $_POST[$pass_field_id];
 
-                            $result = $this->process_export_certificates($pfxData, $pfxPassphrase);
+                            $result = $this->process_export_certificates($pfx_data, $pfx_passphrase);
 
-                            $resultPCert = isset($result['pcert']) ? $result['pcert'] : null;
-                            $resultKey = isset($result['key']) ? $result['key'] : null;
+                            $result_p_cert = isset($result['pcert']) ? $result['pcert'] : null;
+                            $result_key = isset($result['key']) ? $result['key'] : null;
 
-                            if (!empty($resultPCert) && !empty($resultKey)) {
+                            if (!empty($result_p_cert) && !empty($result_key)) {
                                 //Overwrite advanced settings values
-                                $_POST['woocommerce_moldovaagroindbank_maib_pcert'] = $resultPCert;
-                                $_POST['woocommerce_moldovaagroindbank_maib_key'] = $resultKey;
+                                $_POST['woocommerce_moldovaagroindbank_maib_pcert'] = $result_p_cert;
+                                $_POST['woocommerce_moldovaagroindbank_maib_key'] = $result_key;
 
                                 //Certificates export success - save PFX bundle to settings
-                                $_POST[$pfxFieldId] = base64_encode($pfxData);
+                                $_POST[$pfx_field_id] = base64_encode($pfx_data);
 
                                 return;
                             }
@@ -467,7 +467,7 @@ function maib_plugins_loaded_init()
             }
 
             //Preserve existing value
-            $_POST[$pfxFieldId] = $pfxOptionValue;
+            $_POST[$pfx_field_id] = $pfx_option_value;
         }
 
         protected function initialize_certificates()
@@ -476,19 +476,19 @@ function maib_plugins_loaded_init()
                 if (!is_readable($this->maib_pcert) || !is_readable($this->maib_key)) {
                     if (self::is_overwritable($this->maib_pcert) && self::is_overwritable($this->maib_key)) {
                         if (!empty($this->maib_pfxcert)) {
-                            $pfxCertData = base64_decode($this->maib_pfxcert);
-                            if ($pfxCertData !== false) {
-                                $result = $this->process_export_certificates($pfxCertData, $this->maib_key_password);
+                            $pfx_cert_data = base64_decode($this->maib_pfxcert);
+                            if ($pfx_cert_data !== false) {
+                                $result = $this->process_export_certificates($pfx_cert_data, $this->maib_key_password);
 
-                                $resultPCert = isset($result['pcert']) ? $result['pcert'] : null;
-                                $resultKey = isset($result['key']) ? $result['key'] : null;
+                                $result_p_cert = isset($result['pcert']) ? $result['pcert'] : null;
+                                $result_key = isset($result['key']) ? $result['key'] : null;
 
-                                if (!empty($resultPCert) && !empty($resultKey)) {
-                                    $this->update_option('maib_pcert', $resultPCert);
-                                    $this->update_option('maib_key', $resultKey);
+                                if (!empty($result_p_cert) && !empty($result_key)) {
+                                    $this->update_option('maib_pcert', $result_p_cert);
+                                    $this->update_option('maib_key', $result_key);
 
-                                    $this->maib_pcert = $resultPCert;
-                                    $this->maib_key   = $resultKey;
+                                    $this->maib_pcert = $result_p_cert;
+                                    $this->maib_key   = $result_key;
                                 }
                             }
                         }
@@ -499,26 +499,26 @@ function maib_plugins_loaded_init()
             }
         }
 
-        protected function validate_certificate($certFile)
+        protected function validate_certificate($cert_file)
         {
             try {
-                $validateResult = $this->validate_file($certFile);
-                if (!empty($validateResult))
-                    return $validateResult;
+                $validate_result = $this->validate_file($cert_file);
+                if (!empty($validate_result))
+                    return $validate_result;
 
-                $certData = file_get_contents($certFile);
-                $cert = openssl_x509_read($certData);
+                $cert_data = file_get_contents($cert_file);
+                $cert = openssl_x509_read($cert_data);
 
                 if (false !== $cert) {
-                    $certInfo = openssl_x509_parse($cert);
+                    $cert_info = openssl_x509_parse($cert);
 
                     //https://php.watch/versions/8.0/OpenSSL-resource
                     //https://stackoverflow.com/questions/69559775/php-openssl-free-key-deprecated
                     if (\PHP_VERSION_ID < 80000)
                         openssl_x509_free($cert);
 
-                    if (false !== $certInfo) {
-                        $valid_until = $certInfo['validTo_time_t'];
+                    if (false !== $cert_info) {
+                        $valid_until = $cert_info['validTo_time_t'];
 
                         if ($valid_until < (time() - 2592000)) //Certificate already expired or expires in the next 30 days
                             return sprintf(esc_html__('Certificate valid until %1$s', 'wc-moldovaagroindbank'), esc_html(date_i18n(get_option('date_format'), $valid_until)));
@@ -535,29 +535,29 @@ function maib_plugins_loaded_init()
             }
         }
 
-        protected function validate_private_key($certFile, $keyFile, $keyPassphrase)
+        protected function validate_private_key($cert_file, $key_file, $key_passphrase)
         {
             try {
-                $validateResult = $this->validate_file($keyFile);
-                if (!empty($validateResult))
-                    return $validateResult;
+                $validate_result = $this->validate_file($key_file);
+                if (!empty($validate_result))
+                    return $validate_result;
 
-                $keyData = file_get_contents($keyFile);
-                $privateKey = openssl_pkey_get_private($keyData, $keyPassphrase);
+                $key_data = file_get_contents($key_file);
+                $private_key = openssl_pkey_get_private($key_data, $key_passphrase);
 
-                if (false === $privateKey) {
+                if (false === $private_key) {
                     $this->log_openssl_errors();
                     return esc_html__('Invalid private key or wrong private key passphrase', 'wc-moldovaagroindbank');
                 }
 
-                $certData = file_get_contents($certFile);
-                $keyCheckData = array(
-                    0 => $keyData,
-                    1 => $keyPassphrase
+                $cert_data = file_get_contents($cert_file);
+                $key_check_data = array(
+                    0 => $key_data,
+                    1 => $key_passphrase,
                 );
 
-                $validateResult = openssl_x509_check_private_key($certData, $keyCheckData);
-                if (false === $validateResult) {
+                $validate_result = openssl_x509_check_private_key($cert_data, $key_check_data);
+                if (false === $validate_result) {
                     $this->log_openssl_errors();
                     return esc_html__('Private key does not correspond to client certificate', 'wc-moldovaagroindbank');
                 }
@@ -584,20 +584,20 @@ function maib_plugins_loaded_init()
             }
         }
 
-        protected function process_export_certificates($pfxCertData, $pfxPassphrase)
+        protected function process_export_certificates($pfx_cert_data, $pfx_passphrase)
         {
             $result = array();
-            $pfxCerts = array();
+            $pfx_certs = array();
             $error = null;
 
-            if (openssl_pkcs12_read($pfxCertData, $pfxCerts, $pfxPassphrase)) {
-                if (isset($pfxCerts['pkey'])) {
-                    $pfxPkey = null;
-                    if (openssl_pkey_export($pfxCerts['pkey'], $pfxPkey, $pfxPassphrase)) {
-                        $result['key'] = self::save_temp_file($pfxPkey, 'key.pem');
+            if (openssl_pkcs12_read($pfx_cert_data, $pfx_certs, $pfx_passphrase)) {
+                if (isset($pfx_certs['pkey'])) {
+                    $pfx_pkey = null;
+                    if (openssl_pkey_export($pfx_certs['pkey'], $pfx_pkey, $pfx_passphrase)) {
+                        $result['key'] = self::save_temp_file($pfx_pkey, 'key.pem');
 
-                        if (isset($pfxCerts['cert']))
-                            $result['pcert'] = self::save_temp_file($pfxCerts['cert'], 'pcert.pem');
+                        if (isset($pfx_certs['cert']))
+                            $result['pcert'] = self::save_temp_file($pfx_certs['cert'], 'pcert.pem');
                     }
                 }
             } else {
@@ -652,34 +652,34 @@ function maib_plugins_loaded_init()
         //region Payment
         protected function init_maib_client()
         {
-            #http://docs.guzzlephp.org/en/stable/request-options.html
-            #https://www.php.net/manual/en/function.curl-setopt.php
-            #https://github.com/maibank/maibapi/blob/main/README.md#usage
-            $options = [
+            // http://docs.guzzlephp.org/en/stable/request-options.html
+            // https://www.php.net/manual/en/function.curl-setopt.php
+            // https://github.com/maibank/maibapi/blob/main/README.md#usage
+            $options = array(
                 'base_uri' => $this->base_url,
                 'verify'   => true,
                 'cert'     => $this->maib_pcert,
-                'ssl_key'  => [$this->maib_key, $this->maib_key_password],
-                'config'   => [
-                    'curl' => [
+                'ssl_key'  => array($this->maib_key, $this->maib_key_password),
+                'config'   => array(
+                    'curl' => array(
                         CURLOPT_SSL_VERIFYHOST => 2,
                         CURLOPT_SSL_VERIFYPEER => true,
-                    ]
-                ]
-            ];
+                    ),
+                ),
+            );
 
             if ($this->debug) {
                 $log = new \Monolog\Logger('maib_guzzle_request');
-                $logFileName = WC_Log_Handler_File::get_log_file_path(self::MOD_ID . '_guzzle');
-                $log->pushHandler(new \Monolog\Handler\StreamHandler($logFileName, \Monolog\Logger::DEBUG));
+                $log_file_name = WC_Log_Handler_File::get_log_file_path(self::MOD_ID . '_guzzle');
+                $log->pushHandler(new \Monolog\Handler\StreamHandler($log_file_name, \Monolog\Logger::DEBUG));
                 $stack = \GuzzleHttp\HandlerStack::create();
                 $stack->push(\GuzzleHttp\Middleware::log($log, new \GuzzleHttp\MessageFormatter(\GuzzleHttp\MessageFormatter::DEBUG)));
 
                 $options['handler'] = $stack;
             }
 
-            $guzzleClient = new \GuzzleHttp\Client($options);
-            $client = new MaibClient($guzzleClient);
+            $guzzle_client = new \GuzzleHttp\Client($options);
+            $client = new MaibClient($guzzle_client);
 
             return $client;
         }
@@ -696,7 +696,7 @@ function maib_plugins_loaded_init()
 
             try {
                 $client = $this->init_maib_client();
-                $register_result = $this->transaction_type === self::TRANSACTION_TYPE_CHARGE
+                $register_result = self::TRANSACTION_TYPE_CHARGE === $this->transaction_type
                     ? $client->registerSmsTransaction($order_total, $order_currency_numcode, $client_ip, $order_description, $lang)
                     : $client->registerDmsAuthorization($order_total, $order_currency_numcode, $client_ip, $order_description, $lang);
 
@@ -725,7 +725,7 @@ function maib_plugins_loaded_init()
 
                     return array(
                         'result'   => 'success',
-                        'redirect' => $redirect
+                        'redirect' => $redirect,
                     );
                 }
             }
@@ -748,7 +748,7 @@ function maib_plugins_loaded_init()
 
             return array(
                 'result'   => 'failure',
-                'messages' => $message
+                'messages' => $message,
             );
         }
 
@@ -778,7 +778,7 @@ function maib_plugins_loaded_init()
 
             if (!empty($complete_result)) {
                 $result = $complete_result[self::MAIB_RESULT];
-                if ($result === self::MAIB_RESULT_OK) {
+                if (self::MAIB_RESULT_OK === $result) {
                     $message = sprintf(esc_html__('Payment completed via %1$s: %2$s', 'wc-moldovaagroindbank'), esc_html($this->method_title), esc_html(self::print_http_query($complete_result)));
                     $message = $this->get_test_message($message);
                     $this->log($message, WC_Log_Levels::INFO);
@@ -859,7 +859,7 @@ function maib_plugins_loaded_init()
 
         public function check_response()
         {
-            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if ('GET' === $_SERVER['REQUEST_METHOD']) {
                 $message = sprintf(esc_html__('This %1$s Callback URL works and should not be called directly.', 'wc-moldovaagroindbank'), esc_html($this->method_title));
                 wc_add_notice($message, 'notice');
 
@@ -897,17 +897,18 @@ function maib_plugins_loaded_init()
             $transaction_result = $this->get_transaction_result($trans_id);
             if (!empty($transaction_result)) {
                 $result = $transaction_result[self::MAIB_RESULT];
-                if ($result === self::MAIB_RESULT_OK) {
+                if (self::MAIB_RESULT_OK === $result) {
                     //region Update order payment metadata
                     //https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#apis-for-gettingsetting-posts-and-postmeta
-                    foreach ($transaction_result as $key => $value)
+                    foreach ($transaction_result as $key => $value) {
                         $order->add_meta_data(strtolower(self::MOD_PREFIX . $key), $value, true);
+                    }
 
                     $order->save();
                     //endregion
 
                     $transaction_type = self::get_order_transaction_type($order);
-                    $message_action = $transaction_type === self::TRANSACTION_TYPE_CHARGE
+                    $message_action = self::TRANSACTION_TYPE_CHARGE === $transaction_type
                         ? esc_html__('Payment completed via %1$s: %2$s', 'wc-moldovaagroindbank')
                         : esc_html__('Payment authorized via %1$s: %2$s', 'wc-moldovaagroindbank');
 
@@ -971,7 +972,7 @@ function maib_plugins_loaded_init()
 
             if (!empty($revert_result)) {
                 $result = $revert_result[self::MAIB_RESULT];
-                if ($result === self::MAIB_RESULT_REVERSED || $result === self::MAIB_RESULT_OK) {
+                if (self::MAIB_RESULT_REVERSED === $result || self::MAIB_RESULT_OK === $result) {
                     $message = sprintf(esc_html__('Refund of %1$s %2$s via %3$s approved: %4$s', 'wc-moldovaagroindbank'), esc_html($amount), esc_html($order_currency), esc_html($this->method_title), esc_html(self::print_http_query($revert_result)));
                     $message = $this->get_test_message($message);
                     $this->log($message, WC_Log_Levels::INFO);
@@ -1009,7 +1010,7 @@ function maib_plugins_loaded_init()
                 if (!empty($closeday_result)) {
                     $message_result = self::print_http_query($closeday_result);
                     $result = $closeday_result[self::MAIB_RESULT];
-                    if ($result === self::MAIB_RESULT_OK) {
+                    if (self::MAIB_RESULT_OK === $result) {
                         $message = sprintf(esc_html__('Close business day via %1$s succeeded: %2$s', 'wc-moldovaagroindbank'), esc_html($this->method_title), esc_html($message_result));
                         $this->log($message, WC_Log_Levels::INFO);
 
@@ -1035,8 +1036,9 @@ function maib_plugins_loaded_init()
             $total_refunded = 0;
             $order_refunds = $order->get_refunds();
             foreach ($order_refunds as $refund) {
-                if ($refund->get_refunded_payment())
+                if ($refund->get_refunded_payment()) {
                     $total_refunded += $refund->get_amount();
+                }
             }
 
             $order_total = $order->get_total();
@@ -1046,14 +1048,14 @@ function maib_plugins_loaded_init()
         protected static function get_order_by_trans_id($trans_id)
         {
             //NOTE: MAIB Payment Gateway API does not currently support passing Order ID for transactions
-            #https://stackoverflow.com/questions/71438717/extend-wc-get-orders-with-a-custom-meta-key-and-meta-value
+            // https://stackoverflow.com/questions/71438717/extend-wc-get-orders-with-a-custom-meta-key-and-meta-value
             $args = array(
                 'meta_key'   => self::MOD_TRANSACTION_ID,
-                'meta_value' => $trans_id
+                'meta_value' => $trans_id,
             );
 
             $orders = wc_get_orders($args);
-            if (count($orders) == 1) {
+            if (count($orders) === 1) {
                 return $orders[0];
             }
 
@@ -1082,10 +1084,12 @@ function maib_plugins_loaded_init()
         //endregion
 
         //region Utility
-        protected function get_test_message($message)
+        protected function get_test_message(string $message)
         {
-            if ($this->testmode)
-                $message = sprintf(esc_html__('TEST: %1$s', 'wc-moldovaagroindbank'), esc_html($message));
+            if ($this->testmode) {
+                /* translators: 1: Original message */
+                $message = esc_html(sprintf(__('TEST: %1$s', 'wc-moldovaagroindbank'), $message));
+            }
 
             return $message;
         }
@@ -1094,7 +1098,7 @@ function maib_plugins_loaded_init()
         private static $currency_numcodes = array(
             'EUR' => 978,
             'USD' => 840,
-            'MDL' => 498
+            'MDL' => 498,
         );
 
         protected static function get_currency_numcode($currency)
@@ -1125,7 +1129,7 @@ function maib_plugins_loaded_init()
                 array(
                     'page'   => 'wc-status',
                     'tab'    => 'logs',
-                    'source' => self::MOD_ID
+                    'source' => self::MOD_ID,
                 ),
                 admin_url('admin.php')
             );
@@ -1137,7 +1141,7 @@ function maib_plugins_loaded_init()
                 array(
                     'page'    => 'wc-settings',
                     'tab'     => 'checkout',
-                    'section' => self::MOD_ID
+                    'section' => self::MOD_ID,
                 ),
                 admin_url('admin.php')
             );
@@ -1166,8 +1170,9 @@ function maib_plugins_loaded_init()
 
         protected static function print_http_query($var)
         {
-            if (empty($var))
+            if (empty($var)) {
                 return $var;
+            }
 
             return is_array($var)
                 ? http_build_query($var)
@@ -1176,10 +1181,14 @@ function maib_plugins_loaded_init()
         //endregion
 
         //region Admin
-        public static function plugin_links($links)
+        public static function plugin_links(array $links)
         {
             $plugin_links = array(
-                sprintf('<a href="%1$s">%2$s</a>', esc_url(self::get_settings_url()), esc_html__('Settings', 'wc-moldovaagroindbank'))
+                sprintf(
+                    '<a href="%1$s">%2$s</a>',
+                    esc_url(self::get_settings_url()),
+                    esc_html__('Settings', 'wc-moldovaagroindbank')
+                ),
             );
 
             return array_merge($plugin_links, $links);
@@ -1194,7 +1203,7 @@ function maib_plugins_loaded_init()
 
             if ($theorder->is_paid()) {
                 $transaction_type = self::get_order_transaction_type($theorder);
-                if ($transaction_type === self::TRANSACTION_TYPE_AUTHORIZATION) {
+                if (self::TRANSACTION_TYPE_AUTHORIZATION === $transaction_type) {
                     $actions['moldovaagroindbank_complete_transaction'] = sprintf(esc_html__('Complete %1$s transaction', 'wc-moldovaagroindbank'), esc_html(self::MOD_TITLE));
                 }
             } elseif ($theorder->has_status('pending')) {
@@ -1236,14 +1245,14 @@ function maib_plugins_loaded_init()
                 self::unregister_scheduled_actions();
             }
 
-            $timezoneId = wc_timezone_string();
-            $timestamp = as_get_datetime_object('tomorrow - 1 minute', $timezoneId);
+            $timezone_id = wc_timezone_string();
+            $timestamp = as_get_datetime_object('tomorrow - 1 minute', $timezone_id);
             $timestamp->setTimezone(new DateTimeZone('UTC'));
 
-            $cronSchedule = $timestamp->format('i H * * *'); #'59 23 * * *'
-            $action_id = as_schedule_cron_action(null, $cronSchedule, self::MOD_CLOSEDAY_ACTION, array(), self::MOD_ID);
+            $cron_schedule = $timestamp->format('i H * * *'); // '59 23 * * *'
+            $action_id = as_schedule_cron_action(null, $cron_schedule, self::MOD_CLOSEDAY_ACTION, array(), self::MOD_ID);
 
-            $message = sprintf(esc_html__('Registered scheduled action %1$s in timezone %2$s with ID %3$s.', 'wc-moldovaagroindbank'), esc_html(self::MOD_CLOSEDAY_ACTION), esc_html($timezoneId), esc_html($action_id));
+            $message = sprintf(esc_html__('Registered scheduled action %1$s in timezone %2$s with ID %3$s.', 'wc-moldovaagroindbank'), esc_html(self::MOD_CLOSEDAY_ACTION), esc_html($timezone_id), esc_html($action_id));
             self::static_log($message, WC_Log_Levels::INFO);
         }
 
@@ -1273,34 +1282,34 @@ function maib_plugins_loaded_init()
     }
 
     //Add gateway to WooCommerce
-    add_filter('woocommerce_payment_gateways', array(WC_MoldovaAgroindbank::class, 'add_gateway'));
+    add_filter('woocommerce_payment_gateways', array(WC_Gateway_MAIB::class, 'add_gateway'));
 
     //region Admin init
     if (is_admin()) {
-        add_filter('plugin_action_links_' . plugin_basename(__FILE__), array(WC_MoldovaAgroindbank::class, 'plugin_links'));
+        add_filter('plugin_action_links_' . plugin_basename(__FILE__), array(WC_Gateway_MAIB::class, 'plugin_links'));
 
         //Add WooCommerce order actions
-        add_filter('woocommerce_order_actions', array(WC_MoldovaAgroindbank::class, 'order_actions'));
-        add_action('woocommerce_order_action_moldovaagroindbank_complete_transaction', array(WC_MoldovaAgroindbank::class, 'action_complete_transaction'));
-        add_action('woocommerce_order_action_moldovaagroindbank_verify_transaction', array(WC_MoldovaAgroindbank::class, 'action_verify_transaction'));
+        add_filter('woocommerce_order_actions', array(WC_Gateway_MAIB::class, 'order_actions'));
+        add_action('woocommerce_order_action_moldovaagroindbank_complete_transaction', array(WC_Gateway_MAIB::class, 'action_complete_transaction'));
+        add_action('woocommerce_order_action_moldovaagroindbank_verify_transaction', array(WC_Gateway_MAIB::class, 'action_verify_transaction'));
     }
     //endregion
 
-    add_action(WC_MoldovaAgroindbank::MOD_CLOSEDAY_ACTION, array(WC_MoldovaAgroindbank::class, 'action_close_day'));
+    add_action(WC_Gateway_MAIB::MOD_CLOSEDAY_ACTION, array(WC_Gateway_MAIB::class, 'action_close_day'));
 }
 
 //region Register activation hooks
 function woocommerce_moldovaagroindbank_activation_deactivation($activate = true)
 {
-    if (!class_exists(WC_MoldovaAgroindbank::class)) {
-        woocommerce_moldovaagroindbank_plugins_loaded();
+    if (!class_exists(WC_Gateway_MAIB::class)) {
+        maib_plugins_loaded_init();
     }
 
-    if (class_exists(WC_MoldovaAgroindbank::class)) {
+    if (class_exists(WC_Gateway_MAIB::class)) {
         if ($activate) {
-            WC_MoldovaAgroindbank::register_scheduled_actions();
+            WC_Gateway_MAIB::register_scheduled_actions();
         } else {
-            WC_MoldovaAgroindbank::unregister_scheduled_actions();
+            WC_Gateway_MAIB::unregister_scheduled_actions();
         }
     }
 }
@@ -1320,30 +1329,36 @@ register_deactivation_hook(__FILE__, 'woocommerce_moldovaagroindbank_deactivatio
 //endregion
 
 //region Declare WooCommerce compatibility
-add_action('before_woocommerce_init', function () {
-    if (class_exists(\Automattic\WooCommerce\Utilities\FeaturesUtil::class)) {
-        //WooCommerce HPOS compatibility
-        //https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#declaring-extension-incompatibility
-        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables', __FILE__, true);
+add_action(
+    'before_woocommerce_init',
+    function () {
+        if (class_exists(\Automattic\WooCommerce\Utilities\FeaturesUtil::class)) {
+            //WooCommerce HPOS compatibility
+            //https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#declaring-extension-incompatibility
+            \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables', __FILE__, true);
 
-        //WooCommerce Cart Checkout Blocks compatibility
-        //https://github.com/woocommerce/woocommerce/pull/36426
-        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('cart_checkout_blocks', __FILE__, true);
+            //WooCommerce Cart Checkout Blocks compatibility
+            //https://github.com/woocommerce/woocommerce/pull/36426
+            \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('cart_checkout_blocks', __FILE__, true);
+        }
     }
-});
+);
 //endregion
 
 //region Register WooCommerce Blocks payment method type
-add_action('woocommerce_blocks_loaded', function () {
-    if (class_exists(\Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType::class)) {
-        require_once plugin_dir_path(__FILE__) . 'wc-moldovaagroindbank-wbc.php';
+add_action(
+    'woocommerce_blocks_loaded',
+    function () {
+        if (class_exists(\Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType::class)) {
+            require_once plugin_dir_path(__FILE__) . 'wc-moldovaagroindbank-wbc.php';
 
-        add_action(
-            'woocommerce_blocks_payment_method_type_registration',
-            function (\Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry $payment_method_registry) {
-                $payment_method_registry->register(new WC_Gateway_MAIB_WBC());
-            }
-        );
+            add_action(
+                'woocommerce_blocks_payment_method_type_registration',
+                function (\Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry $payment_method_registry) {
+                    $payment_method_registry->register(new WC_Gateway_MAIB_WBC());
+                }
+            );
+        }
     }
-});
+);
 //endregion
