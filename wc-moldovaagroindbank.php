@@ -366,18 +366,21 @@ function maib_plugins_loaded_init()
             $validate_result = true;
 
             if (!$this->is_valid_for_use()) {
-                $this->add_error(sprintf(
-                    '<strong>%1$s: %2$s</strong>. %3$s: %4$s',
-                    esc_html__('Unsupported store currency', 'wc-moldovaagroindbank'),
-                    esc_html(get_woocommerce_currency()),
-                    esc_html__('Supported currencies', 'wc-moldovaagroindbank'),
-                    esc_html(join(', ', self::SUPPORTED_CURRENCIES))
-                ));
+                $this->add_error(
+                    sprintf(
+                        '<strong>%1$s: %2$s</strong>. %3$s: %4$s',
+                        esc_html__('Unsupported store currency', 'wc-moldovaagroindbank'),
+                        esc_html(get_woocommerce_currency()),
+                        esc_html__('Supported currencies', 'wc-moldovaagroindbank'),
+                        esc_html(join(', ', self::SUPPORTED_CURRENCIES))
+                    )
+                );
 
                 $validate_result = false;
             }
 
             if (!$this->check_settings()) {
+                /* translators: 1: Plugin installation instructions URL */
                 $message_instructions = sprintf(__('See plugin documentation for <a href="%1$s" target="_blank">installation instructions</a>.', 'wc-moldovaagroindbank'), 'https://wordpress.org/plugins/wc-moldovaagroindbank/#installation');
                 $this->add_error(sprintf('<strong>%1$s</strong>: %2$s. %3$s', esc_html__('Connection Settings', 'wc-moldovaagroindbank'), esc_html__('Not configured', 'wc-moldovaagroindbank'), wp_kses_post($message_instructions)));
                 $validate_result = false;
