@@ -2,12 +2,12 @@
 
 use Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType;
 
-final class WC_MoldovaAgroindbank_WBC extends AbstractPaymentMethodType
+final class WC_Gateway_MAIB_WBC extends AbstractPaymentMethodType
 {
     /**
      * The gateway instance.
      *
-     * @var WC_MoldovaAgroindbank
+     * @var WC_Gateway_MAIB
      */
     protected $gateway;
 
@@ -16,14 +16,14 @@ final class WC_MoldovaAgroindbank_WBC extends AbstractPaymentMethodType
      *
      * @var string
      */
-    protected $name = WC_MoldovaAgroindbank::MOD_ID;
+    protected $name = WC_Gateway_MAIB::MOD_ID;
 
     /**
      * Initializes the payment method type.
      */
     public function initialize()
     {
-        $this->settings = get_option("woocommerce_{$this->name}_settings", []);
+        $this->settings = get_option("woocommerce_{$this->name}_settings", array());
 
         $gateways       = WC()->payment_gateways->payment_gateways();
         $this->gateway  = $gateways[$this->name];
@@ -50,23 +50,23 @@ final class WC_MoldovaAgroindbank_WBC extends AbstractPaymentMethodType
 
         wp_register_script(
             $script_id,
-            plugin_dir_url(__FILE__) . 'assets/js/blocks.js',
-            [
+            plugins_url('assets/js/blocks.js', __FILE__),
+            array(
                 'wc-blocks-registry',
                 'wc-settings',
                 'wp-element',
                 'wp-html-entities',
                 'wp-i18n',
-            ],
-            null,
+            ),
+            WC_Gateway_MAIB::MOD_VERSION,
             true
         );
 
         if (function_exists('wp_set_script_translations')) {
-            wp_set_script_translations($script_id, 'wc-moldovaagroindbank', dirname(plugin_basename(__FILE__)) . '/languages');
+            wp_set_script_translations($script_id, 'wc-moldovaagroindbank', plugin_dir_path(__FILE__) . 'languages');
         }
 
-        return [$script_id];
+        return array($script_id);
     }
 
     /**
@@ -76,12 +76,12 @@ final class WC_MoldovaAgroindbank_WBC extends AbstractPaymentMethodType
      */
     public function get_payment_method_data()
     {
-        return [
+        return array(
             'id'          => $this->gateway->id,
             'title'       => $this->gateway->title,
             'description' => $this->gateway->description,
             'icon'        => $this->gateway->icon,
-            'supports'    => array_filter($this->gateway->supports, [$this->gateway, 'supports'])
-        ];
+            'supports'    => array_filter($this->gateway->supports, array($this->gateway, 'supports')),
+        );
     }
 }

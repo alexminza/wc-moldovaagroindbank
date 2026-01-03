@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name: Payment Gateway for maib for WooCommerce
  * Description: Accept Visa and Mastercard directly on your store with the Payment Gateway for maib for WooCommerce.
@@ -52,11 +53,12 @@ function woocommerce_moldovaagroindbank_missing_wc_notice() {
 }
 
 function woocommerce_moldovaagroindbank_init() {
-	class WC_MoldovaAgroindbank extends WC_Payment_Gateway {
+	class WC_Gateway_MAIB extends WC_Payment_Gateway {
 		#region Constants
-		const MOD_ID             = 'moldovaagroindbank';
-		const MOD_TITLE          = 'maib';
-		const MOD_PREFIX         = 'maib_';
+		const MOD_ID      = 'moldovaagroindbank';
+		const MOD_PREFIX  = 'maib_';
+		const MOD_TITLE   = 'maib';
+		const MOD_VERSION = '1.5.0';
 
 		const TRANSACTION_TYPE_CHARGE = 'charge';
 		const TRANSACTION_TYPE_AUTHORIZATION = 'authorization';
@@ -1297,7 +1299,7 @@ add_action('woocommerce_blocks_loaded', function() {
 
 		add_action('woocommerce_blocks_payment_method_type_registration',
 			function(\Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry $payment_method_registry) {
-				$payment_method_registry->register(new WC_MoldovaAgroindbank_WBC());
+				$payment_method_registry->register(new WC_Gateway_MAIB_WBC());
 			}
 		);
 	}
