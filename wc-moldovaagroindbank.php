@@ -881,8 +881,6 @@ function maib_plugins_loaded_init()
             try {
                 $client = $this->init_maib_client();
                 $complete_result = $client->makeDMSTrans($trans_id, $order_total, $order_currency_numcode, $client_ip, $order_description, $lang);
-
-                $this->log(self::print_var($complete_result));
             } catch (Exception $ex) {
                 $this->log(
                     $ex->getMessage(),
@@ -898,25 +896,37 @@ function maib_plugins_loaded_init()
             if (!empty($complete_result)) {
                 $result = $complete_result[self::MAIB_RESULT];
                 if (self::MAIB_RESULT_OK === $result) {
-                    /* translators: 1: Payment method title, 2: Payment gateway response */
-                    $message = esc_html(sprintf(__('Payment completed via %1$s: %2$s', 'wc-moldovaagroindbank'), $this->get_method_title(), self::print_http_query($complete_result)));
-                    $message = $this->get_test_message($message);
-                    $this->log($message, WC_Log_Levels::INFO);
-                    $order->add_order_note($message);
-
                     $rrn = $complete_result[self::MAIB_RESULT_RRN];
-                    $order->payment_complete($rrn);
 
+                    /* translators: 1: Order ID, 2: Payment method title, 3: Payment data */
+                    $message = esc_html(sprintf(__('Order #%1$s payment completed via %2$s: %3$s', 'wc-moldovaagroindbank'), $order_id, $this->get_method_title(), $rrn));
+                    $message = $this->get_test_message($message);
+                    $this->log(
+                        $message,
+                        WC_Log_Levels::INFO,
+                        array(
+                            'complete_result' => $complete_result,
+                        )
+                    );
+
+                    $order->payment_complete($rrn);
+                    $order->add_order_note($message);
                     return true;
                 }
             }
 
-            /* translators: 1: Payment method title, 2: Payment gateway response */
-            $message = esc_html(sprintf(__('Payment completion failed via %1$s: %2$s', 'wc-moldovaagroindbank'), $this->get_method_title(), self::print_http_query($complete_result)));
+            /* translators: 1: Order ID, 2: Payment method title */
+            $message = esc_html(sprintf(__('Order #%1$s payment completion failed via %2$s.', 'wc-moldovaagroindbank'), $order_id, $this->get_method_title()));
             $message = $this->get_test_message($message);
-            $order->add_order_note($message);
-            $this->log($message, WC_Log_Levels::ERROR);
+            $this->log(
+                $message,
+                WC_Log_Levels::ERROR,
+                array(
+                    'complete_result' => $complete_result,
+                )
+            );
 
+            $order->add_order_note($message);
             return false;
         }
 
