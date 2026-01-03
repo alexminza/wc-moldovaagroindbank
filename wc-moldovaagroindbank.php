@@ -527,8 +527,9 @@ function maib_plugins_loaded_init()
                     }
                 }
 
-                $this->log_openssl_errors();
-                return esc_html__('Invalid certificate', 'wc-moldovaagroindbank');
+                $message = esc_html__('Invalid certificate', 'wc-moldovaagroindbank');
+                $this->log_openssl_errors($message);
+                return $message;
             } catch (Exception $ex) {
                 $this->log($ex, WC_Log_Levels::ERROR);
                 return esc_html__('Could not validate certificate', 'wc-moldovaagroindbank');
@@ -539,15 +540,17 @@ function maib_plugins_loaded_init()
         {
             try {
                 $validate_result = $this->validate_file($key_file);
-                if (!empty($validate_result))
+                if (!empty($validate_result)) {
                     return $validate_result;
+                }
 
                 $key_data = file_get_contents($key_file);
                 $private_key = openssl_pkey_get_private($key_data, $key_passphrase);
 
                 if (false === $private_key) {
-                    $this->log_openssl_errors();
-                    return esc_html__('Invalid private key or wrong private key passphrase', 'wc-moldovaagroindbank');
+                    $message = esc_html__('Invalid private key or wrong private key passphrase', 'wc-moldovaagroindbank');
+                    $this->log_openssl_errors($message);
+                    return $message;
                 }
 
                 $cert_data = file_get_contents($cert_file);
@@ -557,12 +560,22 @@ function maib_plugins_loaded_init()
                 );
 
                 $validate_result = openssl_x509_check_private_key($cert_data, $key_check_data);
+                $message = esc_html__('Private key does not correspond to client certificate', 'wc-moldovaagroindbank');
                 if (false === $validate_result) {
-                    $this->log_openssl_errors();
-                    return esc_html__('Private key does not correspond to client certificate', 'wc-moldovaagroindbank');
+                    $this->log_openssl_errors($message);
+                    return $message;
                 }
             } catch (Exception $ex) {
-                $this->log($ex, WC_Log_Levels::ERROR);
+                $this->log(
+                    $ex->getMessage(),
+                    WC_Log_Levels::ERROR,
+                    array(
+                        'key_file' => $key_file,
+                        'exception' => (string) $ex,
+                        'backtrace' => true,
+                    )
+                );
+
                 return esc_html__('Could not validate private key', 'wc-moldovaagroindbank');
             }
         }
@@ -596,8 +609,9 @@ function maib_plugins_loaded_init()
                     if (openssl_pkey_export($pfx_certs['pkey'], $pfx_pkey, $pfx_passphrase)) {
                         $result['key'] = self::save_temp_file($pfx_pkey, 'key.pem');
 
-                        if (isset($pfx_certs['cert']))
+                        if (isset($pfx_certs['cert'])) {
                             $result['pcert'] = self::save_temp_file($pfx_certs['cert'], 'pcert.pem');
+                        }
                     }
                 }
             } else {
@@ -605,17 +619,30 @@ function maib_plugins_loaded_init()
             }
 
             if (!empty($error)) {
-                $this->log($error, WC_Log_Levels::ERROR);
-                $this->log_openssl_errors();
+                $this->log_openssl_errors($error);
             }
 
             return $result;
         }
 
-        protected function log_openssl_errors()
+        protected function log_openssl_errors(string $message)
         {
-            while ($opensslError = openssl_error_string())
-                $this->log($opensslError, WC_Log_Levels::ERROR);
+            $openssl_errors = array();
+
+            // https://www.php.net/manual/en/function.openssl-error-string.php
+            // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition -- Common openssl_error_string code pattern.
+            while ($error = openssl_error_string()) {
+                $openssl_errors[] = $error;
+            }
+
+            $this->log(
+                $message,
+                WC_Log_Levels::ERROR,
+                array(
+                    'openssl_errors' => $openssl_errors,
+                    'backtrace' => true,
+                )
+            );
         }
 
         protected static function save_temp_file($fileData, $fileSuffix = '')
