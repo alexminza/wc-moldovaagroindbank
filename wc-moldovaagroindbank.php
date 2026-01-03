@@ -357,8 +357,8 @@ function maib_plugins_loaded_init()
 
         protected function check_settings()
         {
-            return !self::string_empty($this->maib_pcert)
-                && !self::string_empty($this->maib_key);
+            return !empty($this->maib_pcert)
+                && !empty($this->maib_key);
         }
 
         protected function validate_settings()
@@ -383,13 +383,13 @@ function maib_plugins_loaded_init()
                 $validate_result = false;
             } else {
                 $result = $this->validate_certificate($this->maib_pcert);
-                if (!self::string_empty($result)) {
+                if (!empty($result)) {
                     $this->add_error(sprintf('<strong>%1$s</strong>: %2$s', esc_html__('Client certificate file', 'wc-moldovaagroindbank'), esc_html($result)));
                     $validate_result = false;
                 }
 
                 $result = $this->validate_private_key($this->maib_pcert, $this->maib_key, $this->maib_key_password);
-                if (!self::string_empty($result)) {
+                if (!empty($result)) {
                     $this->add_error(sprintf('<strong>%1$s</strong>: %2$s', esc_html__('Private key file', 'wc-moldovaagroindbank'), esc_html($result)));
                     $validate_result = false;
                 }
@@ -449,7 +449,7 @@ function maib_plugins_loaded_init()
                             $resultPCert = isset($result['pcert']) ? $result['pcert'] : null;
                             $resultKey = isset($result['key']) ? $result['key'] : null;
 
-                            if (!self::string_empty($resultPCert) && !self::string_empty($resultKey)) {
+                            if (!empty($resultPCert) && !empty($resultKey)) {
                                 //Overwrite advanced settings values
                                 $_POST['woocommerce_moldovaagroindbank_maib_pcert'] = $resultPCert;
                                 $_POST['woocommerce_moldovaagroindbank_maib_key'] = $resultKey;
@@ -475,7 +475,7 @@ function maib_plugins_loaded_init()
             try {
                 if (!is_readable($this->maib_pcert) || !is_readable($this->maib_key)) {
                     if (self::is_overwritable($this->maib_pcert) && self::is_overwritable($this->maib_key)) {
-                        if (!self::string_empty($this->maib_pfxcert)) {
+                        if (!empty($this->maib_pfxcert)) {
                             $pfxCertData = base64_decode($this->maib_pfxcert);
                             if ($pfxCertData !== false) {
                                 $result = $this->process_export_certificates($pfxCertData, $this->maib_key_password);
@@ -483,7 +483,7 @@ function maib_plugins_loaded_init()
                                 $resultPCert = isset($result['pcert']) ? $result['pcert'] : null;
                                 $resultKey = isset($result['key']) ? $result['key'] : null;
 
-                                if (!self::string_empty($resultPCert) && !self::string_empty($resultKey)) {
+                                if (!empty($resultPCert) && !empty($resultKey)) {
                                     $this->update_option('maib_pcert', $resultPCert);
                                     $this->update_option('maib_key', $resultKey);
 
@@ -503,7 +503,7 @@ function maib_plugins_loaded_init()
         {
             try {
                 $validateResult = $this->validate_file($certFile);
-                if (!self::string_empty($validateResult))
+                if (!empty($validateResult))
                     return $validateResult;
 
                 $certData = file_get_contents($certFile);
@@ -539,7 +539,7 @@ function maib_plugins_loaded_init()
         {
             try {
                 $validateResult = $this->validate_file($keyFile);
-                if (!self::string_empty($validateResult))
+                if (!empty($validateResult))
                     return $validateResult;
 
                 $keyData = file_get_contents($keyFile);
@@ -570,7 +570,7 @@ function maib_plugins_loaded_init()
         protected function validate_file($file)
         {
             try {
-                if (self::string_empty($file))
+                if (empty($file))
                     return esc_html__('Invalid value', 'wc-moldovaagroindbank');
 
                 if (!file_exists($file))
@@ -604,7 +604,7 @@ function maib_plugins_loaded_init()
                 $error = esc_html__('Invalid certificate or wrong passphrase', 'wc-moldovaagroindbank');
             }
 
-            if (!self::string_empty($error)) {
+            if (!empty($error)) {
                 $this->log($error, WC_Log_Levels::ERROR);
                 $this->log_openssl_errors();
             }
@@ -645,7 +645,7 @@ function maib_plugins_loaded_init()
 
         protected static function is_overwritable($fileName)
         {
-            return self::string_empty($fileName) || self::is_temp_file($fileName);
+            return empty($fileName) || self::is_temp_file($fileName);
         }
         //endregion
 
@@ -707,7 +707,7 @@ function maib_plugins_loaded_init()
 
             if (!empty($register_result)) {
                 $trans_id = $register_result[self::MAIB_TRANSACTION_ID];
-                if (!self::string_empty($trans_id)) {
+                if (!empty($trans_id)) {
                     //region Update order payment transaction metadata
                     //https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#apis-for-gettingsetting-posts-and-postmeta
                     //https://developer.woocommerce.com/docs/hpos-extension-recipe-book/#2-supporting-high-performance-order-storage-in-your-extension
@@ -811,7 +811,7 @@ function maib_plugins_loaded_init()
             $order_id = $order->get_id();
             $trans_id = self::get_order_transaction_id($order);
 
-            if (self::string_empty($trans_id)) {
+            if (empty($trans_id)) {
                 $message = sprintf(esc_html__('%1$s Transaction ID not found for order #%2$s.', 'wc-moldovaagroindbank'), esc_html($this->method_title), esc_html($order_id));
                 $message = $this->get_test_message($message);
                 $this->log($message, WC_Log_Levels::ERROR);
@@ -870,7 +870,7 @@ function maib_plugins_loaded_init()
             $trans_id = $_POST[self::MAIB_TRANS_ID];
             $trans_id = wc_clean($trans_id);
 
-            if (self::string_empty($trans_id)) {
+            if (empty($trans_id)) {
                 $message = sprintf(esc_html__('Payment verification failed: Transaction ID not received from %1$s.', 'wc-moldovaagroindbank'), esc_html($this->method_title));
                 $this->log($message, WC_Log_Levels::ERROR);
 
@@ -1172,11 +1172,6 @@ function maib_plugins_loaded_init()
             return is_array($var)
                 ? http_build_query($var)
                 : $var;
-        }
-
-        protected static function string_empty($string)
-        {
-            return is_null($string) || strlen($string) === 0;
         }
         //endregion
 
