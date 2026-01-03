@@ -807,7 +807,7 @@ function maib_plugins_loaded_init()
             }
 
             if (!empty($register_result)) {
-                $trans_id = $register_result[self::MAIB_TRANSACTION_ID];
+                $trans_id = strval($register_result[self::MAIB_TRANSACTION_ID]);
                 if (!empty($trans_id)) {
                     //region Update order payment transaction metadata
                     //https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#apis-for-gettingsetting-posts-and-postmeta
@@ -832,14 +832,18 @@ function maib_plugins_loaded_init()
                 }
             }
 
-            /* translators: 1: Payment method title, 2: Payment gateway response */
-            $message = esc_html(sprintf(__('Payment initiation failed via %1$s: %2$s', 'wc-moldovaagroindbank'), $this->get_method_title(), self::print_http_query($register_result)));
-            $message = $this->get_test_message($message);
-            $order->add_order_note($message);
-            $this->log($message, WC_Log_Levels::ERROR);
-
             /* translators: 1: Order ID, 2: Payment method title */
             $message = esc_html(sprintf(__('Order #%1$s payment initiation failed via %2$s.', 'wc-moldovaagroindbank'), $order_id, $this->get_method_title()));
+            $message = $this->get_test_message($message);
+            $this->log(
+                $message,
+                WC_Log_Levels::ERROR,
+                array(
+                    'register_result' => $register_result,
+                )
+            );
+
+            $order->add_order_note($message);
 
             // https://github.com/woocommerce/woocommerce/issues/48687#issuecomment-2186475264
             if (WC()->is_store_api_request()) {
