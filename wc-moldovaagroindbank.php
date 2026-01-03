@@ -1348,21 +1348,21 @@ function maib_plugins_loaded_init()
             $logger->log($level, $message, $log_context);
         }
 
-        protected static function print_var($var)
+        protected static function print_var($expression)
         {
             //https://woocommerce.github.io/code-reference/namespaces/default.html#function_wc_print_r
-            return wc_print_r($var, true);
+            return wc_print_r($expression, true);
         }
 
-        protected static function print_http_query($var)
+        protected static function print_http_query($expression)
         {
-            if (empty($var)) {
-                return $var;
+            if (empty($expression)) {
+                return $expression;
             }
 
-            return is_array($var)
-                ? http_build_query($var)
-                : $var;
+            return is_array($expression)
+                ? http_build_query($expression)
+                : $expression;
         }
         //endregion
 
