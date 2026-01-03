@@ -1029,7 +1029,7 @@ function maib_plugins_loaded_init()
             }
 
             $order = self::get_order_by_trans_id($trans_id);
-            if (!$order) {
+            if (empty($order)) {
                 /* translators: 1: Transaction ID, 2: Payment method title */
                 $message = esc_html(sprintf(__('Order not found by Transaction ID: %1$s received from %2$s.', 'wc-moldovaagroindbank'), $trans_id, $this->get_method_title()));
                 $this->log($message, WC_Log_Levels::ERROR);
