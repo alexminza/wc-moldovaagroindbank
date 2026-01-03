@@ -611,7 +611,7 @@ function maib_plugins_loaded_init()
             }
         }
 
-        protected function validate_file($file)
+        protected function validate_file(string $file)
         {
             try {
                 if (empty($file)) {
@@ -768,6 +768,9 @@ function maib_plugins_loaded_init()
             return $client;
         }
 
+        /**
+         * @param int $order_id
+         */
         public function process_payment($order_id)
         {
             $order = wc_get_order($order_id);
@@ -786,7 +789,15 @@ function maib_plugins_loaded_init()
 
                 $this->log(self::print_var($register_result));
             } catch (Exception $ex) {
-                $this->log($ex, WC_Log_Levels::ERROR);
+                $this->log(
+                    $ex->getMessage(),
+                    WC_Log_Levels::ERROR,
+                    array(
+                        'order_id' => $order_id,
+                        'exception' => (string) $ex,
+                        'backtrace' => true,
+                    )
+                );
             }
 
             if (!empty($register_result)) {
@@ -821,9 +832,8 @@ function maib_plugins_loaded_init()
 
             $message = sprintf(esc_html__('Order #%1$s payment initiation failed via %2$s.', 'wc-moldovaagroindbank'), esc_html($order_id), esc_html($this->method_title));
 
-            //https://github.com/woocommerce/woocommerce/issues/48687#issuecomment-2186475264
-            $is_store_api_request = method_exists(WC(), 'is_store_api_request') && WC()->is_store_api_request();
-            if ($is_store_api_request) {
+            // https://github.com/woocommerce/woocommerce/issues/48687#issuecomment-2186475264
+            if (WC()->is_store_api_request()) {
                 throw new Exception($message);
             }
 
@@ -843,6 +853,7 @@ function maib_plugins_loaded_init()
                 return false;
             }
 
+            $order_id = $order->get_id();
             $trans_id = self::get_order_transaction_id($order);
             $order_total = self::get_order_net_total($order);
             $order_currency_numcode = self::get_currency_numcode($order->get_currency());
@@ -857,7 +868,15 @@ function maib_plugins_loaded_init()
 
                 $this->log(self::print_var($complete_result));
             } catch (Exception $ex) {
-                $this->log($ex, WC_Log_Levels::ERROR);
+                $this->log(
+                    $ex->getMessage(),
+                    WC_Log_Levels::ERROR,
+                    array(
+                        'order_id' => $order_id,
+                        'exception' => (string) $ex,
+                        'backtrace' => true,
+                    )
+                );
             }
 
             if (!empty($complete_result)) {
@@ -935,7 +954,15 @@ function maib_plugins_loaded_init()
 
                 $this->log(self::print_var($transaction_result));
             } catch (Exception $ex) {
-                $this->log($ex, WC_Log_Levels::ERROR);
+                $this->log(
+                    $ex->getMessage(),
+                    WC_Log_Levels::ERROR,
+                    array(
+                        'trans_id' => $trans_id,
+                        'exception' => (string) $ex,
+                        'backtrace' => true,
+                    )
+                );
             }
 
             return $transaction_result;
@@ -1027,6 +1054,11 @@ function maib_plugins_loaded_init()
             return false;
         }
 
+        /**
+         * @param  int    $order_id
+         * @param  float  $amount
+         * @param  string $reason
+         */
         public function process_refund($order_id, $amount = null, $reason = '')
         {
             if (!$this->check_settings()) {
@@ -1051,7 +1083,17 @@ function maib_plugins_loaded_init()
 
                 $this->log(self::print_var($revert_result));
             } catch (Exception $ex) {
-                $this->log($ex, WC_Log_Levels::ERROR);
+                $this->log(
+                    $ex->getMessage(),
+                    WC_Log_Levels::ERROR,
+                    array(
+                        'order_id' => $order_id,
+                        'amount' => $amount,
+                        'reason' => $reason,
+                        'exception' => (string) $ex,
+                        'backtrace' => true,
+                    )
+                );
             }
 
             if (!empty($revert_result)) {
@@ -1085,10 +1127,25 @@ function maib_plugins_loaded_init()
                     $client = $this->init_maib_client();
                     $closeday_result = $client->closeDay();
 
-                    $this->log(self::print_var($closeday_result));
+                    $this->log(
+                        __FUNCTION__,
+                        WC_Log_Levels::DEBUG,
+                        array(
+                            'closeday_result' => $closeday_result,
+                            'backtrace' => true,
+                        )
+                    );
                 } catch (Exception $ex) {
                     $message_result = $ex->getMessage();
-                    $this->log($ex, WC_Log_Levels::ERROR);
+                    $this->log(
+                        $message_result,
+                        WC_Log_Levels::ERROR,
+                        array(
+                            'closeday_result' => $closeday_result,
+                            'exception' => (string) $ex,
+                            'backtrace' => true,
+                        )
+                    );
                 }
 
                 if (!empty($closeday_result)) {
