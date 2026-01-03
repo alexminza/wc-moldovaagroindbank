@@ -105,7 +105,7 @@ function maib_plugins_loaded_init()
             $this->description = $this->get_option('description');
 
             $this->logo_type   = $this->get_option('logo_type', self::LOGO_TYPE_BANK);
-            $this->icon        = apply_filters('woocommerce_moldovaagroindbank_icon', self::get_logo_icon($this->logo_type));
+            $this->icon        = self::get_logo_icon($this->logo_type);
 
             $this->testmode    = wc_string_to_bool($this->get_option('testmode', 'no'));
             $this->debug       = wc_string_to_bool($this->get_option('debug', 'no'));
