@@ -806,33 +806,34 @@ function moldovaagroindbank_plugins_loaded_init()
 
             if (!empty($register_result)) {
                 $trans_id = strval($register_result[self::MAIB_TRANSACTION_ID]);
+                if (!empty($trans_id)) {
+                    //region Update order payment transaction metadata
+                    //https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#apis-for-gettingsetting-posts-and-postmeta
+                    //https://developer.woocommerce.com/docs/hpos-extension-recipe-book/#2-supporting-high-performance-order-storage-in-your-extension
+                    $order->add_meta_data(self::MOD_TRANSACTION_TYPE, $this->transaction_type, true);
+                    $order->add_meta_data(self::MOD_TRANSACTION_ID, $trans_id, true);
+                    $order->save();
+                    //endregion
 
-                //region Update order payment transaction metadata
-                //https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#apis-for-gettingsetting-posts-and-postmeta
-                //https://developer.woocommerce.com/docs/hpos-extension-recipe-book/#2-supporting-high-performance-order-storage-in-your-extension
-                $order->add_meta_data(self::MOD_TRANSACTION_TYPE, $this->transaction_type, true);
-                $order->add_meta_data(self::MOD_TRANSACTION_ID, $trans_id, true);
-                $order->save();
-                //endregion
+                    /* translators: 1: Order ID, 2: Payment method title, 3: API response details */
+                    $message = esc_html(sprintf(__('Order #%1$s payment initiated via %2$s: %3$s', 'wc-moldovaagroindbank'), $order_id, $this->get_method_title(), $trans_id));
+                    $message = $this->get_test_message($message);
+                    $this->log(
+                        $message,
+                        WC_Log_Levels::INFO,
+                        array(
+                            'register_result' => $register_result,
+                        )
+                    );
 
-                /* translators: 1: Order ID, 2: Payment method title, 3: API response details */
-                $message = esc_html(sprintf(__('Order #%1$s payment initiated via %2$s: %3$s', 'wc-moldovaagroindbank'), $order_id, $this->get_method_title(), $trans_id));
-                $message = $this->get_test_message($message);
-                $this->log(
-                    $message,
-                    WC_Log_Levels::INFO,
-                    array(
-                        'register_result' => $register_result,
-                    )
-                );
+                    $order->add_order_note($message);
 
-                $order->add_order_note($message);
-
-                $redirect = add_query_arg(self::MAIB_TRANS_ID, rawurlencode($trans_id), $this->redirect_url);
-                return array(
-                    'result'   => 'success',
-                    'redirect' => $redirect,
-                );
+                    $redirect = add_query_arg(self::MAIB_TRANS_ID, rawurlencode($trans_id), $this->redirect_url);
+                    return array(
+                        'result'   => 'success',
+                        'redirect' => $redirect,
+                    );
+                }
             }
 
             /* translators: 1: Order ID, 2: Payment method title */
