@@ -1527,12 +1527,10 @@ function woocommerce_moldovaagroindbank_activation_deactivation(bool $activate =
         maib_plugins_loaded_init();
     }
 
-    if (class_exists(WC_Gateway_MAIB::class)) {
-        if ($activate) {
-            WC_Gateway_MAIB::register_scheduled_actions();
-        } else {
-            WC_Gateway_MAIB::unregister_scheduled_actions();
-        }
+    if ($activate) {
+        WC_Gateway_MAIB::register_scheduled_actions();
+    } else {
+        WC_Gateway_MAIB::unregister_scheduled_actions();
     }
 }
 
