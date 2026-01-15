@@ -714,10 +714,11 @@ function moldovaagroindbank_plugins_loaded_init()
 
         protected function save_temp_file(string $file_data, string $file_suffix = '')
         {
+            $wp_filesystem = self::get_wp_filesystem();
+
             $temp_file_name = sprintf('%1$s%2$s_', self::MOD_PREFIX, $file_suffix);
             $temp_file = wp_tempnam($temp_file_name);
 
-            $wp_filesystem = self::get_wp_filesystem();
             if (!$wp_filesystem->put_contents($temp_file, $file_data, FS_CHMOD_FILE)) {
                 /* translators: 1: Temporary file name */
                 $this->log(sprintf(__('Unable to save data to temporary file: %1$s', 'wc-moldovaagroindbank'), $temp_file), WC_Log_Levels::ERROR);
