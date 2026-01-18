@@ -412,13 +412,13 @@ function moldovaagroindbank_plugins_loaded_init()
         protected function logs_admin_notice()
         {
             $message = $this->get_logs_admin_message();
-            WC_Admin_Notices::add_custom_notice(self::MOD_ID . '_logs_admin_notice', $message);
+            WC_Admin_Meta_Boxes::add_error($message);
         }
 
         protected function settings_admin_notice()
         {
             $message = $this->get_settings_admin_message();
-            WC_Admin_Notices::add_custom_notice(self::MOD_ID . '_settings_admin_notice', $message);
+            WC_Admin_Meta_Boxes::add_error($message);
         }
 
         protected function get_settings_admin_message()
