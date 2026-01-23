@@ -1120,7 +1120,9 @@ function moldovaagroindbank_plugins_loaded_init()
             }
 
             $order = wc_get_order($order_id);
+            $order_total = floatval($order->get_total());
             $order_currency = $order->get_currency();
+            $amount = isset($amount) ? floatval($amount) : $order_total;
 
             $trans_id = self::get_order_transaction_id($order);
             if (empty($trans_id)) {
