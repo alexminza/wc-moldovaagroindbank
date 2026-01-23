@@ -811,8 +811,8 @@ function moldovaagroindbank_plugins_loaded_init()
                     //region Update order payment transaction metadata
                     //https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#apis-for-gettingsetting-posts-and-postmeta
                     //https://developer.woocommerce.com/docs/hpos-extension-recipe-book/#2-supporting-high-performance-order-storage-in-your-extension
-                    $order->add_meta_data(self::MOD_TRANSACTION_TYPE, $this->transaction_type, true);
-                    $order->add_meta_data(self::MOD_TRANSACTION_ID, $trans_id, true);
+                    $order->update_meta_data(self::MOD_TRANSACTION_TYPE, $this->transaction_type);
+                    $order->update_meta_data(self::MOD_TRANSACTION_ID, $trans_id);
                     $order->save();
                     //endregion
 
@@ -1052,7 +1052,7 @@ function moldovaagroindbank_plugins_loaded_init()
                     //region Update order payment data
                     //https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#apis-for-gettingsetting-posts-and-postmeta
                     foreach ($transaction_result as $key => $value) {
-                        $order->add_meta_data(strtolower(self::MOD_PREFIX . $key), $value, true);
+                        $order->update_meta_data(strtolower(self::MOD_PREFIX . $key), $value);
                     }
 
                     $order->save();
@@ -1115,7 +1115,7 @@ function moldovaagroindbank_plugins_loaded_init()
         public function process_refund($order_id, $amount = null, $reason = '')
         {
             if (!$this->check_settings()) {
-                $message = $this->get_settings_admin_message();
+                $message = wp_strip_all_tags($this->get_settings_admin_message());
                 return new WP_Error('check_settings', $message);
             }
 
