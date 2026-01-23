@@ -781,7 +781,7 @@ function moldovaagroindbank_plugins_loaded_init()
         public function process_payment($order_id)
         {
             $order = wc_get_order($order_id);
-            $order_total = $order->get_total();
+            $order_total = floatval($order->get_total());
             $order_currency_numcode = self::get_currency_numcode($order->get_currency());
             $order_description = $this->get_order_description($order);
             $client_ip = self::get_client_ip();
@@ -874,7 +874,7 @@ function moldovaagroindbank_plugins_loaded_init()
 
             $order_id = $order->get_id();
             $trans_id = self::get_order_transaction_id($order);
-            $order_total = self::get_order_net_total($order);
+            $order_total = floatval($order->get_remaining_refund_amount());
             $order_currency_numcode = self::get_currency_numcode($order->get_currency());
             $order_description = $this->get_order_description($order);
             $client_ip = self::get_client_ip();
@@ -1236,22 +1236,6 @@ function moldovaagroindbank_plugins_loaded_init()
         //endregion
 
         //region Order
-        protected static function get_order_net_total(\WC_Order $order)
-        {
-            //https://github.com/woocommerce/woocommerce/issues/17795
-            //https://github.com/woocommerce/woocommerce/pull/18196
-            $total_refunded = 0;
-            $order_refunds = $order->get_refunds();
-            foreach ($order_refunds as $refund) {
-                if ($refund->get_refunded_payment()) {
-                    $total_refunded += $refund->get_amount();
-                }
-            }
-
-            $order_total = $order->get_total();
-            return $order_total - $total_refunded;
-        }
-
         /**
          * Lookup order by Trans ID meta field value.
          * MAIB Payment Gateway API does not currently support passing Order ID for transactions.
