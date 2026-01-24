@@ -1076,7 +1076,7 @@ function moldovaagroindbank_plugins_loaded_init()
 
                     $order->add_order_note($message);
 
-                    WC()->cart->empty_cart();
+                    // WC()->cart->empty_cart();
                     wc_add_notice($message, 'success');
 
                     wp_safe_redirect($this->get_return_url($order));
