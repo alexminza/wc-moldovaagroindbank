@@ -30,7 +30,7 @@
         "php": ">=7.2.5",
         "maib/maibapi": "^3.0",
         "monolog/monolog": "^2.7",
-        "automattic/jetpack-autoloader": "^3.0"
+        "automattic/jetpack-autoloader": "^5.0"
     },
     "config": {
         "platform": {
@@ -39,7 +39,9 @@
         "allow-plugins": {
             "automattic/jetpack-autoloader": true,
             "dealerdirect/phpcodesniffer-composer-installer": true
-        }
+        },
+        "autoloader-suffix": "WC_Gateway_MAIB",
+        "optimize-autoloader": true
     },
     "prefer-stable": true,
     "require-dev": {
