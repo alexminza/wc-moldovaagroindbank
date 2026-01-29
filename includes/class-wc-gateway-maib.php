@@ -246,33 +246,6 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         return '';
     }
 
-    public function is_valid_for_use()
-    {
-        if (!in_array(get_woocommerce_currency(), self::SUPPORTED_CURRENCIES, true)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    public function is_available()
-    {
-        if (!$this->is_valid_for_use()) {
-            return false;
-        }
-
-        if (!$this->check_settings()) {
-            return false;
-        }
-
-        return parent::is_available();
-    }
-
-    public function needs_setup()
-    {
-        return !$this->check_settings();
-    }
-
     public function admin_options()
     {
         $this->validate_settings();
@@ -323,82 +296,42 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
 
     protected function check_settings()
     {
-        return !empty($this->maib_pcert)
+        return parent::check_settings()
+            && !empty($this->maib_pcert)
             && !empty($this->maib_key);
     }
 
     protected function validate_settings()
     {
-        $validate_result = true;
-
-        if (!$this->is_valid_for_use()) {
-            $this->add_error(
-                sprintf(
-                    '<strong>%1$s: %2$s</strong>. %3$s: %4$s',
-                    esc_html__('Unsupported store currency', 'wc-moldovaagroindbank'),
-                    esc_html(get_woocommerce_currency()),
-                    esc_html__('Supported currencies', 'wc-moldovaagroindbank'),
-                    esc_html(join(', ', self::SUPPORTED_CURRENCIES))
-                )
-            );
-
-            $validate_result = false;
+        if (!parent::validate_settings()) {
+            return false;
         }
 
-        if (!$this->check_settings()) {
-            /* translators: 1: Plugin installation instructions URL */
-            $message_instructions = sprintf(__('See plugin documentation for <a href="%1$s" target="_blank">installation instructions</a>.', 'wc-moldovaagroindbank'), 'https://wordpress.org/plugins/wc-moldovaagroindbank/#installation');
-            $this->add_error(sprintf('<strong>%1$s</strong>: %2$s. %3$s', esc_html__('Connection Settings', 'wc-moldovaagroindbank'), esc_html__('Not configured', 'wc-moldovaagroindbank'), wp_kses_post($message_instructions)));
-            $validate_result = false;
-        } else {
-            $result = $this->validate_certificate($this->maib_pcert);
-            if (!empty($result)) {
-                $this->add_error(sprintf('<strong>%1$s</strong>: %2$s', esc_html__('Client certificate file', 'wc-moldovaagroindbank'), esc_html($result)));
-                $validate_result = false;
-            }
-
-            $result = $this->validate_private_key($this->maib_pcert, $this->maib_key, $this->maib_key_password);
-            if (!empty($result)) {
-                $this->add_error(sprintf('<strong>%1$s</strong>: %2$s', esc_html__('Private key file', 'wc-moldovaagroindbank'), esc_html($result)));
-                $validate_result = false;
-            }
+        $result = $this->validate_certificate($this->maib_pcert);
+        if (!empty($result)) {
+            $this->add_error(sprintf('<strong>%1$s</strong>: %2$s', $this->get_settings_field_label('maib_pcert'), esc_html($result)));
+            return false;
         }
 
-        return $validate_result;
-    }
-
-    protected function logs_admin_website_notice()
-    {
-        if (current_user_can('manage_woocommerce')) {
-            $message = $this->get_logs_admin_message();
-            wc_add_notice($message, 'error');
+        $result = $this->validate_private_key($this->maib_pcert, $this->maib_key, $this->maib_key_password);
+        if (!empty($result)) {
+            $this->add_error(sprintf('<strong>%1$s</strong>: %2$s', $this->get_settings_field_label('maib_key'), esc_html($result)));
+            return false;
         }
+
+        return true;
     }
 
     protected function logs_admin_notice()
     {
         $message = $this->get_logs_admin_message();
-        WC_Admin_Meta_Boxes::add_error($message);
+        \WC_Admin_Meta_Boxes::add_error($message);
     }
 
     protected function settings_admin_notice()
     {
         $message = $this->get_settings_admin_message();
-        WC_Admin_Meta_Boxes::add_error($message);
-    }
-
-    protected function get_settings_admin_message()
-    {
-        /* translators: 1: Payment method title, 2: Plugin settings URL */
-        $message = sprintf(wp_kses_post(__('%1$s is not properly configured. Verify plugin <a href="%2$s">Connection Settings</a>.', 'wc-moldovaagroindbank')), esc_html($this->get_method_title()), esc_url(self::get_settings_url()));
-        return $message;
-    }
-
-    protected function get_logs_admin_message()
-    {
-        /* translators: 1: Payment method title, 2: Plugin settings URL */
-        $message = sprintf(wp_kses_post(__('See <a href="%2$s">%1$s settings</a> page for log details and setup instructions.', 'wc-moldovaagroindbank')), esc_html($this->get_method_title()), esc_url(self::get_settings_url()));
-        return $message;
+        \WC_Admin_Meta_Boxes::add_error($message);
     }
 
     //region Certificates
@@ -438,10 +371,10 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
                     }
                 }
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             $this->log(
                 $ex->getMessage(),
-                WC_Log_Levels::ERROR,
+                \WC_Log_Levels::ERROR,
                 array(
                     'pfx_field_id' => $pfx_field_id,
                     'pass_field_id' => $pass_field_id,
