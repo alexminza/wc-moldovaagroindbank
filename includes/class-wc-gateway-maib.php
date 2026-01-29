@@ -313,7 +313,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
             return false;
         }
 
-        $result = $this->validate_private_key($this->maib_pcert, $this->maib_key, $this->maib_key_password);
+        $result = $this->validate_certificate_private_key($this->maib_pcert, $this->maib_key, $this->maib_key_password);
         if (!empty($result)) {
             $this->add_error(sprintf('<strong>%1$s</strong>: %2$s', $this->get_settings_field_label('maib_key'), esc_html($result)));
             return false;
@@ -456,10 +456,10 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
             $message = esc_html__('Invalid certificate', 'wc-moldovaagroindbank');
             $this->log_openssl_errors($message);
             return $message;
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             $this->log(
                 $ex->getMessage(),
-                WC_Log_Levels::ERROR,
+                \WC_Log_Levels::ERROR,
                 array(
                     'cert_file' => $cert_file,
                     'exception' => (string) $ex,
@@ -471,7 +471,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         }
     }
 
-    protected function validate_private_key(string $cert_file, string $key_file, string $key_passphrase)
+    protected function validate_certificate_private_key(string $cert_file, string $key_file, string $key_passphrase)
     {
         try {
             $validate_result = $this->validate_file($key_file);
@@ -501,10 +501,10 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
                 $this->log_openssl_errors($message);
                 return $message;
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             $this->log(
                 $ex->getMessage(),
-                WC_Log_Levels::ERROR,
+                \WC_Log_Levels::ERROR,
                 array(
                     'key_file' => $key_file,
                     'exception' => (string) $ex,
@@ -530,10 +530,10 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
             if (!is_readable($file)) {
                 return __('File not readable', 'wc-moldovaagroindbank');
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             $this->log(
                 $ex->getMessage(),
-                WC_Log_Levels::ERROR,
+                \WC_Log_Levels::ERROR,
                 array(
                     'file' => $file,
                     'exception' => (string) $ex,
@@ -573,44 +573,6 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         return $result;
     }
 
-    protected function log_openssl_errors(string $message)
-    {
-        $openssl_errors = array();
-
-        // https://www.php.net/manual/en/function.openssl-error-string.php
-        // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition -- Common openssl_error_string code pattern.
-        while ($error = openssl_error_string()) {
-            $openssl_errors[] = $error;
-        }
-
-        $this->log(
-            $message,
-            WC_Log_Levels::ERROR,
-            array(
-                'openssl_errors' => $openssl_errors,
-                'backtrace' => true,
-            )
-        );
-    }
-
-    /**
-        * @global WP_Filesystem_Base $wp_filesystem
-        */
-    protected static function get_wp_filesystem()
-    {
-        /**
-            * @var WP_Filesystem_Base
-            */
-        global $wp_filesystem;
-
-        if (empty($wp_filesystem)) {
-            require_once ABSPATH . 'wp-admin/includes/file.php';
-            WP_Filesystem();
-        }
-
-        return $wp_filesystem;
-    }
-
     protected function save_temp_file(string $file_data, string $file_suffix = '')
     {
         $wp_filesystem = self::get_wp_filesystem();
@@ -646,7 +608,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         // https://www.php.net/manual/en/function.curl-setopt.php
         // https://github.com/maibank/maibapi/blob/main/README.md#usage
         $options = array(
-            'base_uri' => $this->base_url,
+            'base_uri' => $this->maib_base_url,
             'verify'   => true,
             'cert'     => $this->maib_pcert,
             'ssl_key'  => array($this->maib_key, $this->maib_key_password),
@@ -660,7 +622,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
 
         if ($this->debug) {
             $log = new \Monolog\Logger('maib_guzzle_request');
-            $log_file_name = WC_Log_Handler_File::get_log_file_path(self::MOD_ID . '_guzzle');
+            $log_file_name = \WC_Log_Handler_File::get_log_file_path(self::MOD_ID . '_guzzle');
             $log->pushHandler(new \Monolog\Handler\StreamHandler($log_file_name, \Monolog\Logger::DEBUG));
             $stack = \GuzzleHttp\HandlerStack::create();
             $stack->push(\GuzzleHttp\Middleware::log($log, new \GuzzleHttp\MessageFormatter(\GuzzleHttp\MessageFormatter::DEBUG)));
@@ -692,10 +654,10 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
             $register_result = self::TRANSACTION_TYPE_CHARGE === $this->transaction_type
                 ? $client->registerSmsTransaction($order_total, $order_currency_numcode, $client_ip, $order_description, $lang)
                 : $client->registerDmsAuthorization($order_total, $order_currency_numcode, $client_ip, $order_description, $lang);
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             $this->log(
                 $ex->getMessage(),
-                WC_Log_Levels::ERROR,
+                \WC_Log_Levels::ERROR,
                 array(
                     'order_id' => $order_id,
                     'exception' => (string) $ex,
@@ -720,7 +682,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
                 $message = $this->get_test_message($message);
                 $this->log(
                     $message,
-                    WC_Log_Levels::INFO,
+                    \WC_Log_Levels::INFO,
                     array(
                         'register_result' => $register_result,
                     )
@@ -741,7 +703,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         $message = $this->get_test_message($message);
         $this->log(
             $message,
-            WC_Log_Levels::ERROR,
+            \WC_Log_Levels::ERROR,
             array(
                 'register_result' => $register_result,
             )
@@ -779,10 +741,10 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         try {
             $client = $this->init_maib_client();
             $complete_result = $client->makeDMSTrans($trans_id, $order_total, $order_currency_numcode, $client_ip, $order_description, $lang);
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             $this->log(
                 $ex->getMessage(),
-                WC_Log_Levels::ERROR,
+                \WC_Log_Levels::ERROR,
                 array(
                     'order_id' => $order_id,
                     'exception' => (string) $ex,
@@ -801,7 +763,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
                 $message = $this->get_test_message($message);
                 $this->log(
                     $message,
-                    WC_Log_Levels::INFO,
+                    \WC_Log_Levels::INFO,
                     array(
                         'complete_result' => $complete_result,
                     )
@@ -818,7 +780,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         $message = $this->get_test_message($message);
         $this->log(
             $message,
-            WC_Log_Levels::ERROR,
+            \WC_Log_Levels::ERROR,
             array(
                 'complete_result' => $complete_result,
             )
@@ -842,7 +804,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
             /* translators: 1: Payment method title, 2: Order ID */
             $message = esc_html(sprintf(__('%1$s Transaction ID not found for order #%2$s.', 'wc-moldovaagroindbank'), $this->get_method_title(), $order_id));
             $message = $this->get_test_message($message);
-            $this->log($message, WC_Log_Levels::ERROR);
+            $this->log($message, \WC_Log_Levels::ERROR);
             $order->add_order_note($message);
 
             return false;
@@ -857,7 +819,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
             $message = $this->get_test_message($message);
             $this->log(
                 $message,
-                WC_Log_Levels::INFO,
+                \WC_Log_Levels::INFO,
                 array(
                     'transaction_result' => $transaction_result,
                 )
@@ -870,7 +832,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         /* translators: 1: Payment method title, 2: Order ID */
         $message = esc_html(sprintf(__('Could not retrieve transaction status from %1$s for order #%2$s.', 'wc-moldovaagroindbank'), $this->get_method_title(), $order_id));
         $message = $this->get_test_message($message);
-        $this->log($message, WC_Log_Levels::ERROR);
+        $this->log($message, \WC_Log_Levels::ERROR);
 
         $order->add_order_note($message);
         return false;
@@ -884,10 +846,10 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         try {
             $client = $this->init_maib_client();
             $transaction_result = $client->getTransactionResult($trans_id, $client_ip);
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             $this->log(
                 $ex->getMessage(),
-                WC_Log_Levels::ERROR,
+                \WC_Log_Levels::ERROR,
                 array(
                     'trans_id' => $trans_id,
                     'exception' => (string) $ex,
@@ -917,7 +879,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         if (empty($trans_id)) {
             /* translators: 1: Payment method title */
             $message = esc_html(sprintf(__('Payment verification failed: Transaction ID not received from %1$s.', 'wc-moldovaagroindbank'), $this->get_method_title()));
-            $this->log($message, WC_Log_Levels::ERROR);
+            $this->log($message, \WC_Log_Levels::ERROR);
 
             wc_add_notice($message, 'error');
             $this->logs_admin_website_notice();
@@ -930,7 +892,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         if (empty($order)) {
             /* translators: 1: Transaction ID, 2: Payment method title */
             $message = esc_html(sprintf(__('Order not found by Transaction ID: %1$s received from %2$s.', 'wc-moldovaagroindbank'), $trans_id, $this->get_method_title()));
-            $this->log($message, WC_Log_Levels::ERROR);
+            $this->log($message, \WC_Log_Levels::ERROR);
 
             wc_add_notice($message, 'error');
             $this->logs_admin_website_notice();
@@ -967,7 +929,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
                 $message = $this->get_test_message($message);
                 $this->log(
                     $message,
-                    WC_Log_Levels::INFO,
+                    \WC_Log_Levels::INFO,
                     array(
                         'transaction_result' => $transaction_result,
                     )
@@ -988,7 +950,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         $message = $this->get_test_message($message);
         $this->log(
             $message,
-            WC_Log_Levels::ERROR,
+            \WC_Log_Levels::ERROR,
             array(
                 'transaction_result' => $transaction_result,
             )
@@ -1011,7 +973,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     {
         if (!$this->check_settings()) {
             $message = wp_strip_all_tags($this->get_settings_admin_message());
-            return new WP_Error('check_settings', $message);
+            return new \WP_Error('check_settings', $message);
         }
 
         $order = wc_get_order($order_id);
@@ -1023,17 +985,17 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         if (empty($trans_id)) {
             /* translators: 1: Order ID, 2: Meta field key */
             $message = esc_html(sprintf(__('Order #%1$s missing meta field %2$s.', 'wc-moldovaagroindbank'), $order_id, self::MOD_TRANSACTION_ID));
-            return new WP_Error('order_transaction_id', $message);
+            return new \WP_Error('order_transaction_id', $message);
         }
 
         $revert_result = null;
         try {
             $client = $this->init_maib_client();
             $revert_result = $client->revertTransaction($trans_id, $amount);
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             $this->log(
                 $ex->getMessage(),
-                WC_Log_Levels::ERROR,
+                \WC_Log_Levels::ERROR,
                 array(
                     'order_id' => $order_id,
                     'amount' => $amount,
@@ -1052,7 +1014,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
                 $message = $this->get_test_message($message);
                 $this->log(
                     $message,
-                    WC_Log_Levels::INFO,
+                    \WC_Log_Levels::INFO,
                     array(
                         'revert_result' => $revert_result,
                     )
@@ -1068,14 +1030,14 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         $message = $this->get_test_message($message);
         $this->log(
             $message,
-            WC_Log_Levels::ERROR,
+            \WC_Log_Levels::ERROR,
             array(
                 'revert_result' => $revert_result,
             )
         );
 
         $order->add_order_note($message);
-        return new WP_Error('process_refund', $message);
+        return new \WP_Error('process_refund', $message);
     }
 
     public function close_day()
@@ -1089,17 +1051,17 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
 
                 $this->log(
                     __FUNCTION__,
-                    WC_Log_Levels::DEBUG,
+                    \WC_Log_Levels::DEBUG,
                     array(
                         'closeday_result' => $closeday_result,
                         'backtrace' => true,
                     )
                 );
-            } catch (Exception $ex) {
+            } catch (\Exception $ex) {
                 $message_result = $ex->getMessage();
                 $this->log(
                     $message_result,
-                    WC_Log_Levels::ERROR,
+                    \WC_Log_Levels::ERROR,
                     array(
                         'closeday_result' => $closeday_result,
                         'exception' => (string) $ex,
@@ -1114,7 +1076,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
                 if (self::MAIB_RESULT_OK === $result) {
                     /* translators: 1: Payment method title, 2: Payment gateway response */
                     $message = esc_html(sprintf(__('Close business day via %1$s succeeded: %2$s', 'wc-moldovaagroindbank'), $this->get_method_title(), $message_result));
-                    $this->log($message, WC_Log_Levels::INFO);
+                    $this->log($message, \WC_Log_Levels::INFO);
 
                     return $message;
                 }
@@ -1126,7 +1088,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
 
         /* translators: 1: Payment method title, 2: Payment gateway response */
         $message = esc_html(sprintf(__('Close business day via %1$s failed: %2$s', 'wc-moldovaagroindbank'), $this->get_method_title(), $message_result));
-        $this->log($message, WC_Log_Levels::ERROR);
+        $this->log($message, \WC_Log_Levels::ERROR);
 
         return $message;
     }
@@ -1154,7 +1116,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         } elseif ($orders_count > 1) {
             $this->log(
                 sprintf('Duplicate order meta %1$s: %2$s', self::MOD_TRANSACTION_ID, $trans_id),
-                WC_Log_Levels::ERROR,
+                \WC_Log_Levels::ERROR,
                 array(
                     'orders' => $orders,
                 )
@@ -1185,26 +1147,6 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     //endregion
 
     //region Utility
-    protected static function format_price(float $price, string $currency)
-    {
-        $args = array(
-            'currency' => $currency,
-            'in_span' => false,
-        );
-
-        return html_entity_decode(wc_price($price, $args));
-    }
-
-    protected function get_test_message(string $message)
-    {
-        if ($this->testmode) {
-            /* translators: 1: Original message */
-            $message = esc_html(sprintf(__('TEST: %1$s', 'wc-moldovaagroindbank'), $message));
-        }
-
-        return $message;
-    }
-
     //https://en.wikipedia.org/wiki/ISO_4217
     private static $currency_numcodes = array(
         'EUR' => 978,
@@ -1217,61 +1159,12 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         return self::$currency_numcodes[$currency];
     }
 
-    protected static function get_language()
-    {
-        $lang = get_locale();
-        return substr($lang, 0, 2);
-    }
-
     protected static function get_client_ip()
     {
-        return WC_Geolocation::get_ip_address();
+        return \WC_Geolocation::get_ip_address();
     }
 
-    protected function get_callback_url()
-    {
-        // https://developer.woocommerce.com/docs/extensions/core-concepts/woocommerce-plugin-api-callback/
-        $callback_url = WC()->api_request_url("wc_{$this->id}");
-        return apply_filters('moldovaagroindbank_callback_url', $callback_url);
-    }
-
-    protected static function get_logs_url()
-    {
-        return add_query_arg(
-            array(
-                'page'   => 'wc-status',
-                'tab'    => 'logs',
-                'source' => self::MOD_ID,
-            ),
-            admin_url('admin.php')
-        );
-    }
-
-    public static function get_settings_url()
-    {
-        return add_query_arg(
-            array(
-                'page'    => 'wc-settings',
-                'tab'     => 'checkout',
-                'section' => self::MOD_ID,
-            ),
-            admin_url('admin.php')
-        );
-    }
-
-    protected function log(string $message, string $level = WC_Log_Levels::DEBUG, ?array $additional_context = null)
-    {
-        // https://developer.woocommerce.com/docs/best-practices/data-management/logging/
-        // https://stackoverflow.com/questions/1423157/print-php-call-stack
-        $log_context = array('source' => $this->id);
-        if (!empty($additional_context)) {
-            $log_context = array_merge($log_context, $additional_context);
-        }
-
-        $this->logger->log($level, $message, $log_context);
-    }
-
-    protected static function static_log(string $message, string $level = WC_Log_Levels::DEBUG)
+    protected static function static_log(string $message, string $level = \WC_Log_Levels::DEBUG)
     {
         $logger = wc_get_logger();
         $log_context = array('source' => self::MOD_ID);
@@ -1280,19 +1173,6 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     //endregion
 
     //region Admin
-    public static function plugin_links(array $links)
-    {
-        $plugin_links = array(
-            sprintf(
-                '<a href="%1$s">%2$s</a>',
-                esc_url(self::get_settings_url()),
-                esc_html__('Settings', 'wc-moldovaagroindbank')
-            ),
-        );
-
-        return array_merge($plugin_links, $links);
-    }
-
     public static function order_actions(array $actions, \WC_Order $order)
     {
         if ($order->get_payment_method() !== self::MOD_ID) {
@@ -1315,24 +1195,27 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
 
     public static function action_complete_transaction(\WC_Order $order)
     {
-        $plugin = new self();
+        /** @var WC_Gateway_MAIB $plugin */
+        $plugin = self::get_payment_gateway_instance();
         return $plugin->complete_transaction($order);
     }
 
     public static function action_verify_transaction(\WC_Order $order)
     {
-        $plugin = new self();
+        /** @var WC_Gateway_MAIB $plugin */
+        $plugin = self::get_payment_gateway_instance();
         return $plugin->verify_transaction($order);
     }
 
     public static function action_close_day()
     {
-        $plugin = new self();
+        /** @var WC_Gateway_MAIB $plugin */
+        $plugin = self::get_payment_gateway_instance();
         $result = $plugin->close_day();
 
         //https://github.com/woocommerce/action-scheduler/issues/215
-        $action_id = self::find_scheduled_action(ActionScheduler_Store::STATUS_RUNNING);
-        $logger = ActionScheduler::logger();
+        $action_id = self::find_scheduled_action(\ActionScheduler_Store::STATUS_RUNNING);
+        $logger = \ActionScheduler::logger();
         $logger->log($action_id, $result);
     }
 
@@ -1341,21 +1224,21 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         if (false !== as_next_scheduled_action(self::MOD_ACTION_CLOSE_DAY)) {
             /* translators: 1: Scheduled action name */
             $message = esc_html(sprintf(__('Scheduled action %1$s is already registered.', 'wc-moldovaagroindbank'), self::MOD_ACTION_CLOSE_DAY));
-            self::static_log($message, WC_Log_Levels::WARNING);
+            self::static_log($message, \WC_Log_Levels::WARNING);
 
             self::unregister_scheduled_actions();
         }
 
         $timezone_id = wc_timezone_string();
         $timestamp = as_get_datetime_object('tomorrow - 1 minute', $timezone_id);
-        $timestamp->setTimezone(new DateTimeZone('UTC'));
+        $timestamp->setTimezone(new \DateTimeZone('UTC'));
 
         $cron_schedule = $timestamp->format('i H * * *'); // '59 23 * * *'
         $action_id = as_schedule_cron_action(null, $cron_schedule, self::MOD_ACTION_CLOSE_DAY, array(), self::MOD_ID);
 
         /* translators: 1: Scheduled action name, 2: Timezone name, 3: Scheduled action ID */
         $message = esc_html(sprintf(__('Registered scheduled action %1$s in timezone %2$s with ID %3$s.', 'wc-moldovaagroindbank'), self::MOD_ACTION_CLOSE_DAY, $timezone_id, $action_id));
-        self::static_log($message, WC_Log_Levels::INFO);
+        self::static_log($message, \WC_Log_Levels::INFO);
     }
 
     public static function unregister_scheduled_actions()
@@ -1364,22 +1247,14 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
 
         /* translators: 1: Scheduled action name */
         $message = esc_html(sprintf(__('Unregistered scheduled action %1$s.', 'wc-moldovaagroindbank'), self::MOD_ACTION_CLOSE_DAY));
-        self::static_log($message, WC_Log_Levels::INFO);
+        self::static_log($message, \WC_Log_Levels::INFO);
     }
 
     protected static function find_scheduled_action(string $status = null)
     {
         $params = $status ? array('status' => $status) : null;
-        $action_id = ActionScheduler::store()->find_action(self::MOD_ACTION_CLOSE_DAY, $params);
+        $action_id = \ActionScheduler::store()->find_action(self::MOD_ACTION_CLOSE_DAY, $params);
         return $action_id;
-    }
-    //endregion
-
-    //region WooCommerce
-    public static function add_gateway(array $methods)
-    {
-        $methods[] = self::class;
-        return $methods;
     }
     //endregion
 }
