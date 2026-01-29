@@ -4,8 +4,61 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bb14371fbb5ef84b1e945c53fe9fd71c",
+    "content-hash": "bb8ffb5d6b0d5ba315d8138a740931dd",
     "packages": [
+        {
+            "name": "alexminza/wc-payment-gateway-base",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alexminza/wc-payment-gateway-base.git",
+                "reference": "e8081010a2ddd6c55a05ff5e6ac1ba2f17c752a3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alexminza/wc-payment-gateway-base/zipball/e8081010a2ddd6c55a05ff5e6ac1ba2f17c752a3",
+                "reference": "e8081010a2ddd6c55a05ff5e6ac1ba2f17c752a3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5"
+            },
+            "require-dev": {
+                "woocommerce/woocommerce-sniffs": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "AlexMinza\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Minza",
+                    "homepage": "https://www.alexminza.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Payment Gateway Base for WooCommerce",
+            "homepage": "https://github.com/alexminza/wc-payment-gateway-base",
+            "keywords": [
+                "payments",
+                "php",
+                "sdk",
+                "woocommerce",
+                "wordpress"
+            ],
+            "support": {
+                "forum": "https://github.com/alexminza/wc-payment-gateway-base/discussions",
+                "issues": "https://github.com/alexminza/wc-payment-gateway-base/issues",
+                "source": "https://github.com/alexminza/wc-payment-gateway-base"
+            },
+            "time": "2026-01-29T11:17:37+00:00"
+        },
         {
             "name": "automattic/jetpack-autoloader",
             "version": "v5.0.15",
