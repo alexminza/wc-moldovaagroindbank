@@ -251,37 +251,19 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         $this->validate_settings();
         $this->display_errors();
 
-        //https://developer.woocommerce.com/2025/11/19/deprecation-of-wc_enqueue_js-in-10-4/
+        // https://developer.woocommerce.com/2025/11/19/deprecation-of-wc_enqueue_js-in-10-4/
         $script_handle = self::MOD_PREFIX . 'connection_settings';
-        wp_register_script($script_handle, '', array('jquery'), self::MOD_VERSION, true);
+        wp_register_script($script_handle, plugins_url('assets/js/connection_settings.js', self::MOD_PLUGIN_FILE), array('jquery'), self::MOD_VERSION, true);
         wp_enqueue_script($script_handle);
-
-        wp_add_inline_script(
+        wp_localize_script(
             $script_handle,
-            'jQuery(function() {
-                var basic_fields_ids    = "#woocommerce_moldovaagroindbank_maib_pfxcert, #woocommerce_moldovaagroindbank_maib_key_password";
-                var advanced_fields_ids = "#woocommerce_moldovaagroindbank_maib_pcert, #woocommerce_moldovaagroindbank_maib_key, #woocommerce_moldovaagroindbank_maib_key_password";
-
-                var basic_fields    = jQuery(basic_fields_ids).closest("tr");
-                var advanced_fields = jQuery(advanced_fields_ids).closest("tr");
-
-                jQuery(document).ready(function() {
-                    basic_fields.hide();
-                    advanced_fields.hide();
-                });
-
-                jQuery("#woocommerce_moldovaagroindbank_basic_settings").on("click", function() {
-                    advanced_fields.hide();
-                    basic_fields.show();
-                    return false;
-                });
-
-                jQuery("#woocommerce_moldovaagroindbank_advanced_settings").on("click", function() {
-                    basic_fields.hide();
-                    advanced_fields.show();
-                    return false;
-                });
-            });'
+            $script_handle,
+            array(
+                'connection_basic_fields_ids' => $this->get_field_id(array('maib_pfxcert', 'maib_key_password')),
+                'connection_advanced_fields_ids' => $this->get_field_id(array('maib_pcert', 'maib_key', 'maib_key_password')),
+                'basic_settings_button_id' => $this->get_field_id('basic_settings'),
+                'advanced_settings_button_id' => $this->get_field_id('advanced_settings'),
+            )
         );
 
         parent::admin_options();
