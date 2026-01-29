@@ -12,26 +12,26 @@ defined('ABSPATH') || exit;
 
 use Maib\MaibApi\MaibClient;
 
-class WC_Gateway_MAIB extends WC_Payment_Gateway
+class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
 {
     //region Constants
-    const MOD_ID      = 'moldovaagroindbank';
-    const MOD_PREFIX  = 'maib_';
-    const MOD_TITLE   = 'maib';
-    const MOD_VERSION = '1.5.0';
+    const MOD_ID          = 'moldovaagroindbank';
+    const MOD_TEXT_DOMAIN = 'wc-moldovaagroindbank';
+    const MOD_PREFIX      = 'maib_';
+    const MOD_TITLE       = 'maib';
+    const MOD_VERSION     = '1.5.0';
+    const MOD_PLUGIN_FILE = MAIB_MOD_PLUGIN_FILE;
+
+    const SUPPORTED_CURRENCIES = array('MDL', 'EUR', 'USD');
 
     const TRANSACTION_TYPE_CHARGE        = 'charge';
     const TRANSACTION_TYPE_AUTHORIZATION = 'authorization';
 
     const LOGO_TYPE_BANK       = 'bank';
     const LOGO_TYPE_SYSTEMS    = 'systems';
-    const LOGO_TYPE_NONE       = 'none';
 
     const MOD_TRANSACTION_TYPE = self::MOD_PREFIX . 'transaction_type';
     const MOD_TRANSACTION_ID   = self::MOD_PREFIX . 'transaction_id';
-
-    const SUPPORTED_CURRENCIES = array('MDL', 'EUR', 'USD');
-    const ORDER_TEMPLATE       = 'Order #%1$s';
 
     const MAIB_TRANS_ID        = 'trans_id';
     const MAIB_TRANSACTION_ID  = 'TRANSACTION_ID';
@@ -57,8 +57,8 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway
     const MOD_ACTION_CLOSE_DAY            = self::MOD_PREFIX . 'close_day';
     //endregion
 
-    protected $logo_type, $testmode, $debug, $logger, $transaction_type, $order_template;
-    protected $base_url, $redirect_url, $maib_pfxcert, $maib_pcert, $maib_key, $maib_key_password;
+    protected $transaction_type;
+    protected $maib_base_url, $maib_redirect_url, $maib_pfxcert, $maib_pcert, $maib_key, $maib_key_password;
 
     public function __construct()
     {
@@ -72,27 +72,14 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway
         $this->init_form_fields();
         $this->init_settings();
 
-        $this->enabled     = $this->get_option('enabled', 'no');
-        $this->title       = $this->get_option('title', $this->get_method_title());
-        $this->description = $this->get_option('description');
+        parent::__construct();
 
-        $this->logo_type   = $this->get_option('logo_type', self::LOGO_TYPE_BANK);
-        $this->icon        = self::get_logo_icon($this->logo_type);
-
-        $this->testmode    = wc_string_to_bool($this->get_option('testmode', 'no'));
-        $this->debug       = wc_string_to_bool($this->get_option('debug', 'no'));
-        $this->logger      = new WC_Logger(null, $this->debug ? WC_Log_Levels::DEBUG : WC_Log_Levels::INFO);
-
-        if ($this->testmode) {
-            $this->description = $this->get_test_message($this->description);
-        }
-
+        $this->icon        = self::get_logo_icon($this->get_option('logo_type', self::LOGO_TYPE_BANK));
         $this->transaction_type  = $this->get_option('transaction_type', self::TRANSACTION_TYPE_CHARGE);
-        $this->order_template    = $this->get_option('order_template', self::ORDER_TEMPLATE);
 
         // https://github.com/maibank/maibapi/blob/main/src/MaibApi/MaibClient.php
-        $this->base_url          = $this->testmode ? MaibClient::MAIB_TEST_BASE_URI : MaibClient::MAIB_LIVE_BASE_URI;
-        $this->redirect_url      = $this->testmode ? MaibClient::MAIB_TEST_REDIRECT_URL : MaibClient::MAIB_LIVE_REDIRECT_URL;
+        $this->maib_base_url     = $this->testmode ? MaibClient::MAIB_TEST_BASE_URI : MaibClient::MAIB_LIVE_BASE_URI;
+        $this->maib_redirect_url = $this->testmode ? MaibClient::MAIB_TEST_REDIRECT_URL : MaibClient::MAIB_LIVE_REDIRECT_URL;
 
         $this->maib_pfxcert      = $this->get_option('maib_pfxcert');
         $this->maib_pcert        = $this->get_option('maib_pcert');
@@ -123,26 +110,28 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway
                 'type'        => 'text',
                 'description' => __('Payment method title that the customer will see during checkout.', 'wc-moldovaagroindbank'),
                 'desc_tip'    => true,
-                'default'     => self::MOD_TITLE,
+                'default'     => $this->get_method_title(),
+                'custom_attributes' => array(
+                    'required' => 'required',
+                ),
             ),
             'description'     => array(
                 'title'       => __('Description', 'wc-moldovaagroindbank'),
                 'type'        => 'textarea',
                 'description' => __('Payment method description that the customer will see during checkout.', 'wc-moldovaagroindbank'),
                 'desc_tip'    => true,
-                'default'     => '',
+                'default'     => __('Online payment with Visa / Mastercard bank cards issued by any bank in Moldova or abroad, processed through maib online payment system.', 'wc-moldovaagroindbank'),
             ),
             'logo_type' => array(
                 'title'       => __('Logo', 'wc-moldovaagroindbank'),
                 'type'        => 'select',
-                'class'       => 'wc-enhanced-select',
                 'description' => __('Payment method logo image that the customer will see during checkout.', 'wc-moldovaagroindbank'),
                 'desc_tip'    => true,
                 'default'     => self::LOGO_TYPE_BANK,
+                'class'       => 'wc-enhanced-select',
                 'options'     => array(
                     self::LOGO_TYPE_BANK    => __('Bank logo', 'wc-moldovaagroindbank'),
                     self::LOGO_TYPE_SYSTEMS => __('Payment systems logos', 'wc-moldovaagroindbank'),
-                    self::LOGO_TYPE_NONE    => __('No logo', 'wc-moldovaagroindbank'),
                 ),
             ),
 
@@ -161,15 +150,16 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway
                 'default'     => 'no',
                 'description' => sprintf('<a href="%2$s">%1$s</a>', esc_html__('View logs', 'wc-moldovaagroindbank'), esc_url(self::get_logs_url())),
                 'desc_tip'    => __('Save debug messages to the WooCommerce System Status logs. Note: this may log personal information. Use this for debugging purposes only and delete the logs when finished.', 'wc-moldovaagroindbank'),
+                'default'     => 'no',
             ),
 
             'transaction_type' => array(
                 'title'        => __('Transaction type', 'wc-moldovaagroindbank'),
                 'type'         => 'select',
-                'class'        => 'wc-enhanced-select',
                 'description'  => __('Select how transactions should be processed. Charge submits all transactions for settlement, Authorization simply authorizes the order total for capture later.', 'wc-moldovaagroindbank'),
                 'desc_tip'     => true,
                 'default'      => self::TRANSACTION_TYPE_CHARGE,
+                'class'        => 'wc-enhanced-select',
                 'options'      => array(
                     self::TRANSACTION_TYPE_CHARGE        => __('Charge', 'wc-moldovaagroindbank'),
                     self::TRANSACTION_TYPE_AUTHORIZATION => __('Authorization', 'wc-moldovaagroindbank'),
@@ -182,17 +172,22 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway
                 'description' => __('Format: <code>%1$s</code> - Order ID', 'wc-moldovaagroindbank'),
                 'desc_tip'    => __('Order description that the customer will see on the bank payment page.', 'wc-moldovaagroindbank'),
                 'default'     => self::ORDER_TEMPLATE,
+                'custom_attributes' => array(
+                    'required'  => 'required',
+                ),
             ),
 
             'connection_settings' => array(
                 'title'       => __('Connection Settings', 'wc-moldovaagroindbank'),
-                'description' => sprintf(
-                    '%1$s<br /><br /><a href="#" id="woocommerce_moldovaagroindbank_basic_settings" class="button">%2$s</a> <a href="#" id="woocommerce_moldovaagroindbank_advanced_settings" class="button">%3$s</a>',
-                    esc_html__('Use Basic settings to upload the certificate file received from the bank or configure manually using Advanced settings below.', 'wc-moldovaagroindbank'),
-                    esc_html__('Basic settings&raquo;', 'wc-moldovaagroindbank'),
-                    esc_html__('Advanced settings&raquo;', 'wc-moldovaagroindbank')
-                ),
                 'type'        => 'title',
+                'description' => sprintf(
+                    '%1$s<br /><br /><a href="#" id="%4$s" class="button">%2$s</a> <a href="#" id="%5$s" class="button">%3$s</a>',
+                    esc_html__('Use Basic settings to upload the key files received from the bank or configure manually using Advanced settings below.', 'wc-moldovaagroindbank'),
+                    esc_html__('Basic settings&raquo;', 'wc-moldovaagroindbank'),
+                    esc_html__('Advanced settings&raquo;', 'wc-moldovaagroindbank'),
+                    $this->get_field_key('basic_settings'),
+                    $this->get_field_key('advanced_settings')
+                ),
             ),
             'maib_pfxcert' => array(
                 'title'       => __('Client certificate (PFX)', 'wc-moldovaagroindbank'),
@@ -205,16 +200,18 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway
             ),
 
             'maib_pcert'      => array(
-                'title'       => __('Client certificate file', 'wc-moldovaagroindbank'),
-                'type'        => 'text',
-                'description' => '<code>/path/to/pcert.pem</code>',
-                'default'     => '',
+                'title'       => __('Client certificate', 'wc-moldovaagroindbank'),
+                'type'        => 'textarea',
+                'description' => '<code>file:///path/to/pcert.pem</code>',
+                'placeholder' => "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----",
+                'class'       => 'code',
             ),
             'maib_key'        => array(
-                'title'       => __('Private key file', 'wc-moldovaagroindbank'),
-                'type'        => 'text',
-                'description' => '<code>/path/to/key.pem</code>',
-                'default'     => '',
+                'title'       => __('Private key', 'wc-moldovaagroindbank'),
+                'type'        => 'textarea',
+                'description' => '<code>file:///path/to/key.pem</code>',
+                'placeholder' => "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+                'class'       => 'code',
             ),
             'maib_key_password' => array(
                 'title'       => __('Certificate / private key passphrase', 'wc-moldovaagroindbank'),
@@ -222,18 +219,17 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway
                 'description' => __('Leave empty if certificate / private key is not encrypted.', 'wc-moldovaagroindbank'),
                 'desc_tip'    => true,
                 'placeholder' => __('Optional', 'wc-moldovaagroindbank'),
-                'default'     => '',
             ),
 
             'payment_notification' => array(
                 'title'       => __('Payment Notification', 'wc-moldovaagroindbank'),
+                'type'        => 'title',
                 'description' => sprintf(
                     '%1$s<br /><br /><b>%2$s:</b> <code>%3$s</code>',
                     esc_html__('Provide this URL to the bank to enable online payment notifications.', 'wc-moldovaagroindbank'),
                     esc_html__('Callback URL', 'wc-moldovaagroindbank'),
                     esc_url($this->get_callback_url())
                 ),
-                'type'        => 'title',
             ),
         );
     }
@@ -245,8 +241,6 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway
                 return plugins_url('/assets/img/maib.png', __FILE__);
             case self::LOGO_TYPE_SYSTEMS:
                 return plugins_url('/assets/img/paymentsystems.png', __FILE__);
-            case self::LOGO_TYPE_NONE:
-                return '';
         }
 
         return '';
