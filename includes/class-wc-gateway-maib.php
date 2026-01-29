@@ -413,10 +413,10 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
                     }
                 }
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             $this->log(
                 $ex->getMessage(),
-                WC_Log_Levels::ERROR,
+                \WC_Log_Levels::ERROR,
                 array(
                     'exception' => (string) $ex,
                     'backtrace' => true,
@@ -582,7 +582,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
 
         if (!$wp_filesystem->put_contents($temp_file, $file_data, FS_CHMOD_FILE)) {
             /* translators: 1: Temporary file name */
-            $this->log(sprintf(__('Unable to save data to temporary file: %1$s', 'wc-moldovaagroindbank'), $temp_file), WC_Log_Levels::ERROR);
+            $this->log(sprintf(__('Unable to save data to temporary file: %1$s', 'wc-moldovaagroindbank'), $temp_file), \WC_Log_Levels::ERROR);
             return null;
         }
 
@@ -591,8 +591,15 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
 
     protected static function is_temp_file(string $file_name)
     {
-        $temp_dir = get_temp_dir();
-        return strncmp($file_name, $temp_dir, strlen($temp_dir)) === 0;
+        $temp_dir = realpath(get_temp_dir());
+        $file_path = realpath($file_name);
+
+        if (empty($temp_dir) || empty($file_path)) {
+            return false;
+        }
+
+        $temp_dir = trailingslashit($temp_dir);
+        return strncmp($file_path, $temp_dir, strlen($temp_dir)) === 0;
     }
 
     protected static function is_overwritable(string $file_name)
@@ -637,8 +644,8 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     }
 
     /**
-        * @param int $order_id
-        */
+    * @param int $order_id
+    */
     public function process_payment($order_id)
     {
         $order = wc_get_order($order_id);
@@ -1137,12 +1144,6 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     {
         $transaction_type = strval($order->get_meta(self::MOD_TRANSACTION_TYPE, true));
         return $transaction_type;
-    }
-
-    protected function get_order_description(\WC_Order $order)
-    {
-        $description = sprintf($this->order_template, $order->get_id());
-        return apply_filters('moldovaagroindbank_order_description', $description, $order);
     }
     //endregion
 
