@@ -952,10 +952,10 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     }
 
     /**
-        * @param  int    $order_id
-        * @param  float  $amount
-        * @param  string $reason
-        */
+    * @param  int    $order_id
+    * @param  float  $amount
+    * @param  string $reason
+    */
     public function process_refund($order_id, $amount = null, $reason = '')
     {
         if (!$this->check_settings()) {
@@ -1083,11 +1083,11 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
 
     //region Order
     /**
-        * Lookup order by Trans ID meta field value.
-        * MAIB Payment Gateway API does not currently support passing Order ID for transactions.
-        *
-        * @link https://stackoverflow.com/questions/71438717/extend-wc-get-orders-with-a-custom-meta-key-and-meta-value
-        */
+    * Lookup order by Trans ID meta field value.
+    * MAIB Payment Gateway API does not currently support passing Order ID for transactions.
+    *
+    * @link https://stackoverflow.com/questions/71438717/extend-wc-get-orders-with-a-custom-meta-key-and-meta-value
+    */
     protected function get_order_by_trans_id(string $trans_id)
     {
         $args = array(
