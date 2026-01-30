@@ -147,7 +147,6 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
                 'title'       => __('Debug mode', 'wc-moldovaagroindbank'),
                 'type'        => 'checkbox',
                 'label'       => __('Enable logging', 'wc-moldovaagroindbank'),
-                'default'     => 'no',
                 'description' => sprintf('<a href="%2$s">%1$s</a>', esc_html__('View logs', 'wc-moldovaagroindbank'), esc_url(self::get_logs_url())),
                 'desc_tip'    => __('Save debug messages to the WooCommerce System Status logs. Note: this may log personal information. Use this for debugging purposes only and delete the logs when finished.', 'wc-moldovaagroindbank'),
                 'default'     => 'no',
