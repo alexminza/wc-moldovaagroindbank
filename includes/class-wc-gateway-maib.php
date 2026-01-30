@@ -320,7 +320,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
                         $result_key = isset($result['key']) ? $result['key'] : null;
 
                         if (!empty($result_p_cert) && !empty($result_key)) {
-                            //Overwrite advanced settings values
+                            // Overwrite advanced settings values
                             $_POST['woocommerce_moldovaagroindbank_maib_pcert'] = $result_p_cert;
                             $_POST['woocommerce_moldovaagroindbank_maib_key'] = $result_key;
 
