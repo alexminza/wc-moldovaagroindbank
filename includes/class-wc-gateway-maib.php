@@ -247,9 +247,6 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
 
     public function admin_options()
     {
-        $this->validate_settings();
-        $this->display_errors();
-
         // https://developer.woocommerce.com/2025/11/19/deprecation-of-wc_enqueue_js-in-10-4/
         $script_handle = self::MOD_PREFIX . 'connection_settings';
         wp_register_script($script_handle, plugins_url('assets/js/connection_settings.js', self::MOD_PLUGIN_FILE), array('jquery'), self::MOD_VERSION, true);
@@ -284,23 +281,21 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
 
     protected function validate_settings()
     {
-        if (!parent::validate_settings()) {
-            return false;
-        }
+        $validate_result = parent::validate_settings();
 
         $result = $this->validate_certificate($this->maib_pcert);
         if (!empty($result)) {
             $this->add_error(sprintf('<strong>%1$s</strong>: %2$s', $this->get_settings_field_label('maib_pcert'), esc_html($result)));
-            return false;
+            $validate_result = false;
         }
 
         $result = $this->validate_certificate_private_key($this->maib_pcert, $this->maib_key, $this->maib_key_password);
         if (!empty($result)) {
             $this->add_error(sprintf('<strong>%1$s</strong>: %2$s', $this->get_settings_field_label('maib_key'), esc_html($result)));
-            return false;
+            $validate_result = false;
         }
 
-        return true;
+        return $validate_result;
     }
 
     protected function logs_admin_notice()
