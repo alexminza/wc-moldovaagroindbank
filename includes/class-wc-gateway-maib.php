@@ -199,17 +199,15 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
             ),
 
             'maib_pcert'      => array(
-                'title'       => __('Client certificate', 'wc-moldovaagroindbank'),
-                'type'        => 'textarea',
-                'description' => '<code>file:///path/to/pcert.pem</code>',
-                'placeholder' => "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----",
+                'title'       => __('Client certificate file', 'wc-moldovaagroindbank'),
+                'type'        => 'text',
+                'description' => '<code>/path/to/pcert.pem</code>',
                 'class'       => 'code',
             ),
             'maib_key'        => array(
-                'title'       => __('Private key', 'wc-moldovaagroindbank'),
-                'type'        => 'textarea',
-                'description' => '<code>file:///path/to/key.pem</code>',
-                'placeholder' => "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+                'title'       => __('Private key file', 'wc-moldovaagroindbank'),
+                'type'        => 'text',
+                'description' => '<code>/path/to/key.pem</code>',
                 'class'       => 'code',
             ),
             'maib_key_password' => array(
