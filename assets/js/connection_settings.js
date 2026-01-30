@@ -6,15 +6,15 @@ jQuery(function () {
     maib_connection_basic_fields.hide();
     maib_connection_advanced_fields.hide();
 
-    jQuery(maib_connection_settings.basic_settings_button_id).on("click", function () {
+    jQuery(maib_connection_settings.basic_settings_button_id).on("click", function (e) {
+        e.preventDefault();
         maib_connection_advanced_fields.hide();
         maib_connection_basic_fields.show();
-        return false;
     });
 
-    jQuery(maib_connection_settings.advanced_settings_button_id).on("click", function () {
+    jQuery(maib_connection_settings.advanced_settings_button_id).on("click", function (e) {
+        e.preventDefault();
         maib_connection_basic_fields.hide();
         maib_connection_advanced_fields.show();
-        return false;
     });
 });
