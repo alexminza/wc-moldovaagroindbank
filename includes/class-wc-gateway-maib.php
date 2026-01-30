@@ -576,12 +576,6 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
             'verify'   => true,
             'cert'     => $this->maib_pcert,
             'ssl_key'  => array($this->maib_key, $this->maib_key_password),
-            'config'   => array(
-                'curl' => array(
-                    CURLOPT_SSL_VERIFYHOST => 2,
-                    CURLOPT_SSL_VERIFYPEER => true,
-                ),
-            ),
         );
 
         if ($this->debug) {
