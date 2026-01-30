@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "alexminza/wc-payment-gateway-base",
-            "version": "v1.0.3",
+            "version": "v1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexminza/wc-payment-gateway-base.git",
-                "reference": "e8081010a2ddd6c55a05ff5e6ac1ba2f17c752a3"
+                "reference": "b8248963ea5b1e9649cc5f27c5ffadc2e8115e0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexminza/wc-payment-gateway-base/zipball/e8081010a2ddd6c55a05ff5e6ac1ba2f17c752a3",
-                "reference": "e8081010a2ddd6c55a05ff5e6ac1ba2f17c752a3",
+                "url": "https://api.github.com/repos/alexminza/wc-payment-gateway-base/zipball/b8248963ea5b1e9649cc5f27c5ffadc2e8115e0b",
+                "reference": "b8248963ea5b1e9649cc5f27c5ffadc2e8115e0b",
                 "shasum": ""
             },
             "require": {
@@ -57,7 +57,7 @@
                 "issues": "https://github.com/alexminza/wc-payment-gateway-base/issues",
                 "source": "https://github.com/alexminza/wc-payment-gateway-base"
             },
-            "time": "2026-01-29T11:17:37+00:00"
+            "time": "2026-01-30T11:41:07+00:00"
         },
         {
             "name": "automattic/jetpack-autoloader",

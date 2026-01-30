@@ -298,18 +298,6 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         return $validate_result;
     }
 
-    protected function logs_admin_notice()
-    {
-        $message = $this->get_logs_admin_message();
-        \WC_Admin_Meta_Boxes::add_error($message);
-    }
-
-    protected function settings_admin_notice()
-    {
-        $message = $this->get_settings_admin_message();
-        \WC_Admin_Meta_Boxes::add_error($message);
-    }
-
     //region Certificates
     protected function process_pfx_setting(string $pfx_field_id, string $pfx_option_value, string $pass_field_id)
     {
@@ -569,21 +557,6 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         }
 
         return $temp_file;
-    }
-
-    protected static function is_temp_file(string $file_name)
-    {
-        $temp_dir = realpath(get_temp_dir());
-        $file_dir = realpath(dirname($file_name));
-
-        if (empty($temp_dir) || empty($file_dir)) {
-            return false;
-        }
-
-        $temp_dir = trailingslashit($temp_dir);
-        $file_dir = trailingslashit($file_dir);
-
-        return strncmp($file_dir, $temp_dir, strlen($temp_dir)) === 0;
     }
 
     protected static function is_overwritable(string $file_name)
@@ -879,7 +852,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
             return false;
         }
 
-        $order = self::get_order_by_trans_id($trans_id);
+        $order = self::get_order_by_meta_field_value(self::MOD_TRANSACTION_ID, $trans_id);
         if (empty($order)) {
             /* translators: 1: Transaction ID, 2: Payment method title */
             $message = esc_html(sprintf(__('Order not found by Transaction ID: %1$s received from %2$s.', 'wc-moldovaagroindbank'), $trans_id, $this->get_method_title()));
@@ -1084,37 +1057,6 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     //endregion
 
     //region Order
-    /**
-     * Lookup order by Trans ID meta field value.
-     * MAIB Payment Gateway API does not currently support passing Order ID for transactions.
-     *
-     * @link https://stackoverflow.com/questions/71438717/extend-wc-get-orders-with-a-custom-meta-key-and-meta-value
-     */
-    protected function get_order_by_trans_id(string $trans_id)
-    {
-        $args = array(
-            'meta_key'   => self::MOD_TRANSACTION_ID, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-            'meta_value' => $trans_id,                // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
-        );
-
-        $orders = wc_get_orders($args);
-        $orders_count = count($orders);
-
-        if (1 === $orders_count) {
-            return $orders[0];
-        } elseif ($orders_count > 1) {
-            $this->log(
-                sprintf('Duplicate order meta %1$s: %2$s', self::MOD_TRANSACTION_ID, $trans_id),
-                \WC_Log_Levels::ERROR,
-                array(
-                    'orders' => $orders,
-                )
-            );
-        }
-
-        return false;
-    }
-
     protected static function get_order_transaction_id(\WC_Order $order)
     {
         //https://woocommerce.github.io/code-reference/classes/WC-Data.html#method_get_meta
