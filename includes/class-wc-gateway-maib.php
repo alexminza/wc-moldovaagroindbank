@@ -237,9 +237,9 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     {
         switch ($logo_type) {
             case self::LOGO_TYPE_BANK:
-                return plugins_url('/assets/img/maib.png', self::MOD_PLUGIN_FILE);
+                return plugins_url('assets/img/maib.png', self::MOD_PLUGIN_FILE);
             case self::LOGO_TYPE_SYSTEMS:
-                return plugins_url('/assets/img/paymentsystems.png', self::MOD_PLUGIN_FILE);
+                return plugins_url('assets/img/paymentsystems.png', self::MOD_PLUGIN_FILE);
         }
 
         return '';
@@ -424,7 +424,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
                 if (false !== $cert_info) {
                     $valid_until = $cert_info['validTo_time_t'];
 
-                    if ($valid_until < (time() - 2592000)) {
+                    if ($valid_until < (time() + 2592000)) {
                         // Certificate already expired or expires in the next 30 days
                         /* translators: 1: Date string */
                         return esc_html(sprintf(__('Certificate valid until %1$s', 'wc-moldovaagroindbank'), date_i18n(get_option('date_format'), $valid_until)));
