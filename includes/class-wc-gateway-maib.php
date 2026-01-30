@@ -422,12 +422,18 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
                 $cert_info = openssl_x509_parse($cert);
 
                 if (false !== $cert_info) {
-                    $valid_until = $cert_info['validTo_time_t'];
+                    $expiry_date = new \WC_DateTime();
+                    $expiry_date->setTimestamp($cert_info['validTo_time_t']);
+                    $threshold_date = new \WC_DateTime('+30 days');
 
-                    if ($valid_until < (time() + 2592000)) {
+                    $site_timezone = wp_timezone();
+                    $expiry_date->setTimezone($site_timezone);
+                    $threshold_date->setTimezone($site_timezone);
+
+                    if ($expiry_date < $threshold_date) {
                         // Certificate already expired or expires in the next 30 days
                         /* translators: 1: Date string */
-                        return esc_html(sprintf(__('Certificate valid until %1$s', 'wc-moldovaagroindbank'), date_i18n(get_option('date_format'), $valid_until)));
+                        return esc_html(sprintf(__('Certificate valid until %1$s', 'wc-moldovaagroindbank'), wc_format_datetime($expiry_date)));
                     }
 
                     return null;
@@ -625,8 +631,8 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     }
 
     /**
-    * @param int $order_id
-    */
+     * @param int $order_id
+     */
     public function process_payment($order_id)
     {
         $order = wc_get_order($order_id);
@@ -951,10 +957,10 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     }
 
     /**
-    * @param  int    $order_id
-    * @param  float  $amount
-    * @param  string $reason
-    */
+     * @param  int    $order_id
+     * @param  float  $amount
+     * @param  string $reason
+     */
     public function process_refund($order_id, $amount = null, $reason = '')
     {
         if (!$this->check_settings()) {
@@ -1082,11 +1088,11 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
 
     //region Order
     /**
-    * Lookup order by Trans ID meta field value.
-    * MAIB Payment Gateway API does not currently support passing Order ID for transactions.
-    *
-    * @link https://stackoverflow.com/questions/71438717/extend-wc-get-orders-with-a-custom-meta-key-and-meta-value
-    */
+     * Lookup order by Trans ID meta field value.
+     * MAIB Payment Gateway API does not currently support passing Order ID for transactions.
+     *
+     * @link https://stackoverflow.com/questions/71438717/extend-wc-get-orders-with-a-custom-meta-key-and-meta-value
+     */
     protected function get_order_by_trans_id(string $trans_id)
     {
         $args = array(
