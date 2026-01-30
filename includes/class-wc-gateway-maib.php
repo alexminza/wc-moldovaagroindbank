@@ -237,9 +237,9 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     {
         switch ($logo_type) {
             case self::LOGO_TYPE_BANK:
-                return plugins_url('/assets/img/maib.png', __FILE__);
+                return plugins_url('/assets/img/maib.png', self::MOD_PLUGIN_FILE);
             case self::LOGO_TYPE_SYSTEMS:
-                return plugins_url('/assets/img/paymentsystems.png', __FILE__);
+                return plugins_url('/assets/img/paymentsystems.png', self::MOD_PLUGIN_FILE);
         }
 
         return '';
