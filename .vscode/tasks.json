@@ -9,7 +9,7 @@
             "command": "composer",
             "args": [
                 "update",
-                "--no-dev"
+                // "--no-dev"
             ],
             "problemMatcher": [],
             "options": {
@@ -44,7 +44,8 @@
                 "./",
                 "./languages/${workspaceFolderBasename}.pot",
                 "--slug=${workspaceFolderBasename}",
-                "--ignore-domain"
+                "--ignore-domain",
+                "--include=includes,vendor/alexminza/wc-payment-gateway-base/src"
             ],
             "problemMatcher": []
         },
