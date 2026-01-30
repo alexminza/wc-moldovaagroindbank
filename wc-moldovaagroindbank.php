@@ -36,7 +36,7 @@ if (!defined('ABSPATH')) {
 
 // https://vanrossum.dev/37-wordpress-and-composer
 // https://github.com/Automattic/jetpack-autoloader
-require_once __DIR__ . '/vendor/autoload_packages.php';
+require_once plugin_dir_path(__FILE__) . 'vendor/autoload_packages.php';
 
 const MAIB_MOD_PLUGIN_FILE = __FILE__;
 
