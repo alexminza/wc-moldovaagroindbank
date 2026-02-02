@@ -732,7 +732,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         }
 
         /* translators: 1: Order ID, 2: Payment method title */
-        $message = esc_html(sprintf(__('Order #%1$s payment completion failed via %2$s.', 'wc-moldovaagroindbank'), $order_id, $this->get_method_title()));
+        $message = esc_html(sprintf(__('Order #%1$s payment completion via %2$s failed.', 'wc-moldovaagroindbank'), $order_id, $this->get_method_title()));
         $message = $this->get_test_message($message);
         $this->log(
             $message,
