@@ -91,6 +91,10 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
 
         if (is_admin()) {
             add_action("woocommerce_update_options_payment_gateways_{$this->id}", array($this, 'process_admin_options'));
+
+            add_filter('woocommerce_order_actions', array($this, 'order_actions'), 10, 2);
+            add_action('woocommerce_order_action_' . self::MOD_ACTION_COMPLETE_TRANSACTION, array($this, 'action_complete_transaction'));
+            add_action('woocommerce_order_action_' . self::MOD_ACTION_VERIFY_TRANSACTION, array($this, 'action_verify_transaction'));
         }
 
         add_action("woocommerce_api_wc_{$this->id}", array($this, 'check_response'));

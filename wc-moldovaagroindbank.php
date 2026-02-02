@@ -56,11 +56,6 @@ function maib_plugins_loaded_init()
 
     if (is_admin()) {
         add_filter('plugin_action_links_' . plugin_basename(__FILE__), array(WC_Gateway_MAIB::class, 'plugin_action_links'));
-
-        //Add WooCommerce order actions
-        add_filter('woocommerce_order_actions', array(WC_Gateway_MAIB::class, 'order_actions'), 10, 2);
-        add_action('woocommerce_order_action_' . WC_Gateway_MAIB::MOD_ACTION_COMPLETE_TRANSACTION, array(WC_Gateway_MAIB::class, 'action_complete_transaction'));
-        add_action('woocommerce_order_action_' . WC_Gateway_MAIB::MOD_ACTION_VERIFY_TRANSACTION, array(WC_Gateway_MAIB::class, 'action_verify_transaction'));
     }
 
     //Add maib close day action
