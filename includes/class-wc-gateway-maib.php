@@ -74,7 +74,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
 
         parent::__construct();
 
-        $this->icon        = self::get_logo_icon($this->get_option('logo_type', self::LOGO_TYPE_BANK));
+        $this->icon              = self::get_logo_icon($this->get_option('logo_type', self::LOGO_TYPE_BANK));
         $this->transaction_type  = $this->get_option('transaction_type', self::TRANSACTION_TYPE_CHARGE);
 
         // https://github.com/maibank/maibapi/blob/main/src/MaibApi/MaibClient.php
@@ -270,7 +270,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
 
     public function process_admin_options()
     {
-        $this->process_pfx_setting('woocommerce_moldovaagroindbank_maib_pfxcert', $this->maib_pfxcert, 'woocommerce_moldovaagroindbank_maib_key_password');
+        $this->process_pfx_setting('maib_pfxcert', $this->maib_pfxcert, 'maib_key_password');
 
         return parent::process_admin_options();
     }
@@ -304,34 +304,37 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     //region Certificates
     protected function process_pfx_setting(string $pfx_field_id, string $pfx_option_value, string $pass_field_id)
     {
+        $pfx_field_key  = $this->get_field_key($pfx_field_id);
+        $pass_field_key = $this->get_field_key($pass_field_id);
+
         try {
             // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verification is handled by WooCommerce.
-            if (array_key_exists($pfx_field_id, $_FILES)) {
+            if (array_key_exists($pfx_field_key, $_FILES)) {
                 // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing -- File validation is performed via is_uploaded_file and error check. Nonce verification is handled by WooCommerce.
-                $pfx_file = $_FILES[$pfx_field_id];
+                $pfx_file = $_FILES[$pfx_field_key];
                 $tmp_name = $pfx_file['tmp_name'];
 
                 if (UPLOAD_ERR_OK === $pfx_file['error'] && is_uploaded_file($tmp_name)) {
                     $wp_filesystem = self::get_wp_filesystem();
-                    $pfx_data = $wp_filesystem->get_contents($tmp_name);
+                    $pfx_data      = $wp_filesystem->get_contents($tmp_name);
 
                     if (false !== $pfx_data) {
                         // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verification is handled by WooCommerce.
-                        $pfx_passphrase = isset($_POST[$pass_field_id]) ? sanitize_textarea_field(wp_unslash($_POST[$pass_field_id])) : '';
+                        $pfx_passphrase = isset($_POST[$pass_field_key]) ? sanitize_textarea_field(wp_unslash($_POST[$pass_field_key])) : '';
 
                         $result = $this->process_export_certificates($pfx_data, $pfx_passphrase);
 
                         $result_p_cert = isset($result['pcert']) ? $result['pcert'] : null;
-                        $result_key = isset($result['key']) ? $result['key'] : null;
+                        $result_key    = isset($result['key']) ? $result['key'] : null;
 
                         if (!empty($result_p_cert) && !empty($result_key)) {
                             // Overwrite advanced settings values
-                            $_POST['woocommerce_moldovaagroindbank_maib_pcert'] = $result_p_cert;
-                            $_POST['woocommerce_moldovaagroindbank_maib_key'] = $result_key;
+                            $_POST[$this->get_field_key('maib_pcert')] = $result_p_cert;
+                            $_POST[$this->get_field_key('maib_key')] = $result_key;
 
                             // Certificates export success - save PFX bundle to settings
                             // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- Base64 is required for storing binary PFX data.
-                            $_POST[$pfx_field_id] = base64_encode($pfx_data);
+                            $_POST[$pfx_field_key] = base64_encode($pfx_data);
 
                             return;
                         }
@@ -352,7 +355,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         }
 
         // Preserve existing value
-        $_POST[$pfx_field_id] = $pfx_option_value;
+        $_POST[$pfx_field_key] = $pfx_option_value;
     }
 
     protected function initialize_certificates()
