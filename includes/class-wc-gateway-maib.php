@@ -361,24 +361,25 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     protected function initialize_certificates()
     {
         try {
-            if (!is_readable($this->maib_pcert) || !is_readable($this->maib_key)) {
-                if (self::is_overwritable($this->maib_pcert) && self::is_overwritable($this->maib_key)) {
-                    if (!empty($this->maib_pfxcert)) {
-                        // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode -- Base64 is required for decoding stored binary PFX data.
-                        $pfx_cert_data = base64_decode($this->maib_pfxcert);
-                        if (false !== $pfx_cert_data) {
-                            $result = $this->process_export_certificates($pfx_cert_data, $this->maib_key_password);
+            $pcert_needs_init = !is_readable($this->maib_pcert) && self::is_overwritable($this->maib_pcert);
+            $key_needs_init = !is_readable($this->maib_key) && self::is_overwritable($this->maib_key);
 
-                            $result_p_cert = isset($result['pcert']) ? $result['pcert'] : null;
-                            $result_key = isset($result['key']) ? $result['key'] : null;
+            if ($pcert_needs_init || $key_needs_init) {
+                if (!empty($this->maib_pfxcert)) {
+                    // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode -- Base64 is required for decoding stored binary PFX data.
+                    $pfx_cert_data = base64_decode($this->maib_pfxcert);
+                    if (false !== $pfx_cert_data) {
+                        $result = $this->process_export_certificates($pfx_cert_data, $this->maib_key_password);
 
-                            if (!empty($result_p_cert) && !empty($result_key)) {
-                                $this->update_option('maib_pcert', $result_p_cert);
-                                $this->update_option('maib_key', $result_key);
+                        $result_p_cert = isset($result['pcert']) ? $result['pcert'] : null;
+                        $result_key = isset($result['key']) ? $result['key'] : null;
 
-                                $this->maib_pcert = $result_p_cert;
-                                $this->maib_key   = $result_key;
-                            }
+                        if (!empty($result_p_cert) && !empty($result_key)) {
+                            $this->update_option('maib_pcert', $result_p_cert);
+                            $this->update_option('maib_key', $result_key);
+
+                            $this->maib_pcert = $result_p_cert;
+                            $this->maib_key   = $result_key;
                         }
                     }
                 }
