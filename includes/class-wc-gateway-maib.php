@@ -86,7 +86,6 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         $this->maib_key          = $this->get_option('maib_key');
         $this->maib_key_password = $this->get_option('maib_key_password');
 
-        $this->initialize_certificates();
         //endregion
 
         if (is_admin()) {
@@ -249,6 +248,8 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
 
     public function admin_options()
     {
+        $this->initialize_certificates();
+
         // https://developer.woocommerce.com/2025/11/19/deprecation-of-wc_enqueue_js-in-10-4/
         $script_handle = self::MOD_PREFIX . 'connection_settings';
         wp_register_script($script_handle, plugins_url('assets/js/connection_settings.js', self::MOD_PLUGIN_FILE), array('jquery'), self::MOD_VERSION, true);
@@ -570,6 +571,8 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     //region Payment
     protected function init_maib_client()
     {
+        $this->initialize_certificates();
+
         // http://docs.guzzlephp.org/en/stable/request-options.html
         // https://www.php.net/manual/en/function.curl-setopt.php
         // https://github.com/maibank/maibapi/blob/main/README.md#usage
