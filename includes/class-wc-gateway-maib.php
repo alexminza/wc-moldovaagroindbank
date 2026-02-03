@@ -831,7 +831,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
             wc_add_notice($message, 'notice');
 
             wp_safe_redirect(wc_get_cart_url());
-            return false;
+            exit;
         }
 
         // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Callback from the bank does not include a nonce.
@@ -845,7 +845,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
             $this->logs_admin_website_notice();
 
             wp_safe_redirect(wc_get_cart_url());
-            return false;
+            exit;
         }
 
         $order = self::get_order_by_meta_field_value(self::MOD_TRANSACTION_ID, $trans_id);
@@ -858,7 +858,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
             $this->logs_admin_website_notice();
 
             wp_safe_redirect(wc_get_cart_url());
-            return false;
+            exit;
         }
 
         $order_id = $order->get_id();
@@ -899,7 +899,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
                 wc_add_notice($message, 'success');
 
                 wp_safe_redirect($this->get_return_url($order));
-                return true;
+                exit;
             }
         }
 
@@ -919,7 +919,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         $this->logs_admin_website_notice();
 
         wp_safe_redirect($order->get_checkout_payment_url());
-        return false;
+        exit;
     }
 
     /**
