@@ -412,7 +412,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     {
         try {
             $wp_filesystem = self::get_wp_filesystem();
-            $cert_data = $wp_filesystem->get_contents($cert_file);
+            $cert_data = !empty($cert_file) ? $wp_filesystem->get_contents($cert_file) : false;
             if (false === $cert_data) {
                 $message = __('Invalid certificate file', 'wc-moldovaagroindbank');
                 return $message;
@@ -462,7 +462,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     {
         try {
             $wp_filesystem = self::get_wp_filesystem();
-            $key_data = $wp_filesystem->get_contents($key_file);
+            $key_data = !empty($key_file) ? $wp_filesystem->get_contents($key_file) : false;
             if (false === $key_data) {
                 $message = __('Invalid private key file', 'wc-moldovaagroindbank');
                 return $message;
@@ -475,7 +475,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
                 return $message;
             }
 
-            $cert_data = $wp_filesystem->get_contents($cert_file);
+            $cert_data = !empty($cert_file) ? $wp_filesystem->get_contents($cert_file) : false;
             if (false === $cert_data) {
                 $message = __('Invalid certificate file', 'wc-moldovaagroindbank');
                 return $message;
