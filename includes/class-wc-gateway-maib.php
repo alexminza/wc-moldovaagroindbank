@@ -55,6 +55,11 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     const MOD_ACTION_COMPLETE_TRANSACTION = self::MOD_PREFIX . 'complete_transaction';
     const MOD_ACTION_VERIFY_TRANSACTION   = self::MOD_PREFIX . 'verify_transaction';
     const MOD_ACTION_CLOSE_DAY            = self::MOD_PREFIX . 'close_day';
+
+    /**
+     * Default API request timeout (seconds).
+     */
+    public const DEFAULT_TIMEOUT = 30;
     //endregion
 
     protected $transaction_type;
@@ -582,6 +587,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         // https://github.com/maibank/maibapi/blob/main/README.md#usage
         $options = array(
             'base_uri' => $this->maib_base_url,
+            'timeout'  => self::DEFAULT_TIMEOUT,
             'verify'   => true,
             'cert'     => $this->maib_pcert,
             'ssl_key'  => array($this->maib_key, $this->maib_key_password),
