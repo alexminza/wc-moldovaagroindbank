@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Payment Gateway for maib for WooCommerce 1.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-"
 "moldovaagroindbank\n"
-"POT-Creation-Date: 2026-02-04 20:08+0200\n"
-"PO-Revision-Date: 2026-02-04 20:08+0200\n"
+"POT-Creation-Date: 2026-02-04 21:56+0200\n"
+"PO-Revision-Date: 2026-02-04 21:58+0200\n"
 "Last-Translator: Alexander Minza <alex@alexminza.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -225,85 +225,78 @@ msgstr ""
 msgid "Callback URL"
 msgstr "URL apel invers (Callback URL)"
 
+#: includes/class-wc-gateway-maib.php:417
+#: includes/class-wc-gateway-maib.php:480
+msgid "Invalid certificate file"
+msgstr "Fișier certificat nevalid"
+
 #. translators: 1: Date string
-#: includes/class-wc-gateway-maib.php:438
+#: includes/class-wc-gateway-maib.php:436
 #, php-format
 msgid "Certificate valid until %1$s"
 msgstr "Certificatul este valabil până la %1$s"
 
-#: includes/class-wc-gateway-maib.php:445
+#: includes/class-wc-gateway-maib.php:443
 msgid "Invalid certificate"
 msgstr "Certificat nevalid"
 
-#: includes/class-wc-gateway-maib.php:459
+#: includes/class-wc-gateway-maib.php:457
 msgid "Could not validate certificate"
 msgstr "Nu s-a putut valida certificatul"
 
-#: includes/class-wc-gateway-maib.php:476
+#: includes/class-wc-gateway-maib.php:467
+msgid "Invalid private key file"
+msgstr "Fișier cheie privată nevalid"
+
+#: includes/class-wc-gateway-maib.php:473
 msgid "Invalid private key or wrong private key passphrase"
 msgstr "Cheie privată nevalidă sau parolă cheie privată incorectă"
 
-#: includes/class-wc-gateway-maib.php:488
-msgid "Private key does not correspond to client certificate"
-msgstr "Cheia privată nu corespunde certificatului client"
+#: includes/class-wc-gateway-maib.php:491
+msgid "Private key does not correspond to certificate"
+msgstr "Cheia privată nu corespunde certificatului"
 
-#: includes/class-wc-gateway-maib.php:504
+#: includes/class-wc-gateway-maib.php:506
 msgid "Could not validate private key"
 msgstr "Nu s-a putut valida cheia privată"
 
-#: includes/class-wc-gateway-maib.php:512
-msgid "Invalid value"
-msgstr "Valoare nevalidă"
-
-#: includes/class-wc-gateway-maib.php:516
-msgid "File not found"
-msgstr "Fișierul nu a fost găsit"
-
-#: includes/class-wc-gateway-maib.php:520
-msgid "File not readable"
-msgstr "Fișierul nu poate fi citit"
-
-#: includes/class-wc-gateway-maib.php:533
-msgid "Could not validate file"
-msgstr "Nu s-a putut valida fișierul"
-
-#: includes/class-wc-gateway-maib.php:555
+#: includes/class-wc-gateway-maib.php:528
 msgid "Invalid certificate or wrong passphrase"
 msgstr "Certificat nevalid sau parolă incorectă"
 
 #. translators: 1: Temporary file name
-#: includes/class-wc-gateway-maib.php:574
+#: includes/class-wc-gateway-maib.php:547
 #, php-format
 msgid "Unable to save data to temporary file: %1$s"
 msgstr "Nu s-au putut salva datele in fișier temporar: %1$s"
 
 #. translators: 1: Order ID, 2: Payment method title, 3: API response details
-#: includes/class-wc-gateway-maib.php:661
+#: includes/class-wc-gateway-maib.php:634
 #, php-format
 msgid "Order #%1$s payment initiated via %2$s: %3$s"
 msgstr "Plata comenzii #%1$s a fost inițiată prin %2$s: %3$s"
 
 #. translators: 1: Order ID, 2: Payment method title
-#: includes/class-wc-gateway-maib.php:682
+#: includes/class-wc-gateway-maib.php:655
 #, php-format
 msgid "Order #%1$s payment initiation failed via %2$s."
 msgstr "Inițierea plății comenzii #%1$s prin %2$s a eșuat."
 
 #. translators: 1: Order ID, 2: Payment method title, 3: Payment data
-#: includes/class-wc-gateway-maib.php:742
-#: includes/class-wc-gateway-maib.php:904
+#: includes/class-wc-gateway-maib.php:715
+#: includes/class-wc-gateway-maib.php:877
 #, php-format
 msgid "Order #%1$s payment completed via %2$s: %3$s"
 msgstr "Plata comenzii #%1$s a fost finalizată prin %2$s: %3$s"
 
 #. translators: 1: Order ID, 2: Payment method title
-#: includes/class-wc-gateway-maib.php:759
+#: includes/class-wc-gateway-maib.php:732
 #, php-format
 msgid "Order #%1$s payment completion via %2$s failed."
 msgstr "Finalizarea plății comenzii #%1$s prin %2$s a eșuat."
 
 #. translators: 1: Payment method title, 2: Order ID
-#: includes/class-wc-gateway-maib.php:785
+#: includes/class-wc-gateway-maib.php:758
 #, php-format
 msgid "%1$s Transaction ID not found for order #%2$s."
 msgstr ""
@@ -311,113 +304,113 @@ msgstr ""
 "comanda #%2$s."
 
 #. translators: 1: Payment method title, 2: Order ID, 3: Payment gateway response
-#: includes/class-wc-gateway-maib.php:798
+#: includes/class-wc-gateway-maib.php:771
 #, php-format
 msgid "Transaction status from %1$s for order #%2$s: %3$s"
 msgstr "Status tranzacție prin %1$s pentru comanda #%2$s: %3$s"
 
 #. translators: 1: Payment method title, 2: Order ID
-#: includes/class-wc-gateway-maib.php:813
+#: includes/class-wc-gateway-maib.php:786
 #, php-format
 msgid "Could not retrieve transaction status from %1$s for order #%2$s."
 msgstr ""
 "Verificarea statusului tranzacției prin %1$s pentru comanda #%2$s a eșuat."
 
-#: includes/class-wc-gateway-maib.php:849
+#: includes/class-wc-gateway-maib.php:822
 msgid "This Callback URL works and should not be called directly."
 msgstr ""
 "Această adresă de apel invers (Callback URL) funcționează și nu trebuie "
 "apelată direct."
 
 #. translators: 1: Payment method title
-#: includes/class-wc-gateway-maib.php:861
+#: includes/class-wc-gateway-maib.php:834
 #, php-format
 msgid "Payment verification failed: Transaction ID not received from %1$s."
 msgstr ""
 "Verificarea plății a eșuat: Transaction ID nu a fost primit de la %1$s."
 
 #. translators: 1: Transaction ID, 2: Payment method title
-#: includes/class-wc-gateway-maib.php:874
+#: includes/class-wc-gateway-maib.php:847
 #, php-format
 msgid "Order not found by Transaction ID: %1$s received from %2$s."
 msgstr "Comanda nu a fost gasită după Transaction ID: %1$s primit de la %2$s."
 
 #. translators: 1: Order ID, 2: Payment method title, 3: Payment data
-#: includes/class-wc-gateway-maib.php:906
+#: includes/class-wc-gateway-maib.php:879
 #, php-format
 msgid "Order #%1$s payment authorized via %2$s: %3$s"
 msgstr "Plata comenzii #%1$s a fost autorizată prin %2$s: %3$s"
 
 #. translators: 1: Order ID, 2: Payment method title
-#: includes/class-wc-gateway-maib.php:927
+#: includes/class-wc-gateway-maib.php:900
 #, php-format
 msgid "Order #%1$s payment failed via %2$s."
 msgstr "Plata comenzii #%1$s prin %2$s a eșuat."
 
 #. translators: 1: Order ID, 2: Meta field key
-#: includes/class-wc-gateway-maib.php:965
+#: includes/class-wc-gateway-maib.php:938
 #, php-format
 msgid "Order #%1$s missing meta field %2$s."
 msgstr "Comanda #%1$s lipsește câmpul meta %2$s."
 
 #. translators: 1: Order ID, 2: Refund amount, 3: Payment method title
-#: includes/class-wc-gateway-maib.php:991
+#: includes/class-wc-gateway-maib.php:964
 #, php-format
 msgid "Order #%1$s refund of %2$s via %3$s approved."
 msgstr ""
 "Rambursarea comenzii #%1$s în valoare de %2$s prin %3$s a fost aprobată."
 
 #. translators: 1: Order ID, 2: Refund amount, 3: Payment method title
-#: includes/class-wc-gateway-maib.php:1007
+#: includes/class-wc-gateway-maib.php:980
 #, php-format
 msgid "Order #%1$s refund of %2$s via %3$s failed."
 msgstr "Rambursarea comenzii #%1$s în valoare de %2$s prin %3$s a eșuat."
 
 #. translators: 1: Payment method title, 2: Payment gateway response
-#: includes/class-wc-gateway-maib.php:1056
+#: includes/class-wc-gateway-maib.php:1029
 #, php-format
 msgid "Close business day via %1$s succeeded: %2$s"
 msgstr "Închiderea zilei economice prin %1$s a fost efectuată cu succes: %2$s"
 
 #. translators: 1: Payment method title
-#: includes/class-wc-gateway-maib.php:1064
+#: includes/class-wc-gateway-maib.php:1037
 #, php-format
 msgid "%1$s is not properly configured."
 msgstr "%1$s nu este configurat corect."
 
 #. translators: 1: Payment method title, 2: Payment gateway response
-#: includes/class-wc-gateway-maib.php:1068
+#: includes/class-wc-gateway-maib.php:1041
 #, php-format
 msgid "Close business day via %1$s failed: %2$s"
 msgstr "Închiderea zilei economice prin %1$s a eșuat: %2$s"
 
 #. translators: 1: Payment method title
-#: includes/class-wc-gateway-maib.php:1125
+#: includes/class-wc-gateway-maib.php:1098
 #, php-format
 msgid "Complete %1$s transaction"
 msgstr "Finalizează tranzacția prin %1$s"
 
 #. translators: 1: Payment method title
-#: includes/class-wc-gateway-maib.php:1129
+#: includes/class-wc-gateway-maib.php:1102
 #, php-format
 msgid "Verify %1$s transaction"
 msgstr "Verifică tranzacția prin %1$s"
 
 #. translators: 1: Scheduled action name
-#: includes/class-wc-gateway-maib.php:1165
+#: includes/class-wc-gateway-maib.php:1138
 #, php-format
 msgid "Scheduled action %1$s is already registered."
 msgstr "Acțiunea programată %1$s este deja înregistrată."
 
 #. translators: 1: Scheduled action name, 2: Timezone name, 3: Scheduled action ID
-#: includes/class-wc-gateway-maib.php:1179
+#: includes/class-wc-gateway-maib.php:1152
 #, php-format
 msgid "Registered scheduled action %1$s in timezone %2$s with ID %3$s."
 msgstr ""
 "Acțiunea programată %1$s a fost înregistrată în fusul orar %2$s cu ID %3$s."
 
 #. translators: 1: Scheduled action name
-#: includes/class-wc-gateway-maib.php:1188
+#: includes/class-wc-gateway-maib.php:1161
 #, php-format
 msgid "Unregistered scheduled action %1$s."
 msgstr "Acțiunea programată %1$s a fost anulată."

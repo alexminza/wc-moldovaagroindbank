@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Payment Gateway for maib for WooCommerce 1.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-moldovaagroindbank\n"
-"POT-Creation-Date: 2026-02-04 20:08+0200\n"
+"POT-Creation-Date: 2026-02-04 21:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -186,191 +186,184 @@ msgstr ""
 msgid "Callback URL"
 msgstr ""
 
+#: includes/class-wc-gateway-maib.php:417
+#: includes/class-wc-gateway-maib.php:480
+msgid "Invalid certificate file"
+msgstr ""
+
 #. translators: 1: Date string
-#: includes/class-wc-gateway-maib.php:438
+#: includes/class-wc-gateway-maib.php:436
 #, php-format
 msgid "Certificate valid until %1$s"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:445
+#: includes/class-wc-gateway-maib.php:443
 msgid "Invalid certificate"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:459
+#: includes/class-wc-gateway-maib.php:457
 msgid "Could not validate certificate"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:476
+#: includes/class-wc-gateway-maib.php:467
+msgid "Invalid private key file"
+msgstr ""
+
+#: includes/class-wc-gateway-maib.php:473
 msgid "Invalid private key or wrong private key passphrase"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:488
-msgid "Private key does not correspond to client certificate"
+#: includes/class-wc-gateway-maib.php:491
+msgid "Private key does not correspond to certificate"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:504
+#: includes/class-wc-gateway-maib.php:506
 msgid "Could not validate private key"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:512
-msgid "Invalid value"
-msgstr ""
-
-#: includes/class-wc-gateway-maib.php:516
-msgid "File not found"
-msgstr ""
-
-#: includes/class-wc-gateway-maib.php:520
-msgid "File not readable"
-msgstr ""
-
-#: includes/class-wc-gateway-maib.php:533
-msgid "Could not validate file"
-msgstr ""
-
-#: includes/class-wc-gateway-maib.php:555
+#: includes/class-wc-gateway-maib.php:528
 msgid "Invalid certificate or wrong passphrase"
 msgstr ""
 
 #. translators: 1: Temporary file name
-#: includes/class-wc-gateway-maib.php:574
+#: includes/class-wc-gateway-maib.php:547
 #, php-format
 msgid "Unable to save data to temporary file: %1$s"
 msgstr ""
 
 #. translators: 1: Order ID, 2: Payment method title, 3: API response details
-#: includes/class-wc-gateway-maib.php:661
+#: includes/class-wc-gateway-maib.php:634
 #, php-format
 msgid "Order #%1$s payment initiated via %2$s: %3$s"
 msgstr ""
 
 #. translators: 1: Order ID, 2: Payment method title
-#: includes/class-wc-gateway-maib.php:682
+#: includes/class-wc-gateway-maib.php:655
 #, php-format
 msgid "Order #%1$s payment initiation failed via %2$s."
 msgstr ""
 
 #. translators: 1: Order ID, 2: Payment method title, 3: Payment data
-#: includes/class-wc-gateway-maib.php:742
-#: includes/class-wc-gateway-maib.php:904
+#: includes/class-wc-gateway-maib.php:715
+#: includes/class-wc-gateway-maib.php:877
 #, php-format
 msgid "Order #%1$s payment completed via %2$s: %3$s"
 msgstr ""
 
 #. translators: 1: Order ID, 2: Payment method title
-#: includes/class-wc-gateway-maib.php:759
+#: includes/class-wc-gateway-maib.php:732
 #, php-format
 msgid "Order #%1$s payment completion via %2$s failed."
 msgstr ""
 
 #. translators: 1: Payment method title, 2: Order ID
-#: includes/class-wc-gateway-maib.php:785
+#: includes/class-wc-gateway-maib.php:758
 #, php-format
 msgid "%1$s Transaction ID not found for order #%2$s."
 msgstr ""
 
 #. translators: 1: Payment method title, 2: Order ID, 3: Payment gateway response
-#: includes/class-wc-gateway-maib.php:798
+#: includes/class-wc-gateway-maib.php:771
 #, php-format
 msgid "Transaction status from %1$s for order #%2$s: %3$s"
 msgstr ""
 
 #. translators: 1: Payment method title, 2: Order ID
-#: includes/class-wc-gateway-maib.php:813
+#: includes/class-wc-gateway-maib.php:786
 #, php-format
 msgid "Could not retrieve transaction status from %1$s for order #%2$s."
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:849
+#: includes/class-wc-gateway-maib.php:822
 msgid "This Callback URL works and should not be called directly."
 msgstr ""
 
 #. translators: 1: Payment method title
-#: includes/class-wc-gateway-maib.php:861
+#: includes/class-wc-gateway-maib.php:834
 #, php-format
 msgid "Payment verification failed: Transaction ID not received from %1$s."
 msgstr ""
 
 #. translators: 1: Transaction ID, 2: Payment method title
-#: includes/class-wc-gateway-maib.php:874
+#: includes/class-wc-gateway-maib.php:847
 #, php-format
 msgid "Order not found by Transaction ID: %1$s received from %2$s."
 msgstr ""
 
 #. translators: 1: Order ID, 2: Payment method title, 3: Payment data
-#: includes/class-wc-gateway-maib.php:906
+#: includes/class-wc-gateway-maib.php:879
 #, php-format
 msgid "Order #%1$s payment authorized via %2$s: %3$s"
 msgstr ""
 
 #. translators: 1: Order ID, 2: Payment method title
-#: includes/class-wc-gateway-maib.php:927
+#: includes/class-wc-gateway-maib.php:900
 #, php-format
 msgid "Order #%1$s payment failed via %2$s."
 msgstr ""
 
 #. translators: 1: Order ID, 2: Meta field key
-#: includes/class-wc-gateway-maib.php:965
+#: includes/class-wc-gateway-maib.php:938
 #, php-format
 msgid "Order #%1$s missing meta field %2$s."
 msgstr ""
 
 #. translators: 1: Order ID, 2: Refund amount, 3: Payment method title
-#: includes/class-wc-gateway-maib.php:991
+#: includes/class-wc-gateway-maib.php:964
 #, php-format
 msgid "Order #%1$s refund of %2$s via %3$s approved."
 msgstr ""
 
 #. translators: 1: Order ID, 2: Refund amount, 3: Payment method title
-#: includes/class-wc-gateway-maib.php:1007
+#: includes/class-wc-gateway-maib.php:980
 #, php-format
 msgid "Order #%1$s refund of %2$s via %3$s failed."
 msgstr ""
 
 #. translators: 1: Payment method title, 2: Payment gateway response
-#: includes/class-wc-gateway-maib.php:1056
+#: includes/class-wc-gateway-maib.php:1029
 #, php-format
 msgid "Close business day via %1$s succeeded: %2$s"
 msgstr ""
 
 #. translators: 1: Payment method title
-#: includes/class-wc-gateway-maib.php:1064
+#: includes/class-wc-gateway-maib.php:1037
 #, php-format
 msgid "%1$s is not properly configured."
 msgstr ""
 
 #. translators: 1: Payment method title, 2: Payment gateway response
-#: includes/class-wc-gateway-maib.php:1068
+#: includes/class-wc-gateway-maib.php:1041
 #, php-format
 msgid "Close business day via %1$s failed: %2$s"
 msgstr ""
 
 #. translators: 1: Payment method title
-#: includes/class-wc-gateway-maib.php:1125
+#: includes/class-wc-gateway-maib.php:1098
 #, php-format
 msgid "Complete %1$s transaction"
 msgstr ""
 
 #. translators: 1: Payment method title
-#: includes/class-wc-gateway-maib.php:1129
+#: includes/class-wc-gateway-maib.php:1102
 #, php-format
 msgid "Verify %1$s transaction"
 msgstr ""
 
 #. translators: 1: Scheduled action name
-#: includes/class-wc-gateway-maib.php:1165
+#: includes/class-wc-gateway-maib.php:1138
 #, php-format
 msgid "Scheduled action %1$s is already registered."
 msgstr ""
 
 #. translators: 1: Scheduled action name, 2: Timezone name, 3: Scheduled action ID
-#: includes/class-wc-gateway-maib.php:1179
+#: includes/class-wc-gateway-maib.php:1152
 #, php-format
 msgid "Registered scheduled action %1$s in timezone %2$s with ID %3$s."
 msgstr ""
 
 #. translators: 1: Scheduled action name
-#: includes/class-wc-gateway-maib.php:1188
+#: includes/class-wc-gateway-maib.php:1161
 #, php-format
 msgid "Unregistered scheduled action %1$s."
 msgstr ""
