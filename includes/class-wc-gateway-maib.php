@@ -647,7 +647,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         }
 
         if (!empty($register_result)) {
-            $trans_id = strval($register_result[self::MAIB_TRANSACTION_ID]);
+            $trans_id = isset($register_result[self::MAIB_TRANSACTION_ID]) ? strval($register_result[self::MAIB_TRANSACTION_ID]) : null;
             if (!empty($trans_id)) {
                 //region Update order payment transaction metadata
                 //https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#apis-for-gettingsetting-posts-and-postmeta
