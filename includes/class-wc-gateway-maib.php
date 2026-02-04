@@ -328,7 +328,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
 
                 if (UPLOAD_ERR_OK === $pfx_file['error'] && is_uploaded_file($tmp_name)) {
                     $wp_filesystem = self::get_wp_filesystem();
-                    $pfx_data      = $wp_filesystem->get_contents($tmp_name);
+                    $pfx_data = $wp_filesystem->get_contents($tmp_name);
 
                     if (false !== $pfx_data) {
                         // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verification is handled by WooCommerce.
@@ -411,18 +411,16 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     protected function validate_certificate(string $cert_file)
     {
         try {
-            $validate_result = $this->validate_file($cert_file);
-            if (!empty($validate_result)) {
-                return $validate_result;
-            }
-
             $wp_filesystem = self::get_wp_filesystem();
             $cert_data = $wp_filesystem->get_contents($cert_file);
-            $cert = openssl_x509_read($cert_data);
+            if (false === $cert_data) {
+                $message = __('Invalid certificate file', 'wc-moldovaagroindbank');
+                return $message;
+            }
 
+            $cert = openssl_x509_read($cert_data);
             if (false !== $cert) {
                 $cert_info = openssl_x509_parse($cert);
-
                 if (false !== $cert_info) {
                     $expiry_date = new \WC_DateTime();
                     $expiry_date->setTimestamp($cert_info['validTo_time_t']);
@@ -463,15 +461,14 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     protected function validate_certificate_private_key(string $cert_file, string $key_file, string $key_passphrase)
     {
         try {
-            $validate_result = $this->validate_file($key_file);
-            if (!empty($validate_result)) {
-                return $validate_result;
-            }
-
             $wp_filesystem = self::get_wp_filesystem();
             $key_data = $wp_filesystem->get_contents($key_file);
-            $private_key = openssl_pkey_get_private($key_data, $key_passphrase);
+            if (false === $key_data) {
+                $message = __('Invalid private key file', 'wc-moldovaagroindbank');
+                return $message;
+            }
 
+            $private_key = openssl_pkey_get_private($key_data, $key_passphrase);
             if (false === $private_key) {
                 $message = __('Invalid private key or wrong private key passphrase', 'wc-moldovaagroindbank');
                 $this->log_openssl_errors($message);
@@ -479,14 +476,19 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
             }
 
             $cert_data = $wp_filesystem->get_contents($cert_file);
+            if (false === $cert_data) {
+                $message = __('Invalid certificate file', 'wc-moldovaagroindbank');
+                return $message;
+            }
+
             $key_check_data = array(
                 0 => $key_data,
                 1 => $key_passphrase,
             );
 
             $validate_result = openssl_x509_check_private_key($cert_data, $key_check_data);
-            $message = __('Private key does not correspond to client certificate', 'wc-moldovaagroindbank');
             if (false === $validate_result) {
+                $message = __('Private key does not correspond to certificate', 'wc-moldovaagroindbank');
                 $this->log_openssl_errors($message);
                 return $message;
             }
@@ -502,35 +504,6 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
             );
 
             return esc_html__('Could not validate private key', 'wc-moldovaagroindbank');
-        }
-    }
-
-    protected function validate_file(string $file)
-    {
-        try {
-            if (empty($file)) {
-                return __('Invalid value', 'wc-moldovaagroindbank');
-            }
-
-            if (!file_exists($file)) {
-                return __('File not found', 'wc-moldovaagroindbank');
-            }
-
-            if (!is_readable($file)) {
-                return __('File not readable', 'wc-moldovaagroindbank');
-            }
-        } catch (\Exception $ex) {
-            $this->log(
-                $ex->getMessage(),
-                \WC_Log_Levels::ERROR,
-                array(
-                    'file' => $file,
-                    'exception' => (string) $ex,
-                    'backtrace' => true,
-                )
-            );
-
-            return __('Could not validate file', 'wc-moldovaagroindbank');
         }
     }
 
