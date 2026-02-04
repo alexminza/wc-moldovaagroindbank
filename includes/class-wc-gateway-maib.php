@@ -867,7 +867,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
 
                 $order->save();
 
-                $rrn = $transaction_result[self::MAIB_RESULT_RRN];
+                $rrn = strval($transaction_result[self::MAIB_RESULT_RRN]);
                 $order->payment_complete($rrn);
                 //endregion
 
