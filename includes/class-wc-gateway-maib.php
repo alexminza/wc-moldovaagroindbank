@@ -161,13 +161,13 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
             ),
 
             'transaction_type' => array(
-                'title'        => __('Transaction type', 'wc-moldovaagroindbank'),
-                'type'         => 'select',
-                'description'  => __('Select how transactions should be processed. Charge submits all transactions for settlement, Authorization simply authorizes the order total for capture later.', 'wc-moldovaagroindbank'),
-                'desc_tip'     => true,
-                'default'      => self::TRANSACTION_TYPE_CHARGE,
-                'class'        => 'wc-enhanced-select',
-                'options'      => array(
+                'title'       => __('Transaction type', 'wc-moldovaagroindbank'),
+                'type'        => 'select',
+                'description' => __('Select how transactions should be processed. Charge submits all transactions for settlement, Authorization simply authorizes the order total for capture later.', 'wc-moldovaagroindbank'),
+                'desc_tip'    => true,
+                'default'     => self::TRANSACTION_TYPE_CHARGE,
+                'class'       => 'wc-enhanced-select',
+                'options'     => array(
                     self::TRANSACTION_TYPE_CHARGE        => __('Charge', 'wc-moldovaagroindbank'),
                     self::TRANSACTION_TYPE_AUTHORIZATION => __('Authorization', 'wc-moldovaagroindbank'),
                 ),
@@ -280,6 +280,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         return parent::process_admin_options();
     }
 
+    //region Settings validation
     protected function check_settings()
     {
         return parent::check_settings()
@@ -305,6 +306,12 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
 
         return $validate_result;
     }
+
+    public function validate_order_template_field($key, $value)
+    {
+        return $this->validate_required_field($key, $value);
+    }
+    //endregion
 
     //region Certificates
     protected function process_pfx_setting(string $pfx_field_id, string $pfx_option_value, string $pass_field_id)
