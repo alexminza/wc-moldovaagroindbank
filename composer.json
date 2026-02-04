@@ -38,8 +38,8 @@
             "php": "7.2.5"
         },
         "allow-plugins": {
-            "automattic/jetpack-autoloader": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "automattic/jetpack-autoloader": true
         },
         "autoloader-suffix": "WC_Gateway_MAIB",
         "optimize-autoloader": true
