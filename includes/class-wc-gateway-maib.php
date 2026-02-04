@@ -90,7 +90,6 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         $this->maib_pcert        = $this->get_option('maib_pcert');
         $this->maib_key          = $this->get_option('maib_key');
         $this->maib_key_password = $this->get_option('maib_key_password');
-
         //endregion
 
         if (is_admin()) {
