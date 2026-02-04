@@ -64,7 +64,7 @@ function maib_plugins_loaded_init()
 }
 
 //region Register activation hooks
-function woocommerce_moldovaagroindbank_activation_deactivation(bool $activate = true)
+function plugin_activation_deactivation(bool $activate)
 {
     if (!class_exists(WC_Gateway_MAIB::class)) {
         maib_plugins_loaded_init();
@@ -77,18 +77,18 @@ function woocommerce_moldovaagroindbank_activation_deactivation(bool $activate =
     }
 }
 
-function woocommerce_moldovaagroindbank_activation()
+function plugin_activation()
 {
-    woocommerce_moldovaagroindbank_activation_deactivation(true);
+    plugin_activation_deactivation(true);
 }
 
-function woocommerce_moldovaagroindbank_deactivation()
+function plugin_deactivation()
 {
-    woocommerce_moldovaagroindbank_activation_deactivation(false);
+    plugin_activation_deactivation(false);
 }
 
-register_activation_hook(__FILE__, 'woocommerce_moldovaagroindbank_activation');
-register_deactivation_hook(__FILE__, 'woocommerce_moldovaagroindbank_deactivation');
+register_activation_hook(__FILE__, __NAMESPACE__ . '\plugin_activation');
+register_deactivation_hook(__FILE__, __NAMESPACE__ . '\plugin_deactivation');
 //endregion
 
 //region Declare WooCommerce compatibility

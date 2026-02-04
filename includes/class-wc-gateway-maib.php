@@ -1072,7 +1072,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     }
     //endregion
 
-    //region Order
+    //region Utility
     protected static function get_order_transaction_id(\WC_Order $order)
     {
         //https://woocommerce.github.io/code-reference/classes/WC-Data.html#method_get_meta
@@ -1085,9 +1085,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         $transaction_type = strval($order->get_meta(self::MOD_TRANSACTION_TYPE, true));
         return $transaction_type;
     }
-    //endregion
 
-    //region Utility
     //https://en.wikipedia.org/wiki/ISO_4217
     private static $currency_numcodes = array(
         'EUR' => 978,
