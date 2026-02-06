@@ -15,9 +15,9 @@
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Requires PHP: 7.2.5
  * Requires at least: 4.8
- * Tested up to: 6.9
+ * Tested up to: 6.9.1
  * WC requires at least: 3.3
- * WC tested up to: 10.4.3
+ * WC tested up to: 10.5.0
  * Requires Plugins: woocommerce
  *
  * @package wc-moldovaagroindbank
@@ -103,6 +103,11 @@ add_action(
             // WooCommerce Cart Checkout Blocks compatibility
             // https://github.com/woocommerce/woocommerce/pull/36426
             \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('cart_checkout_blocks', __FILE__, true);
+
+            // WooCommerce Product Object Caching compatibility
+            // https://developer.woocommerce.com/2026/01/19/experimental-product-object-caching-in-woocommerce-10-5/
+            // https://github.com/woocommerce/woocommerce/pull/62041
+            \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('product_instance_caching', __FILE__, true);
         }
     }
 );
