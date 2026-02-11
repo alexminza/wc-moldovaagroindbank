@@ -8,6 +8,6 @@ composer.phar
 /test/
 .env
 
-**/.DS_Store
+.DS_Store
 *.log
 *.zip
