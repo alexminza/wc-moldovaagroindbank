@@ -15,9 +15,9 @@
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Requires PHP: 7.2.5
  * Requires at least: 4.8
- * Tested up to: 6.9.1
+ * Tested up to: 6.9
  * WC requires at least: 3.3
- * WC tested up to: 10.5.0
+ * WC tested up to: 10.5.1
  * Requires Plugins: woocommerce
  *
  * @package wc-moldovaagroindbank
