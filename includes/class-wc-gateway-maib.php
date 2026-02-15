@@ -38,14 +38,14 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     const MAIB_TRANSACTION_ID  = 'TRANSACTION_ID';
 
     const MAIB_RESULT               = 'RESULT';
-    const MAIB_RESULT_OK            = 'OK'; //successfully completed transaction
-    const MAIB_RESULT_FAILED        = 'FAILED'; //transaction has failed
-    const MAIB_RESULT_CREATED       = 'CREATED'; //transaction just registered in the system
-    const MAIB_RESULT_PENDING       = 'PENDING'; //transaction is not accomplished yet
-    const MAIB_RESULT_DECLINED      = 'DECLINED'; //transaction declined by ECOMM, because ECI is in blocked ECI list (ECOMM server side configuration)
-    const MAIB_RESULT_REVERSED      = 'REVERSED'; //transaction is reversed
-    const MAIB_RESULT_AUTOREVERSED  = 'AUTOREVERSED'; //transaction is reversed by autoreversal
-    const MAIB_RESULT_TIMEOUT       = 'TIMEOUT'; //transaction was timed out
+    const MAIB_RESULT_OK            = 'OK';           // successfully completed transaction
+    const MAIB_RESULT_FAILED        = 'FAILED';       // transaction has failed
+    const MAIB_RESULT_CREATED       = 'CREATED';      // transaction just registered in the system
+    const MAIB_RESULT_PENDING       = 'PENDING';      // transaction is not accomplished yet
+    const MAIB_RESULT_DECLINED      = 'DECLINED';     // transaction declined by ECOMM, because ECI is in blocked ECI list (ECOMM server side configuration)
+    const MAIB_RESULT_REVERSED      = 'REVERSED';     // transaction is reversed
+    const MAIB_RESULT_AUTOREVERSED  = 'AUTOREVERSED'; // transaction is reversed by autoreversal
+    const MAIB_RESULT_TIMEOUT       = 'TIMEOUT';      // transaction was timed out
 
     const MAIB_RESULT_CODE          = 'RESULT_CODE';
     const MAIB_RESULT_3DSECURE      = '3DSECURE';
@@ -623,8 +623,8 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
             $trans_id = isset($register_result[self::MAIB_TRANSACTION_ID]) ? strval($register_result[self::MAIB_TRANSACTION_ID]) : null;
             if (!empty($trans_id)) {
                 //region Update order payment transaction metadata
-                //https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#apis-for-gettingsetting-posts-and-postmeta
-                //https://developer.woocommerce.com/docs/hpos-extension-recipe-book/#2-supporting-high-performance-order-storage-in-your-extension
+                // https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#apis-for-gettingsetting-posts-and-postmeta
+                // https://developer.woocommerce.com/docs/hpos-extension-recipe-book/#2-supporting-high-performance-order-storage-in-your-extension
                 $order->update_meta_data(self::MOD_TRANSACTION_TYPE, $this->transaction_type);
                 $order->update_meta_data(self::MOD_TRANSACTION_ID, $trans_id);
                 $order->save();
@@ -1058,7 +1058,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     //region Utility
     protected static function get_order_transaction_id(\WC_Order $order)
     {
-        //https://woocommerce.github.io/code-reference/classes/WC-Data.html#method_get_meta
+        // https://woocommerce.github.io/code-reference/classes/WC-Data.html#method_get_meta
         $trans_id = strval($order->get_meta(self::MOD_TRANSACTION_ID, true));
         return $trans_id;
     }
@@ -1069,7 +1069,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         return $transaction_type;
     }
 
-    //https://en.wikipedia.org/wiki/ISO_4217
+    // https://en.wikipedia.org/wiki/ISO_4217
     private static $currency_numcodes = array(
         'EUR' => 978,
         'USD' => 840,
@@ -1135,7 +1135,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         $plugin = self::get_payment_gateway_instance();
         $result = $plugin->close_day();
 
-        //https://github.com/woocommerce/action-scheduler/issues/215
+        // https://github.com/woocommerce/action-scheduler/issues/215
         $action_id = self::find_scheduled_action(\ActionScheduler_Store::STATUS_RUNNING);
         $logger = \ActionScheduler::logger();
         $logger->log($action_id, $result);

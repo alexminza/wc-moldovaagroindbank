@@ -58,7 +58,7 @@ function maib_plugins_loaded_init()
         add_filter('plugin_action_links_' . plugin_basename(__FILE__), array(WC_Gateway_MAIB::class, 'plugin_action_links'));
     }
 
-    //Add maib close day action
+    // Add maib close day action
     add_action(WC_Gateway_MAIB::MOD_ACTION_CLOSE_DAY, array(WC_Gateway_MAIB::class, 'action_close_day'));
     //endregion
 }
