@@ -643,7 +643,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
 
                 $order->add_order_note($message);
 
-                $redirect_url = add_query_arg(self::MAIB_TRANS_ID, urlencode($trans_id), $this->maib_redirect_url);
+                $redirect_url = add_query_arg(self::MAIB_TRANS_ID, rawurlencode($trans_id), $this->maib_redirect_url);
                 return array(
                     'result'   => 'success',
                     'redirect' => $redirect_url,
