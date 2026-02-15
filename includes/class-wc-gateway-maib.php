@@ -820,7 +820,6 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         $request_method = isset($_SERVER['REQUEST_METHOD']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_METHOD'])) : '';
         if ('GET' === $request_method) {
             $message = __('This Callback URL works and should not be called directly.', 'wc-moldovaagroindbank');
-
             wc_add_notice($message, 'notice');
 
             wp_safe_redirect(wc_get_cart_url());
@@ -832,6 +831,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         if (empty($trans_id)) {
             /* translators: 1: Payment method title */
             $message = esc_html(sprintf(__('Payment verification failed: Transaction ID not received from %1$s.', 'wc-moldovaagroindbank'), $this->get_method_title()));
+            $message = $this->get_test_message($message);
             $this->log($message, \WC_Log_Levels::ERROR);
 
             wc_add_notice($message, 'error');
@@ -845,6 +845,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         if (empty($order)) {
             /* translators: 1: Transaction ID, 2: Payment method title */
             $message = esc_html(sprintf(__('Order not found by Transaction ID: %1$s received from %2$s.', 'wc-moldovaagroindbank'), $trans_id, $this->get_method_title()));
+            $message = $this->get_test_message($message);
             $this->log($message, \WC_Log_Levels::ERROR);
 
             wc_add_notice($message, 'error');
@@ -859,6 +860,18 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         if (!empty($transaction_result)) {
             $result = strval($transaction_result[self::MAIB_RESULT]);
             if (self::MAIB_RESULT_OK === $result) {
+                //region Order already paid?
+                if ($order->is_paid()) {
+                    /* translators: 1: Order ID */
+                    $message = sprintf(__('Order #%1$s already fully paid.', 'wc-moldovaagroindbank'), $order_id);
+                    $message = $this->get_test_message($message);
+                    $this->log($message, \WC_Log_Levels::DEBUG);
+
+                    wp_safe_redirect($this->get_return_url($order));
+                    exit;
+                }
+                //endregion
+
                 //region Update order payment data
                 // https://developer.woocommerce.com/docs/features/high-performance-order-storage/recipe-book/#apis-for-gettingsetting-posts-and-postmeta
                 $order->update_meta_data(self::MOD_PAYMENT_RECEIPT, http_build_query($transaction_result));
