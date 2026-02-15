@@ -34,24 +34,15 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     const MOD_TRANSACTION_ID   = self::MOD_PREFIX . 'transaction_id';
     const MOD_PAYMENT_RECEIPT  = self::MOD_PREFIX . 'payment_receipt';
 
-    const MAIB_TRANS_ID        = 'trans_id';
-    const MAIB_TRANSACTION_ID  = 'TRANSACTION_ID';
+    const MAIB_TRANS_ID = 'trans_id';
 
-    const MAIB_RESULT               = 'RESULT';
-    const MAIB_RESULT_OK            = 'OK';           // successfully completed transaction
-    const MAIB_RESULT_FAILED        = 'FAILED';       // transaction has failed
-    const MAIB_RESULT_CREATED       = 'CREATED';      // transaction just registered in the system
-    const MAIB_RESULT_PENDING       = 'PENDING';      // transaction is not accomplished yet
-    const MAIB_RESULT_DECLINED      = 'DECLINED';     // transaction declined by ECOMM, because ECI is in blocked ECI list (ECOMM server side configuration)
-    const MAIB_RESULT_REVERSED      = 'REVERSED';     // transaction is reversed
-    const MAIB_RESULT_AUTOREVERSED  = 'AUTOREVERSED'; // transaction is reversed by autoreversal
-    const MAIB_RESULT_TIMEOUT       = 'TIMEOUT';      // transaction was timed out
+    // https://github.com/maibank/maibapi/blob/main/README.md
+    const MAIB_RESULT          = 'RESULT';
+    const MAIB_RESULT_OK       = 'OK';
+    const MAIB_RESULT_REVERSED = 'REVERSED';
 
-    const MAIB_RESULT_CODE          = 'RESULT_CODE';
-    const MAIB_RESULT_3DSECURE      = '3DSECURE';
-    const MAIB_RESULT_RRN           = 'RRN';
-    const MAIB_RESULT_APPROVAL_CODE = 'APPROVAL_CODE';
-    const MAIB_RESULT_CARD_NUMBER   = 'CARD_NUMBER';
+    const MAIB_RESULT_TRANSACTION_ID = 'TRANSACTION_ID';
+    const MAIB_RESULT_RRN            = 'RRN';
 
     const MOD_ACTION_COMPLETE_TRANSACTION = self::MOD_PREFIX . 'complete_transaction';
     const MOD_ACTION_VERIFY_TRANSACTION   = self::MOD_PREFIX . 'verify_transaction';
@@ -620,7 +611,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         }
 
         if (!empty($register_result)) {
-            $trans_id = isset($register_result[self::MAIB_TRANSACTION_ID]) ? strval($register_result[self::MAIB_TRANSACTION_ID]) : null;
+            $trans_id = isset($register_result[self::MAIB_RESULT_TRANSACTION_ID]) ? strval($register_result[self::MAIB_RESULT_TRANSACTION_ID]) : null;
             if (!empty($trans_id)) {
                 //region Update order payment transaction metadata
                 // https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#apis-for-gettingsetting-posts-and-postmeta
