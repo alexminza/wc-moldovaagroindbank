@@ -32,6 +32,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
 
     const MOD_TRANSACTION_TYPE = self::MOD_PREFIX . 'transaction_type';
     const MOD_TRANSACTION_ID   = self::MOD_PREFIX . 'transaction_id';
+    const MOD_PAYMENT_RECEIPT  = self::MOD_PREFIX . 'payment_receipt';
 
     const MAIB_TRANS_ID        = 'trans_id';
     const MAIB_TRANSACTION_ID  = 'TRANSACTION_ID';
@@ -859,11 +860,8 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
             $result = strval($transaction_result[self::MAIB_RESULT]);
             if (self::MAIB_RESULT_OK === $result) {
                 //region Update order payment data
-                //https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#apis-for-gettingsetting-posts-and-postmeta
-                foreach ($transaction_result as $key => $value) {
-                    $order->update_meta_data(strtolower(self::MOD_PREFIX . $key), $value);
-                }
-
+                // https://developer.woocommerce.com/docs/features/high-performance-order-storage/recipe-book/#apis-for-gettingsetting-posts-and-postmeta
+                $order->update_meta_data(self::MOD_PAYMENT_RECEIPT, http_build_query($transaction_result));
                 $order->save();
 
                 $rrn = strval($transaction_result[self::MAIB_RESULT_RRN]);
