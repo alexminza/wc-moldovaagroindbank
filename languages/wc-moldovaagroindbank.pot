@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Payment Gateway for maib for WooCommerce 1.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-moldovaagroindbank\n"
-"POT-Creation-Date: 2026-02-15 19:29+0200\n"
+"POT-Creation-Date: 2026-02-17 19:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,353 +23,353 @@ msgstr ""
 msgid "Accept Visa and Mastercard directly on your store with the Payment Gateway for maib for WooCommerce."
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:73
+#: includes/class-wc-gateway-maib.php:64
 msgid "Accept Visa and Mastercard through maib."
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:111
+#: includes/class-wc-gateway-maib.php:102
 msgid "Enable/Disable"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:113
+#: includes/class-wc-gateway-maib.php:104
 msgid "Enable this gateway"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:117
+#: includes/class-wc-gateway-maib.php:108
 msgid "Title"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:119
+#: includes/class-wc-gateway-maib.php:110
 msgid "Payment method title that the customer will see during checkout."
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:127
+#: includes/class-wc-gateway-maib.php:118
 msgid "Description"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:129
+#: includes/class-wc-gateway-maib.php:120
 msgid "Payment method description that the customer will see during checkout."
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:131
+#: includes/class-wc-gateway-maib.php:122
 msgid "Online payment with Visa / Mastercard bank cards issued by any bank in Moldova or abroad, processed through maib online payment system."
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:134
+#: includes/class-wc-gateway-maib.php:125
 msgid "Logo"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:136
+#: includes/class-wc-gateway-maib.php:127
 msgid "Payment method logo image that the customer will see during checkout."
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:141
+#: includes/class-wc-gateway-maib.php:132
 msgid "Bank logo"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:142
+#: includes/class-wc-gateway-maib.php:133
 msgid "Payment systems logos"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:147
+#: includes/class-wc-gateway-maib.php:138
 msgid "Test mode"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:149
+#: includes/class-wc-gateway-maib.php:140
 msgid "Enabled"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:150
+#: includes/class-wc-gateway-maib.php:141
 msgid "Use Test or Live bank gateway to process the payments. Disable when ready to accept live payments."
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:155
+#: includes/class-wc-gateway-maib.php:146
 msgid "Debug mode"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:157
+#: includes/class-wc-gateway-maib.php:148
 msgid "Enable logging"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:158
+#: includes/class-wc-gateway-maib.php:149
 msgid "View logs"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:159
+#: includes/class-wc-gateway-maib.php:150
 msgid "Save debug messages to the WooCommerce System Status logs. Note: this may log personal information. Use this for debugging purposes only and delete the logs when finished."
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:164
+#: includes/class-wc-gateway-maib.php:155
 msgid "Transaction type"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:166
+#: includes/class-wc-gateway-maib.php:157
 msgid "Select how transactions should be processed. Charge submits all transactions for settlement, Authorization simply authorizes the order total for capture later."
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:171
+#: includes/class-wc-gateway-maib.php:162
 msgid "Charge"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:172
+#: includes/class-wc-gateway-maib.php:163
 msgid "Authorization"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:176
+#: includes/class-wc-gateway-maib.php:167
 msgid "Order description"
 msgstr ""
 
 #. translators: 1: Example placeholder shown to user, represents Order ID
-#: includes/class-wc-gateway-maib.php:179
+#: includes/class-wc-gateway-maib.php:170
 #, php-format
 msgid "Format: <code>%1$s</code> - Order ID"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:180
+#: includes/class-wc-gateway-maib.php:171
 msgid "Order description that the customer will see on the bank payment page."
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:188
+#: includes/class-wc-gateway-maib.php:179
 #: vendor/alexminza/wc-payment-gateway-base/src/WC_Payment_Gateway/WC_Payment_Gateway_Base.php:103
 msgid "Connection Settings"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:192
+#: includes/class-wc-gateway-maib.php:183
 msgid "Use Basic settings to upload the key files received from the bank or configure manually using Advanced settings below."
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:193
+#: includes/class-wc-gateway-maib.php:184
 msgid "Basic settings&raquo;"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:194
+#: includes/class-wc-gateway-maib.php:185
 msgid "Advanced settings&raquo;"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:200
+#: includes/class-wc-gateway-maib.php:191
 msgid "Client certificate (PFX)"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:202
+#: includes/class-wc-gateway-maib.php:193
 msgid "Uploaded PFX certificate will be processed and converted to PEM format. Advanced settings will be overwritten and configured automatically."
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:210
+#: includes/class-wc-gateway-maib.php:201
 msgid "Client certificate file"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:216
+#: includes/class-wc-gateway-maib.php:207
 msgid "Private key file"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:222
+#: includes/class-wc-gateway-maib.php:213
 msgid "Certificate / private key passphrase"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:224
+#: includes/class-wc-gateway-maib.php:215
 msgid "Leave empty if certificate / private key is not encrypted."
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:226
+#: includes/class-wc-gateway-maib.php:217
 msgid "Optional"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:230
+#: includes/class-wc-gateway-maib.php:221
 msgid "Payment Notification"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:234
+#: includes/class-wc-gateway-maib.php:225
 msgid "Provide this URL to the bank to enable online payment notifications."
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:235
+#: includes/class-wc-gateway-maib.php:226
 msgid "Callback URL"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:417
-#: includes/class-wc-gateway-maib.php:480
+#: includes/class-wc-gateway-maib.php:408
+#: includes/class-wc-gateway-maib.php:471
 msgid "Invalid certificate file"
 msgstr ""
 
 #. translators: 1: Date string
-#: includes/class-wc-gateway-maib.php:436
+#: includes/class-wc-gateway-maib.php:427
 #, php-format
 msgid "Certificate valid until %1$s"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:443
+#: includes/class-wc-gateway-maib.php:434
 msgid "Invalid certificate"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:457
+#: includes/class-wc-gateway-maib.php:448
 msgid "Could not validate certificate"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:467
+#: includes/class-wc-gateway-maib.php:458
 msgid "Invalid private key file"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:473
+#: includes/class-wc-gateway-maib.php:464
 msgid "Invalid private key or wrong private key passphrase"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:491
+#: includes/class-wc-gateway-maib.php:482
 msgid "Private key does not correspond to certificate"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:506
+#: includes/class-wc-gateway-maib.php:497
 msgid "Could not validate private key"
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:528
+#: includes/class-wc-gateway-maib.php:519
 msgid "Invalid certificate or wrong passphrase"
 msgstr ""
 
 #. translators: 1: Temporary file name
-#: includes/class-wc-gateway-maib.php:547
+#: includes/class-wc-gateway-maib.php:538
 #, php-format
 msgid "Unable to save data to temporary file: %1$s"
 msgstr ""
 
 #. translators: 1: Order ID, 2: Payment method title, 3: API response details
-#: includes/class-wc-gateway-maib.php:634
+#: includes/class-wc-gateway-maib.php:625
 #, php-format
 msgid "Order #%1$s payment initiated via %2$s: %3$s"
 msgstr ""
 
 #. translators: 1: Order ID, 2: Payment method title
-#: includes/class-wc-gateway-maib.php:655
+#: includes/class-wc-gateway-maib.php:646
 #, php-format
 msgid "Order #%1$s payment initiation failed via %2$s."
 msgstr ""
 
 #. translators: 1: Order ID, 2: Payment method title, 3: Payment data
-#: includes/class-wc-gateway-maib.php:715
-#: includes/class-wc-gateway-maib.php:887
+#: includes/class-wc-gateway-maib.php:706
+#: includes/class-wc-gateway-maib.php:878
 #, php-format
 msgid "Order #%1$s payment completed via %2$s: %3$s"
 msgstr ""
 
 #. translators: 1: Order ID, 2: Payment method title
-#: includes/class-wc-gateway-maib.php:732
+#: includes/class-wc-gateway-maib.php:723
 #, php-format
 msgid "Order #%1$s payment completion via %2$s failed."
 msgstr ""
 
 #. translators: 1: Payment method title, 2: Order ID
-#: includes/class-wc-gateway-maib.php:758
+#: includes/class-wc-gateway-maib.php:749
 #, php-format
 msgid "%1$s Transaction ID not found for order #%2$s."
 msgstr ""
 
 #. translators: 1: Payment method title, 2: Order ID, 3: Payment gateway response
-#: includes/class-wc-gateway-maib.php:771
+#: includes/class-wc-gateway-maib.php:762
 #, php-format
 msgid "Transaction status from %1$s for order #%2$s: %3$s"
 msgstr ""
 
 #. translators: 1: Payment method title, 2: Order ID
-#: includes/class-wc-gateway-maib.php:786
+#: includes/class-wc-gateway-maib.php:777
 #, php-format
 msgid "Could not retrieve transaction status from %1$s for order #%2$s."
 msgstr ""
 
-#: includes/class-wc-gateway-maib.php:822
+#: includes/class-wc-gateway-maib.php:813
 msgid "This Callback URL works and should not be called directly."
 msgstr ""
 
 #. translators: 1: Payment method title
-#: includes/class-wc-gateway-maib.php:833
+#: includes/class-wc-gateway-maib.php:824
 #, php-format
 msgid "Payment verification failed: Transaction ID not received from %1$s."
 msgstr ""
 
 #. translators: 1: Transaction ID, 2: Payment method title
-#: includes/class-wc-gateway-maib.php:847
+#: includes/class-wc-gateway-maib.php:838
 #, php-format
 msgid "Order not found by Transaction ID: %1$s received from %2$s."
 msgstr ""
 
 #. translators: 1: Order ID
-#: includes/class-wc-gateway-maib.php:866
+#: includes/class-wc-gateway-maib.php:857
 #, php-format
 msgid "Order #%1$s already fully paid."
 msgstr ""
 
 #. translators: 1: Order ID, 2: Payment method title, 3: Payment data
-#: includes/class-wc-gateway-maib.php:889
+#: includes/class-wc-gateway-maib.php:880
 #, php-format
 msgid "Order #%1$s payment authorized via %2$s: %3$s"
 msgstr ""
 
 #. translators: 1: Order ID, 2: Payment method title
-#: includes/class-wc-gateway-maib.php:910
+#: includes/class-wc-gateway-maib.php:901
 #, php-format
 msgid "Order #%1$s payment failed via %2$s."
 msgstr ""
 
 #. translators: 1: Order ID, 2: Meta field key
-#: includes/class-wc-gateway-maib.php:948
+#: includes/class-wc-gateway-maib.php:939
 #, php-format
 msgid "Order #%1$s missing meta field %2$s."
 msgstr ""
 
 #. translators: 1: Order ID, 2: Refund amount, 3: Payment method title
-#: includes/class-wc-gateway-maib.php:974
+#: includes/class-wc-gateway-maib.php:965
 #, php-format
 msgid "Order #%1$s refund of %2$s via %3$s approved."
 msgstr ""
 
 #. translators: 1: Order ID, 2: Refund amount, 3: Payment method title
-#: includes/class-wc-gateway-maib.php:990
+#: includes/class-wc-gateway-maib.php:981
 #, php-format
 msgid "Order #%1$s refund of %2$s via %3$s failed."
 msgstr ""
 
 #. translators: 1: Payment method title, 2: Payment gateway response
-#: includes/class-wc-gateway-maib.php:1039
+#: includes/class-wc-gateway-maib.php:1030
 #, php-format
 msgid "Close business day via %1$s succeeded: %2$s"
 msgstr ""
 
 #. translators: 1: Payment method title
-#: includes/class-wc-gateway-maib.php:1047
+#: includes/class-wc-gateway-maib.php:1038
 #, php-format
 msgid "%1$s is not properly configured."
 msgstr ""
 
 #. translators: 1: Payment method title, 2: Payment gateway response
-#: includes/class-wc-gateway-maib.php:1051
+#: includes/class-wc-gateway-maib.php:1042
 #, php-format
 msgid "Close business day via %1$s failed: %2$s"
 msgstr ""
 
 #. translators: 1: Payment method title
-#: includes/class-wc-gateway-maib.php:1108
+#: includes/class-wc-gateway-maib.php:1099
 #, php-format
 msgid "Complete %1$s transaction"
 msgstr ""
 
 #. translators: 1: Payment method title
-#: includes/class-wc-gateway-maib.php:1112
+#: includes/class-wc-gateway-maib.php:1103
 #, php-format
 msgid "Verify %1$s transaction"
 msgstr ""
 
 #. translators: 1: Scheduled action name
-#: includes/class-wc-gateway-maib.php:1148
+#: includes/class-wc-gateway-maib.php:1139
 #, php-format
 msgid "Scheduled action %1$s is already registered."
 msgstr ""
 
 #. translators: 1: Scheduled action name, 2: Timezone name, 3: Scheduled action ID
-#: includes/class-wc-gateway-maib.php:1162
+#: includes/class-wc-gateway-maib.php:1153
 #, php-format
 msgid "Registered scheduled action %1$s in timezone %2$s with ID %3$s."
 msgstr ""
 
 #. translators: 1: Scheduled action name
-#: includes/class-wc-gateway-maib.php:1171
+#: includes/class-wc-gateway-maib.php:1162
 #, php-format
 msgid "Unregistered scheduled action %1$s."
 msgstr ""

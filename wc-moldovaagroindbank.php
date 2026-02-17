@@ -17,7 +17,7 @@
  * Requires at least: 4.8
  * Tested up to: 6.9
  * WC requires at least: 3.3
- * WC tested up to: 10.5.1
+ * WC tested up to: 10.5.2
  * Requires Plugins: woocommerce
  *
  * @package wc-moldovaagroindbank
