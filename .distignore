@@ -1,0 +1,25 @@
+# https://github.com/10up/action-wordpress-plugin-deploy/issues/35
+# https://github.com/10up/autoshare-for-twitter/blob/develop/.distignore
+
+# Directories
+/.git
+/.github
+/.vscode
+/.wordpress-org
+/test
+/tests
+# DO NOT EXCLUDE /vendor
+
+# Files
+.distignore
+.gitattributes
+.gitignore
+.env
+.DS_Store
+*.log
+*.zip
+composer.phar
+# composer.json
+composer.lock
+phpcs.xml
+README.md

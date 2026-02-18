@@ -1,11 +1,10 @@
-# Copyright (C) 2025 Alexander Minza
+# Copyright (C) 2026 Alexander Minza
 # This file is distributed under the GPLv3 or later.
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Payment Gateway for maib for WooCommerce 1.4.6\n"
+"Project-Id-Version: Payment Gateway for maib for WooCommerce 1.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-moldovaagroindbank\n"
-"POT-Creation-Date: 2025-11-23 18:54+0200\n"
+"POT-Creation-Date: 2026-02-18 13:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,384 +13,409 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.8\n"
 
+#. Plugin Name of the plugin
+#: wc-moldovaagroindbank.php
+msgid "Payment Gateway for maib for WooCommerce"
+msgstr ""
+
 #. Description of the plugin
 #: wc-moldovaagroindbank.php
 msgid "Accept Visa and Mastercard directly on your store with the Payment Gateway for maib for WooCommerce."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:51
-msgid "Payment Gateway for maib requires WooCommerce to be installed and active."
+#: includes/class-wc-gateway-maib.php:64
+msgid "Accept Visa and Mastercard through maib."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:149
+#: includes/class-wc-gateway-maib.php:102
 msgid "Enable/Disable"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:151
+#: includes/class-wc-gateway-maib.php:104
 msgid "Enable this gateway"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:155
+#: includes/class-wc-gateway-maib.php:108
 msgid "Title"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:157
+#: includes/class-wc-gateway-maib.php:110
 msgid "Payment method title that the customer will see during checkout."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:162
+#: includes/class-wc-gateway-maib.php:118
 msgid "Description"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:164
+#: includes/class-wc-gateway-maib.php:120
 msgid "Payment method description that the customer will see during checkout."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:169
+#: includes/class-wc-gateway-maib.php:122
+msgid "Online payment with Visa / Mastercard bank cards issued by any bank in Moldova or abroad, processed through maib online payment system."
+msgstr ""
+
+#: includes/class-wc-gateway-maib.php:125
 msgid "Logo"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:172
+#: includes/class-wc-gateway-maib.php:127
 msgid "Payment method logo image that the customer will see during checkout."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:176
+#: includes/class-wc-gateway-maib.php:132
 msgid "Bank logo"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:177
+#: includes/class-wc-gateway-maib.php:133
 msgid "Payment systems logos"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:178
-msgid "No logo"
-msgstr ""
-
-#: wc-moldovaagroindbank.php:183
+#: includes/class-wc-gateway-maib.php:138
 msgid "Test mode"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:185
+#: includes/class-wc-gateway-maib.php:140
 msgid "Enabled"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:186
+#: includes/class-wc-gateway-maib.php:141
 msgid "Use Test or Live bank gateway to process the payments. Disable when ready to accept live payments."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:191
+#: includes/class-wc-gateway-maib.php:146
 msgid "Debug mode"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:193
+#: includes/class-wc-gateway-maib.php:148
 msgid "Enable logging"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:195
+#: includes/class-wc-gateway-maib.php:149
 msgid "View logs"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:196
+#: includes/class-wc-gateway-maib.php:150
 msgid "Save debug messages to the WooCommerce System Status logs. Note: this may log personal information. Use this for debugging purposes only and delete the logs when finished."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:200
+#: includes/class-wc-gateway-maib.php:155
 msgid "Transaction type"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:203
+#: includes/class-wc-gateway-maib.php:157
 msgid "Select how transactions should be processed. Charge submits all transactions for settlement, Authorization simply authorizes the order total for capture later."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:207
+#: includes/class-wc-gateway-maib.php:162
 msgid "Charge"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:208
+#: includes/class-wc-gateway-maib.php:163
 msgid "Authorization"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:212
+#: includes/class-wc-gateway-maib.php:167
 msgid "Order description"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:214
+#. translators: 1: Example placeholder shown to user, represents Order ID
+#: includes/class-wc-gateway-maib.php:170
 #, php-format
-msgid "Format: <code>%1$s</code> - Order ID, <code>%2$s</code> - Order items summary"
+msgid "Format: <code>%1$s</code> - Order ID"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:215
+#: includes/class-wc-gateway-maib.php:171
 msgid "Order description that the customer will see on the bank payment page."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:220 wc-moldovaagroindbank.php:374
+#: includes/class-wc-gateway-maib.php:179
+#: vendor/alexminza/wc-payment-gateway-base/src/WC_Payment_Gateway/WC_Payment_Gateway_Base.php:103
 msgid "Connection Settings"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:222
-msgid "Use Basic settings to upload the certificate file received from the bank or configure manually using Advanced settings below."
+#: includes/class-wc-gateway-maib.php:183
+msgid "Use Basic settings to upload the key files received from the bank or configure manually using Advanced settings below."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:223
+#: includes/class-wc-gateway-maib.php:184
 msgid "Basic settings&raquo;"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:224
+#: includes/class-wc-gateway-maib.php:185
 msgid "Advanced settings&raquo;"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:228
+#: includes/class-wc-gateway-maib.php:191
 msgid "Client certificate (PFX)"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:230
+#: includes/class-wc-gateway-maib.php:193
 msgid "Uploaded PFX certificate will be processed and converted to PEM format. Advanced settings will be overwritten and configured automatically."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:238 wc-moldovaagroindbank.php:379
+#: includes/class-wc-gateway-maib.php:201
 msgid "Client certificate file"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:244 wc-moldovaagroindbank.php:385
+#: includes/class-wc-gateway-maib.php:207
 msgid "Private key file"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:250
+#: includes/class-wc-gateway-maib.php:213
 msgid "Certificate / private key passphrase"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:252
+#: includes/class-wc-gateway-maib.php:215
 msgid "Leave empty if certificate / private key is not encrypted."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:254
+#: includes/class-wc-gateway-maib.php:217
 msgid "Optional"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:259
+#: includes/class-wc-gateway-maib.php:221
 msgid "Payment Notification"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:261
+#: includes/class-wc-gateway-maib.php:225
 msgid "Provide this URL to the bank to enable online payment notifications."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:262
+#: includes/class-wc-gateway-maib.php:226
 msgid "Callback URL"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:364
-msgid "Unsupported store currency"
+#: includes/class-wc-gateway-maib.php:408
+#: includes/class-wc-gateway-maib.php:471
+msgid "Invalid certificate file"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:366
-msgid "Supported currencies"
-msgstr ""
-
-#: wc-moldovaagroindbank.php:373
-#, php-format
-msgid "See plugin documentation for <a href=\"%1$s\" target=\"_blank\">installation instructions</a>."
-msgstr ""
-
-#: wc-moldovaagroindbank.php:374
-msgid "Not configured"
-msgstr ""
-
-#: wc-moldovaagroindbank.php:411
-#, php-format
-msgid "%1$s is not properly configured. Verify plugin <a href=\"%2$s\">Connection Settings</a>."
-msgstr ""
-
-#: wc-moldovaagroindbank.php:416
-#, php-format
-msgid "See <a href=\"%2$s\">%1$s settings</a> page for log details and setup instructions."
-msgstr ""
-
-#: wc-moldovaagroindbank.php:508
+#. translators: 1: Date string
+#: includes/class-wc-gateway-maib.php:427
 #, php-format
 msgid "Certificate valid until %1$s"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:515
+#: includes/class-wc-gateway-maib.php:434
 msgid "Invalid certificate"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:518
+#: includes/class-wc-gateway-maib.php:448
 msgid "Could not validate certificate"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:533
+#: includes/class-wc-gateway-maib.php:458
+msgid "Invalid private key file"
+msgstr ""
+
+#: includes/class-wc-gateway-maib.php:464
 msgid "Invalid private key or wrong private key passphrase"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:545
-msgid "Private key does not correspond to client certificate"
+#: includes/class-wc-gateway-maib.php:482
+msgid "Private key does not correspond to certificate"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:550
+#: includes/class-wc-gateway-maib.php:497
 msgid "Could not validate private key"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:557
-msgid "Invalid value"
-msgstr ""
-
-#: wc-moldovaagroindbank.php:560
-msgid "File not found"
-msgstr ""
-
-#: wc-moldovaagroindbank.php:563
-msgid "File not readable"
-msgstr ""
-
-#: wc-moldovaagroindbank.php:566
-msgid "Could not validate file"
-msgstr ""
-
-#: wc-moldovaagroindbank.php:586
+#: includes/class-wc-gateway-maib.php:519
 msgid "Invalid certificate or wrong passphrase"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:608
-#, php-format
-msgid "Unable to create temporary file: %1$s"
-msgstr ""
-
-#: wc-moldovaagroindbank.php:613
+#. translators: 1: Temporary file name
+#: includes/class-wc-gateway-maib.php:538
 #, php-format
 msgid "Unable to save data to temporary file: %1$s"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:695
+#. translators: 1: Order ID, 2: Payment method title, 3: API response details
+#: includes/class-wc-gateway-maib.php:625
 #, php-format
-msgid "Payment initiated via %1$s: %2$s"
+msgid "Order #%1$s payment initiated via %2$s: %3$s"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:709
-#, php-format
-msgid "Payment initiation failed via %1$s: %2$s"
-msgstr ""
-
-#: wc-moldovaagroindbank.php:714
+#. translators: 1: Order ID, 2: Payment method title
+#: includes/class-wc-gateway-maib.php:646
 #, php-format
 msgid "Order #%1$s payment initiation failed via %2$s."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:757 wc-moldovaagroindbank.php:883
+#. translators: 1: Order ID, 2: Payment method title, 3: Payment data
+#: includes/class-wc-gateway-maib.php:705
+#: includes/class-wc-gateway-maib.php:877
 #, php-format
-msgid "Payment completed via %1$s: %2$s"
+msgid "Order #%1$s payment completed via %2$s: %3$s"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:769
+#. translators: 1: Order ID, 2: Payment method title
+#: includes/class-wc-gateway-maib.php:722
 #, php-format
-msgid "Payment completion failed via %1$s: %2$s"
+msgid "Order #%1$s payment completion via %2$s failed."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:789
+#. translators: 1: Payment method title, 2: Order ID
+#: includes/class-wc-gateway-maib.php:748
 #, php-format
 msgid "%1$s Transaction ID not found for order #%2$s."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:799
+#. translators: 1: Payment method title, 2: Order ID, 3: Payment gateway response
+#: includes/class-wc-gateway-maib.php:761
 #, php-format
 msgid "Transaction status from %1$s for order #%2$s: %3$s"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:807
+#. translators: 1: Payment method title, 2: Order ID
+#: includes/class-wc-gateway-maib.php:776
 #, php-format
 msgid "Could not retrieve transaction status from %1$s for order #%2$s."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:835
-#, php-format
-msgid "This %1$s Callback URL works and should not be called directly."
+#: includes/class-wc-gateway-maib.php:812
+msgid "This Callback URL works and should not be called directly."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:846
+#. translators: 1: Payment method title
+#: includes/class-wc-gateway-maib.php:823
 #, php-format
 msgid "Payment verification failed: Transaction ID not received from %1$s."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:858
+#. translators: 1: Transaction ID, 2: Payment method title
+#: includes/class-wc-gateway-maib.php:837
 #, php-format
 msgid "Order not found by Transaction ID: %1$s received from %2$s."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:884
+#. translators: 1: Order ID
+#: includes/class-wc-gateway-maib.php:856
 #, php-format
-msgid "Payment authorized via %1$s: %2$s"
+msgid "Order #%1$s already fully paid."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:895
+#. translators: 1: Order ID, 2: Payment method title, 3: Payment data
+#: includes/class-wc-gateway-maib.php:879
 #, php-format
-msgid "Order #%1$s paid successfully via %2$s."
+msgid "Order #%1$s payment authorized via %2$s: %3$s"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:904
-#, php-format
-msgid "Payment failed via %1$s: %2$s"
-msgstr ""
-
-#: wc-moldovaagroindbank.php:909
+#. translators: 1: Order ID, 2: Payment method title
+#: includes/class-wc-gateway-maib.php:900
 #, php-format
 msgid "Order #%1$s payment failed via %2$s."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:946
+#. translators: 1: Order ID, 2: Meta field key
+#: includes/class-wc-gateway-maib.php:938
 #, php-format
-msgid "Refund of %1$s %2$s via %3$s approved: %4$s"
+msgid "Order #%1$s missing meta field %2$s."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:955
+#. translators: 1: Order ID, 2: Refund amount, 3: Payment method title
+#: includes/class-wc-gateway-maib.php:964
 #, php-format
-msgid "Refund of %1$s %2$s via %3$s failed: %4$s"
+msgid "Order #%1$s refund of %2$s via %3$s approved."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:983
+#. translators: 1: Order ID, 2: Refund amount, 3: Payment method title
+#: includes/class-wc-gateway-maib.php:980
+#, php-format
+msgid "Order #%1$s refund of %2$s via %3$s failed."
+msgstr ""
+
+#. translators: 1: Payment method title, 2: Payment gateway response
+#: includes/class-wc-gateway-maib.php:1029
 #, php-format
 msgid "Close business day via %1$s succeeded: %2$s"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:990
+#. translators: 1: Payment method title
+#: includes/class-wc-gateway-maib.php:1037
 #, php-format
 msgid "%1$s is not properly configured."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:993
+#. translators: 1: Payment method title, 2: Payment gateway response
+#: includes/class-wc-gateway-maib.php:1041
 #, php-format
 msgid "Close business day via %1$s failed: %2$s"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:1063
-#, php-format
-msgid "TEST: %1$s"
-msgstr ""
-
-#: wc-moldovaagroindbank.php:1150
-msgid "Settings"
-msgstr ""
-
-#: wc-moldovaagroindbank.php:1165
+#. translators: 1: Payment method title
+#: includes/class-wc-gateway-maib.php:1098
 #, php-format
 msgid "Complete %1$s transaction"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:1168
+#. translators: 1: Payment method title
+#: includes/class-wc-gateway-maib.php:1102
 #, php-format
 msgid "Verify %1$s transaction"
 msgstr ""
 
-#: wc-moldovaagroindbank.php:1196
+#. translators: 1: Scheduled action name
+#: includes/class-wc-gateway-maib.php:1138
 #, php-format
 msgid "Scheduled action %1$s is already registered."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:1209
+#. translators: 1: Scheduled action name, 2: Timezone name, 3: Scheduled action ID
+#: includes/class-wc-gateway-maib.php:1152
 #, php-format
 msgid "Registered scheduled action %1$s in timezone %2$s with ID %3$s."
 msgstr ""
 
-#: wc-moldovaagroindbank.php:1216
+#. translators: 1: Scheduled action name
+#: includes/class-wc-gateway-maib.php:1161
 #, php-format
 msgid "Unregistered scheduled action %1$s."
+msgstr ""
+
+#: vendor/alexminza/wc-payment-gateway-base/src/WC_Payment_Gateway/WC_Payment_Gateway_Base.php:90
+msgid "Unsupported store currency"
+msgstr ""
+
+#: vendor/alexminza/wc-payment-gateway-base/src/WC_Payment_Gateway/WC_Payment_Gateway_Base.php:92
+msgid "Supported currencies"
+msgstr ""
+
+#. translators: 1: Payment gateway ID
+#: vendor/alexminza/wc-payment-gateway-base/src/WC_Payment_Gateway/WC_Payment_Gateway_Base.php:102
+#, php-format
+msgid "See plugin documentation for <a href=\"https://wordpress.org/plugins/%1$s/#installation\" target=\"_blank\">installation instructions</a>."
+msgstr ""
+
+#: vendor/alexminza/wc-payment-gateway-base/src/WC_Payment_Gateway/WC_Payment_Gateway_Base.php:103
+msgid "Not configured"
+msgstr ""
+
+#. translators: 1: Field label
+#: vendor/alexminza/wc-payment-gateway-base/src/WC_Payment_Gateway/WC_Payment_Gateway_Base.php:123
+#, php-format
+msgid "%1$s field must be set."
+msgstr ""
+
+#. translators: 1: Payment method title, 2: Plugin settings URL
+#: vendor/alexminza/wc-payment-gateway-base/src/WC_Payment_Gateway/WC_Payment_Gateway_Base.php:222
+#, php-format
+msgid "%1$s is not properly configured. Verify plugin <a href=\"%2$s\">Connection Settings</a>."
+msgstr ""
+
+#. translators: 1: Payment method title, 2: Plugin settings URL
+#: vendor/alexminza/wc-payment-gateway-base/src/WC_Payment_Gateway/WC_Payment_Gateway_Base.php:229
+#, php-format
+msgid "See <a href=\"%2$s\">%1$s settings</a> page for log details and setup instructions."
+msgstr ""
+
+#. translators: 1: Original message
+#: vendor/alexminza/wc-payment-gateway-base/src/WC_Payment_Gateway/WC_Payment_Gateway_Base.php:326
+#, php-format
+msgid "TEST: %1$s"
+msgstr ""
+
+#: vendor/alexminza/wc-payment-gateway-base/src/WC_Payment_Gateway/WC_Payment_Gateway_Base.php:483
+msgid "Settings"
 msgstr ""

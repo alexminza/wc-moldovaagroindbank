@@ -5,6 +5,8 @@
 [![WordPress Plugin Active Installs](https://img.shields.io/wordpress/plugin/installs/wc-moldovaagroindbank?logo=wordpress)](https://wordpress.org/plugins/wc-moldovaagroindbank/advanced/)
 [![WordPress Plugin Stars](https://img.shields.io/wordpress/plugin/stars/wc-moldovaagroindbank?logo=wordpress)](https://wordpress.org/support/plugin/wc-moldovaagroindbank/reviews/)
 
+![maib](./.wordpress-org/banner-1544x500.png)
+
 _Accept Visa and Mastercard directly on your store with the Payment Gateway for maib for WooCommerce._
 
 WordPress plugin: https://wordpress.org/plugins/wc-moldovaagroindbank/
@@ -15,11 +17,12 @@ WordPress plugin: https://wordpress.org/plugins/wc-moldovaagroindbank/
 * Reverse transactions – partial or complete refunds
 * Admin order actions – complete authorized transaction
 * Close business day scheduled action
-* Supports WooCommerce [block-based checkout experience](https://woo.com/checkout-blocks/)
+* Supports WooCommerce [block-based checkout experience](https://woocommerce.com/checkout-blocks/)
 * Free to use – [Open-source GPL-3.0 license on GitHub](https://github.com/alexminza/wc-moldovaagroindbank)
 
 ## Getting Started
 
+* [maib e-commerce](https://www.maib.md/en/persoane-juridice/e-commerce)
 * [Installation Instructions](https://wordpress.org/plugins/wc-moldovaagroindbank/installation/)
 * [Frequently Asked Questions](https://wordpress.org/plugins/wc-moldovaagroindbank/faq/)
 

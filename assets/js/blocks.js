@@ -30,10 +30,10 @@ const maib_label = () => {
 
 const maib_blockGateway = {
     name: maib_settings.id,
-    label: Object(window.wp.element.createElement)(maib_label, null),
+    label: window.wp.element.createElement(maib_label, null),
     icons: ['visa', 'mastercard'],
-    content: Object(window.wp.element.createElement)(maib_content, null),
-    edit: Object(window.wp.element.createElement)(maib_content, null),
+    content: window.wp.element.createElement(maib_content, null),
+    edit: window.wp.element.createElement(maib_content, null),
     canMakePayment: () => true,
     ariaLabel: maib_title,
     supports: {

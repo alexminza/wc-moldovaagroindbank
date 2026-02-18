@@ -1,12 +1,14 @@
 === Payment Gateway for maib for WooCommerce ===
 Contributors: alexminza
-Tags: WooCommerce, Moldova, maib, payment gateway, credit card
+Tags: Moldova, maib, Visa, Mastercard, payment gateway
 Requires at least: 4.8
-Tested up to: 6.8
-Stable tag: 1.4.6
+Tested up to: 6.9
+Stable tag: 1.5.0
 Requires PHP: 7.2.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
+
+Accept Visa and Mastercard directly on your store with the maib payment gateway for WooCommerce.
 
 == Description ==
 
@@ -29,6 +31,7 @@ Accept Visa and Mastercard directly on your store with the Payment Gateway for m
 == Installation ==
 
 Before installation you need to sign up with **maib** and receive the client certificate.
+
 See [https://www.maib.md/en/persoane-juridice/e-commerce](https://www.maib.md/en/persoane-juridice/e-commerce) and contact [ecom@maib.md](mailto:ecom@maib.md) for details.
 
 1. Configure the plugin Connection Settings by performing one of the following steps:
@@ -86,6 +89,11 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 == Changelog ==
 
 See [wc-moldovaagroindbank project releases on GitHub](https://github.com/alexminza/wc-moldovaagroindbank/releases) for details.
+
+= 1.5.0 =
+* Improved keys management and connection settings
+* Improved logging and admin setup guidance
+* Code modernization and refactoring for better maintainability
 
 = 1.4.6 =
 Adjusted plugin name and code to comply with the WordPress Plugin Directory review feedback.
@@ -182,6 +190,9 @@ Initial release
 
 == Upgrade Notice ==
 
+= 1.5.0 =
+Code modernization and refactoring for better maintainability
+
 = 1.4.6 =
 Adjusted plugin name and code to comply with the WordPress Plugin Directory review feedback.
 
@@ -195,8 +206,8 @@ Adjusted plugin name to comply with the [WooCommerce trademark guidelines](https
 Improved reliability of the `maib_close_day` scheduled action registration on certain systems.
 
 = 1.4.1 =
-* Improved [Composer packages versions compatibility](https://vanrossum.dev/37-wordpress-and-composer) by using [Jetpack Autoloader by Automattic](https://github.com/Automattic/jetpack-autoloader)
-* Updated [MAIB Payment PHP SDK](https://github.com/maibank/maibapi) to the latest version [v3.0.5](https://packagist.org/packages/maib/maibapi)
+* Improved Composer packages versions compatibility by using Jetpack Autoloader by Automattic
+* Updated MAIB Payment PHP SDK to the latest version
 
 = 1.4.0 =
 Added support for WooCommerce [Cart and Checkout Blocks](https://woocommerce.com/document/cart-checkout-blocks-status/).
