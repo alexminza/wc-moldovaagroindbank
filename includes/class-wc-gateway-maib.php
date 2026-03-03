@@ -19,7 +19,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     const MOD_TEXT_DOMAIN = 'wc-moldovaagroindbank';
     const MOD_PREFIX      = 'maib_';
     const MOD_TITLE       = 'maib';
-    const MOD_VERSION     = '1.5.0';
+    const MOD_VERSION     = '1.5.1';
     const MOD_PLUGIN_FILE = MAIB_MOD_PLUGIN_FILE;
 
     const SUPPORTED_CURRENCIES = array('MDL', 'EUR', 'USD');
