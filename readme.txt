@@ -3,7 +3,7 @@ Contributors: alexminza
 Tags: Moldova, maib, Visa, Mastercard, payment gateway
 Requires at least: 4.8
 Tested up to: 6.9
-Stable tag: 1.5.0
+Stable tag: 1.5.1
 Requires PHP: 7.2.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -89,6 +89,9 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 == Changelog ==
 
 See [wc-moldovaagroindbank project releases on GitHub](https://github.com/alexminza/wc-moldovaagroindbank/releases) for details.
+
+= 1.5.1 =
+Added list of supported languages for better payment gateway localization integration.
 
 = 1.5.0 =
 * Improved keys management and connection settings
@@ -189,6 +192,9 @@ Basic and Advanced settings configuration modes
 Initial release
 
 == Upgrade Notice ==
+
+= 1.5.1 =
+Added list of supported languages for better payment gateway localization integration.
 
 = 1.5.0 =
 Code modernization and refactoring for better maintainability

@@ -19,10 +19,11 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
     const MOD_TEXT_DOMAIN = 'wc-moldovaagroindbank';
     const MOD_PREFIX      = 'maib_';
     const MOD_TITLE       = 'maib';
-    const MOD_VERSION     = '1.5.0';
+    const MOD_VERSION     = '1.5.1';
     const MOD_PLUGIN_FILE = MAIB_MOD_PLUGIN_FILE;
 
     const SUPPORTED_CURRENCIES = array('MDL', 'EUR', 'USD');
+    const SUPPORTED_LANGUAGES  = array('en', 'ro', 'ru');
 
     const TRANSACTION_TYPE_CHARGE        = 'charge';
     const TRANSACTION_TYPE_AUTHORIZATION = 'authorization';
@@ -590,7 +591,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         $order_currency_numcode = self::get_currency_numcode($order->get_currency());
         $order_description = $this->get_order_description($order);
         $client_ip = self::get_client_ip();
-        $lang = self::get_language();
+        $lang = $this->get_language();
         $register_result = null;
 
         try {
@@ -678,7 +679,7 @@ class WC_Gateway_MAIB extends WC_Payment_Gateway_Base
         $order_currency_numcode = self::get_currency_numcode($order->get_currency());
         $order_description = $this->get_order_description($order);
         $client_ip = self::get_client_ip();
-        $lang = self::get_language();
+        $lang = $this->get_language();
         $complete_result = null;
 
         try {
