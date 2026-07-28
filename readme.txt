@@ -1,7 +1,7 @@
 === Payment Gateway for maib for WooCommerce ===
 Contributors: alexminza
 Tags: Moldova, maib, Visa, Mastercard, payment gateway
-Requires at least: 4.8
+Requires at least: 5.6
 Tested up to: 7.0
 Stable tag: 1.5.2
 Requires PHP: 7.2.5
