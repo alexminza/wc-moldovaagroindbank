@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bb8ffb5d6b0d5ba315d8138a740931dd",
+    "content-hash": "ae15c3221d95b782ac9fa9db4410ba76",
     "packages": [
         {
             "name": "alexminza/wc-payment-gateway-base",
@@ -1945,7 +1945,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.2.5"
+        "php": ">=7.2.5",
+        "ext-openssl": "*"
     },
     "platform-dev": {},
     "platform-overrides": {

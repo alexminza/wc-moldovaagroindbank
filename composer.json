@@ -28,6 +28,7 @@
     },
     "require": {
         "php": ">=7.2.5",
+        "ext-openssl": "*",
         "maib/maibapi": "^3.0",
         "alexminza/wc-payment-gateway-base": "^1.0",
         "monolog/monolog": "^2.7",
