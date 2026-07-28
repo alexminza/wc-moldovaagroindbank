@@ -90,6 +90,9 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 
 See [wc-moldovaagroindbank project releases on GitHub](https://github.com/alexminza/wc-moldovaagroindbank/releases) for details.
 
+= 1.5.2 =
+Updated WordPress and WooCommerce compatibility requirements and improved dependency handling.
+
 = 1.5.1 =
 Added list of supported languages for better payment gateway localization integration.
 
@@ -192,6 +195,9 @@ Basic and Advanced settings configuration modes
 Initial release
 
 == Upgrade Notice ==
+
+= 1.5.2 =
+Updated WordPress and WooCommerce compatibility requirements and improved dependency handling.
 
 = 1.5.1 =
 Added list of supported languages for better payment gateway localization integration.
