@@ -2,10 +2,7 @@
 # https://github.com/10up/autoshare-for-twitter/blob/develop/.distignore
 
 # Directories
-/.git
-/.github
-/.vscode
-/.wordpress-org
+/.*/
 /test
 /tests
 # DO NOT EXCLUDE /vendor

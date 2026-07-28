@@ -2,8 +2,8 @@
 Contributors: alexminza
 Tags: Moldova, maib, Visa, Mastercard, payment gateway
 Requires at least: 4.8
-Tested up to: 6.9
-Stable tag: 1.5.1
+Tested up to: 7.0
+Stable tag: 1.5.2
 Requires PHP: 7.2.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
