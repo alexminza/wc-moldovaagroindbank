@@ -66,8 +66,14 @@ function maib_plugins_loaded_init()
 //region Register activation hooks
 function plugin_activation_deactivation(bool $activate)
 {
+    // Activation hooks can run before the gateway class has been initialized.
     if (!class_exists(WC_Gateway_MAIB::class)) {
         maib_plugins_loaded_init();
+    }
+
+    // WooCommerce is unavailable if the gateway class still cannot be loaded.
+    if (!class_exists(WC_Gateway_MAIB::class)) {
+        return;
     }
 
     if ($activate) {
